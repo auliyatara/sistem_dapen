@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "071aa27c-adaa-4bf0-95cf-63014b5962a0",
+		"name": "Laravel Base",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25559248"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "select",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url-api}}/users/index",
+							"host": [
+								"{{base-url-api}}"
+							],
+							"path": [
+								"users",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url-api}}/users/index",
+							"host": [
+								"{{base-url-api}}"
+							],
+							"path": [
+								"users",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_username",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "user_email",
+									"value": "qwerqwer",
+									"type": "text"
+								},
+								{
+									"key": "user_role_id",
+									"value": "753847cfb629c0f9",
+									"type": "text"
+								},
+								{
+									"key": "user_status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url-api}}/users",
+							"host": [
+								"{{base-url-api}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base-url-api}}/users/",
+							"host": [
+								"{{base-url-api}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role Access",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrf-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "@user12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base-url-api}}/login",
+					"host": [
+						"{{base-url-api}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearer}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest({",
+					"    url: 'http://127.0.0.1:8000/sanctum/csrf-cookies',",
+					"    method: 'GET'",
+					"}, function(error, response,{cookies}){",
+					"    pm.collectionVariables.set('csrf-token', cookies.get('XSRF-TOKEN'))",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "csrf-token",
+			"value": ""
+		},
+		{
+			"key": "base-url-api",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base-url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bearer",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
