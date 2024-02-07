@@ -194,7 +194,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="/sim_dana_pensiun/profile" class="menu-link px-5">My Profile</a>
+                            <a class="menu-link px-5" id="profile_url">My Profile</a>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->

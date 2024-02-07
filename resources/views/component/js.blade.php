@@ -60,7 +60,7 @@
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 						},
 						success: function(data) {
-							window.location.href = '/sim_dana_pensiun/login'; 
+							window.location.href = getRoute()+'login'; 
 						},
 						error: function(xhr, status, error) {
 							alert('Error: ' + error);
@@ -168,10 +168,23 @@
             }) 
         }
 
+        function getRoute(){
+            let route = window.location.pathname
+            let split = route.split('/')
+            return '/'+split[1]+'/'
+        }
+
+        setUrlProfile()
+        function setUrlProfile(){
+            let route = window.location.pathname
+            let split = route.split('/')
+            $("#profile_url").attr("href", getRoute()+'profile');
+        }
+
         function generateMenuSideBar(data){
             $.each( data, function(key, value){
                 let menu = value;
-                let route = window.location.origin+'/sim_dana_pensiun/'+menu['menu_route'];
+                let route = window.location.origin+getRoute()+menu['menu_route'];
 
                 if(menu['menu_has_child']){
                                 $('.sidebar_list').append(`
@@ -204,7 +217,7 @@
                                 `);
 
                                 $.each(menu.children, function(keyChild, valueChild){
-                                    let route = window.location.origin+'/sim_dana_pensiun/'+valueChild['menu_route'];
+                                    let route = window.location.origin+getRoute()+valueChild['menu_route'];
 
                                     $('#parent_sidebar_'+valueChild.menu_parent).append(`<div class="menu-item">
                                         <a class="menu-link" href="${route}">
@@ -264,7 +277,7 @@
                 success: function(response){
                     if(response.status == true){
                         let base = window.location.origin
-                        window.location.href = base+'/sim_dana_pensiun/'+data.notifikasi_url;
+                        window.location.href = base+getRoute()+data.notifikasi_url;
                     } 
                 }
             })
