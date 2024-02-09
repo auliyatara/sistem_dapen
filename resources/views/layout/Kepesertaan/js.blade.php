@@ -23,7 +23,6 @@
             success: function(response){
                 if(response.status == true){
                     var array = onLoadRow(response.data)
-                    console.log(array)
                     table.rows.add(array).draw();      
                 } 
             }
@@ -89,8 +88,6 @@
                     $.each( response.data, function( k, v ){
                         $('#count_'+v.initial).html(v.total)
                     })
-                    console.log($('#count_pensiun_ditunda').html())
-
                 }
             }
         })
@@ -192,6 +189,10 @@
                     } else if(response.data.kepesertaan_status_kepesertaan == 'Pensiun Ditunda'){
                         showJenisPensiunan()
                     }
+
+                    onMasaPensiun(response.data.kepesertaan_status_jabatan)
+                    onMasaKerjaSekarang(response.data.kepesertaan_terhitung_mulai_tanggal)
+                    onMasaKerjaPensiun(response.data.kepesertaan_tanggal_lahir,response.data.kepesertaan_status_jabatan)
                 } 
             }
         })
@@ -381,5 +382,76 @@
     onPreviewList = (file) =>{
         $('.preview_file').html(`<embed src="{{ asset('public/storage/kepesertaan_dokumen/${file}') }}" style="width:100%" height="500px">`)
         $('#detail_list_preview').modal('show')
+    }
+
+    onMasaPensiun = (jabatan) => {
+        if(jabatan == '' || jabatan == undefined){
+            jabatan = $('#kepesertaan_status_jabatan').val()
+        }
+
+        var masa_pensiun = '0 Tahun'
+        if(jabatan == "Guru Besar"){
+            masa_pensiun = '70 Tahun'
+        } else if(jabatan == "Dosen"){
+            masa_pensiun = '65 Tahun'
+        } else if(jabatan == "Karyawan"){
+            masa_pensiun = '58 Tahun'
+        }
+
+        $('#auto_masa_pensiun').val(masa_pensiun)
+    } 
+
+    onMasaKerjaSekarang = (tmt) =>{
+        const currentDate = new Date();
+        if(tmt == '' || tmt == undefined){
+            tmt = $('#kepesertaan_terhitung_mulai_tanggal').val()
+        }
+
+        tmt = new Date(tmt);
+        const timeDifference = currentDate - tmt;
+        let result = '0 Tahun 0 Bulan 0 Hari'
+        if(timeDifference > 0){
+            const years = Math.floor(timeDifference / (365.25 * 24 * 60 * 60 * 1000));
+            const months = Math.floor((timeDifference % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000));
+            const days = Math.floor((timeDifference % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+
+            result = `${years} Tahun ${months} Bulan ${days} Hari`;
+        }
+
+        $('#auto_masa_kerja_sekarang').val(result)
+    }
+
+    onMasaKerjaPensiun = (tgl_lahir,status_jabatan) =>{
+        let check_tgl_lahir = (tgl_lahir == '' || tgl_lahir == undefined)
+        let check_status_jabatan = (status_jabatan == '' || status_jabatan == undefined)
+
+        if(check_tgl_lahir){
+            tgl_lahir = $('#kepesertaan_tanggal_lahir').val()
+        }
+
+        if(check_status_jabatan){
+            status_jabatan = $('#kepesertaan_status_jabatan').val()
+        }
+
+        if(tgl_lahir != '' && status_jabatan != ''){
+            tgl_lahir = new Date(tgl_lahir);
+            let year = tgl_lahir.getFullYear();
+            let month = String(tgl_lahir.getMonth() + 1).padStart(2, '0');
+            let day = String(tgl_lahir.getDate()).padStart(2, '0');
+
+            let sum = 0
+            if(status_jabatan == "Guru Besar"){
+                sum = 70
+            } else if(status_jabatan == "Dosen"){
+                sum = 65
+            } else if(status_jabatan == "Karyawan"){
+                sum  = 58
+            }
+            sumyear = sum + year
+            let date = `${day}-${month}-${sumyear}`;
+            $('#auto_masa_kerja_pensiun').val(date)
+        } else{
+            $('#auto_masa_kerja_pensiun').val('')
+        }
     }
 </script>

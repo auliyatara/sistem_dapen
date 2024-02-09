@@ -31,7 +31,10 @@ return new class extends Migration
             $table->string('kepesertaan_email_2',100);
             $table->string('kepesertaan_alamat',100);
             $table->string('kepesertaan_link',200)->nullable();
-            $table->string('kepesertaan_jenis_pensiun_sekaligus',200)->nullable();
+            $table->string('kepesertaan_jenis_pensiun_sekaligus',200);
+            $table->date('kepesertaan_terhitung_mulai_tanggal_pensiun');
+            $table->biginteger('kepesertaan_gaji_pokok');
+            $table->string('kepesertaan_npwp',50);
             $table->timestamps();
         });
     }
