@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="col-6 mb-4">
                                     <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid" name="kepesertaan_gaji_pokok"
+                                        <input type="number" class="form-control form-control-solid" name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok"
                                             placeholder="" value="" required />
                                         <label for="floatingInput"><span class="required">PHDP (Gaji
                                                 Pokok)</span></label>
@@ -166,6 +166,8 @@
                                 <div class="col-4 mb-7">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>Masa Kerja Sekarang</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                            title="TMT Peserta - Tanggal Sekarang"></i>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_sekarang" placeholder=""
                                         value="0 Tahun" disabled />
@@ -186,6 +188,8 @@
                                 <div class="col-4 mb-7">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>Masa Kerja Pensiun</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                            title="Tanggal Pensiun - TMT Peserta"></i>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_pensiun" placeholder=""
                                         value="0 Tahun" disabled />
@@ -251,9 +255,33 @@
                                     </div>
                                     <div class="col-6 mb-4">
                                         <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                            <span>BUlanan</span>
+                                            <span>Bulanan</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" id="auto_bulanan" placeholder=""
+                                            value="Rp 0" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                            <div class="card-body mt-3">
+                    
+                                <h3 class="mb-7">Data Iuran Dan Pengembangan</h3>
+                                <hr class="hr hr-blurry" />
+                                <div class="row">
+                                    <div class="col-6 mb-4">
+                                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                            <span>Iuran Per Tahun</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" id="auto_iuran" placeholder=""
+                                            value="Rp 0" disabled />
+                                    </div>
+                                    <div class="col-6 mb-4">
+                                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                            <span>Iuran + Pengembangan Per Tahun</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" id="auto_iuran_pengembangan" placeholder=""
                                             value="Rp 0" disabled />
                                     </div>
                                 </div>
