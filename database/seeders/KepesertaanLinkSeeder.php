@@ -32,7 +32,8 @@ class KepesertaanLinkSeeder extends Seeder
                 'kepesertaan_link_id' => Str::substr((Uuid::uuid4())->getHex(), 0, 16),
                 'kepesertaan_link_nama' => 'Pensiun Ditunda',
                 'kepesertaan_link_url' => '',
-            ]
+            ],
+            
         ]);
     }
 }

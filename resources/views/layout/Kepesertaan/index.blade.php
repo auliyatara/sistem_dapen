@@ -112,24 +112,41 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card shadow-sm mt-1" style="background-color:rgb(249, 103, 103);">
-                                            <div class="card-body pt-3 py-3">
+                                            <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiunan Ditunda</h3>
                                                 <h2 id="count_pensiun_ditunda"
                                                     style="color:white;font-size:50px;text-align:center">0</h2>
                                             </div>
                                         </div>
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(93, 92, 59);">
-                                            <div class="card-body pt-3 py-3">
+                                        
+                                    <div class="col-md-2">
+
+                                    </div>
+                                </div>
+
+                                
+                                
+                                <div class="col-md-4">
+                                <div class="card shadow-sm mt-1" style="background-color:rgb(93, 92, 59);">
+                                            <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiun Sekaligus</h3>
                                                 <h2 id="count_pensiunan_sekaligus"
                                                     style="color:white;font-size:50px;text-align:center">0</h2>
                                                 
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
+                                        </div>
+                                    <div class="col-md-4">
+                                <div class="card shadow-sm mt-1" style="background-color:rgb(208, 113, 140);">
+                                            <div class="card-body pt-10 py-10">
+                                                <h3 style="color:white;text-align:center">Pensiunan Yang Sudah Tidak Berhak Menerima MP</h3>
+                                                <h2 id="count_pensiunan_yang_tdk_terima_mp"
+                                                    style="color:white;font-size:50px;text-align:center">0</h2>
+                                                
+                                            </div>
+                                </div>
+                                </div>
 
-                                    </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
@@ -143,6 +160,7 @@
                                             <option value="2">Pensiunan</option>
                                             <option value="3">Pensiun Ditunda</option>
                                             <option value="4">Pensiunan Sekaligus</option>
+                                            <option value="5">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
                                         </select>
                                     </div>
                                 </div>
@@ -153,13 +171,12 @@
                                 <table id="table_primary" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
+                                        <th class="text-center">No</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">NIP</th>
-                                            <th class="text-center">Tempat, Tanggal Lahir</th>
-                                            <th class="text-center">Jenis Kelamin</th>
-                                            {{-- <th class="text-center">Email</th>
-                                            <th class="text-center">Telephone</th> --}}
+                                            <th class="text-center">TTL</th>
+                                            <th class="text-center">TMT Peserta</th>
+                                            <th class="text-center">Status Peserta</th>
                                             <th class="text-center" style="width:250px">Action</th>
                                         </tr>
                                     </thead>
@@ -232,9 +249,17 @@
                                         <td style="font-weight:bold">Status Jabatan</td>
                                         <td>: <span id="detail_kepesertaan_status_jabatan"></span></td>
                                     </tr>
+                                    tr>
+                                        <td style="font-weight:bold">TMT Peserta</td>
+                                        <td>: <span id="detail_kepesertaan_tmt_peserta"></span></td>
+                                    </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Terhitung Mulai Tanggal</td>
-                                        <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
+                                        <td style="font-weight:bold">TMT Pensiun</td>
+                                        <td>: <span id="detail_kepesertaan_tmt_pensiun"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight:bold">PHDP (Gaji Pokok)</td>
+                                        <td>: <span id="detail_kepesertaan_phdp_gajipokok"></span></td>
                                     </tr>
                                     <tr>
                                         <td style="font-weight:bold">Telephone 1</td>
