@@ -224,9 +224,11 @@
                         showJenisPensiunan()
                     }
 
-                    onMasaPensiun(response.data.kepesertaan_status_jabatan)
-                    onMasaKerjaSekarang(response.data.kepesertaan_terhitung_mulai_tanggal)
-                    onMasaKerjaPensiun(response.data.kepesertaan_tanggal_lahir,response.data.kepesertaan_status_jabatan)
+                    let data = response.data
+                    onMasaPensiun(data.kepesertaan_status_jabatan)
+                    onMasaKerjaSekarang(data.kepesertaan_terhitung_mulai_tanggal)
+                    onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal)
+                    onPerhitunganIuran(data.kepesertaan_gaji_pokok)
                 } 
             }
         })
@@ -418,8 +420,8 @@
         $('#detail_list_preview').modal('show')
     }
 
-    onMasaPensiun = (jabatan) => {
-        if(jabatan == '' || jabatan == undefined){
+    onMasaPensiun = (jabatan='') => {
+        if(jabatan == ''){
             jabatan = $('#kepesertaan_status_jabatan').val()
         }
 
@@ -435,9 +437,9 @@
         $('#auto_masa_pensiun').val(masa_pensiun)
     } 
 
-    onMasaKerjaSekarang = (tmt) =>{
+    onMasaKerjaSekarang = (tmt='') =>{
         const currentDate = new Date();
-        if(tmt == '' || tmt == undefined){
+        if(tmt == ''){
             tmt = $('#kepesertaan_terhitung_mulai_tanggal').val()
         }
 
@@ -455,18 +457,24 @@
         $('#auto_masa_kerja_sekarang').val(result)
     }
 
-    onMasaKerjaPensiun = (tgl_lahir,status_jabatan) =>{
-        let check_tgl_lahir = (tgl_lahir == '' || tgl_lahir == undefined)
-        let check_status_jabatan = (status_jabatan == '' || status_jabatan == undefined)
-
-        if(check_tgl_lahir){
+    onMasaKerjaPensiun = (tgl_lahir='',status_jabatan='',phdp='',tmt='') =>{
+        if(tgl_lahir == ''){
             tgl_lahir = $('#kepesertaan_tanggal_lahir').val()
         }
 
-        if(check_status_jabatan){
+        if(status_jabatan == ''){
             status_jabatan = $('#kepesertaan_status_jabatan').val()
         }
 
+        if(phdp == ''){
+            phdp = $('#kepesertaan_gaji_pokok').val()
+        }
+
+        if(tmt == ''){
+            tmt = $('#kepesertaan_terhitung_mulai_tanggal').val()
+        }
+
+        let parse_year = 0
         if(tgl_lahir != '' && status_jabatan != ''){
             tgl_lahir = new Date(tgl_lahir);
             let year = tgl_lahir.getFullYear();
@@ -482,10 +490,75 @@
                 sum  = 58
             }
             sumyear = sum + year
-            let date = `${day}-${month}-${sumyear}`;
-            $('#auto_masa_kerja_pensiun').val(date)
+            let pension_date = new Date(`${sumyear}-${month}-${day}`);
+            tmt = new Date(tmt);
+
+            const timeDifference = pension_date - tmt;
+            let result = '0 Tahun 0 Bulan 0 Hari'
+            if(timeDifference > 0){
+                const years = Math.floor(timeDifference / (365.25 * 24 * 60 * 60 * 1000));
+                const months = Math.floor((timeDifference % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000));
+                const days = Math.floor((timeDifference % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+
+                result = `${years} Tahun ${months} Bulan ${days} Hari`;
+                parse_year = years
+                if(years >=32){
+                    result = `32 Tahun 0 Bulan 0 Hari`;
+                    parse_year = 32
+                }
+            }
+            $('#auto_masa_kerja_pensiun').val(result)
         } else{
             $('#auto_masa_kerja_pensiun').val('')
         }
+        
+        onEstimasiSekaligus(parse_year, phdp)
+        onPerhitunganBulanan(parse_year, phdp)
+    }
+
+    onEstimasiSekaligus = (masa_kerja_pensiun,phdp) =>{
+        let total = masa_kerja_pensiun * phdp * 2.5
+        let result = formatToRupiah(total)
+        $('#auto_sekaligus').val(result)
+        on20persen(total)
+    }
+
+    on20persen = (estimasi_sekaligus) =>{
+        let total = estimasi_sekaligus * 0.2
+        let result = formatToRupiah(total)
+        $('#auto_20persen').val(result)
+        onPerhitunganPajak(total)
+    }
+
+    onPerhitunganPajak = (persentase) =>{
+        let pajak = 0
+        if(persentase > 50000000){
+            pajak = 0.05 * (persentase-50000000)
+        }
+        let result = formatToRupiah(pajak)
+        $('#auto_pajak').val(result)
+    }
+
+    onPerhitunganBulanan = (masa_kerja_pensiun,phdp) =>{
+        let total = (masa_kerja_pensiun * phdp * 0.025) * 0.8
+        let result = formatToRupiah(total)
+        $('#auto_bulanan').val(result)
+    }
+
+    onPerhitunganIuran = (phdp='') =>{
+        if(phdp == ''){
+            phdp = $('#kepesertaan_gaji_pokok').val()
+        }
+
+        let iuran_bulanan = 0.075*phdp
+        let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
+
+        $('#auto_iuran').val(formatToRupiah(iuran_bulanan))
+        $('#auto_iuran_pengembangan').val(formatToRupiah(iuran_pengembangan_per_tahun))
+    }
+
+    formatToRupiah = (number)=> {
+        let formattedAmount = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+        return formattedAmount.replace(/,00$/, '');
     }
 </script>
