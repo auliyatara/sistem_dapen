@@ -144,7 +144,7 @@
                                 <div class="col-6 mb-4">
                                     <div class="form-floating mb-7">
                                         <input type="number" class="form-control form-control-solid" name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok"
-                                            placeholder="" value="" required />
+                                            placeholder="" value="" required onkeyup="onPerhitunganIuran()"/>
                                         <label for="floatingInput"><span class="required">PHDP (Gaji
                                                 Pokok)</span></label>
                                     </div>
