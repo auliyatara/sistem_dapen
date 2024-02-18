@@ -7,142 +7,477 @@
     </div>
     <div class="card-body py-3 mt-3">
         <form action="javascript:onSave()" id="formData" method="POST" autocomplete="off">
-            <div class="card-body py-3 mt-3">
-                @csrf
-                <input type="hidden" name="kepesertaan_id" placeholder="" value="" />
-                <div class="row">
-                    <div class="col-3 kepesertaan_foto_show" style="display:none">
-                        <div class="me-7 mb-4">
-                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{asset('public/profile_default.png')}}" alt="image" id="kepesertaan_foto">
-                                <div
-                                    class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+            @csrf
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="informasi-tab" data-bs-toggle="tab" data-bs-target="#informasi"
+                        type="button" role="tab" aria-controls="informasi" aria-selected="true"><span
+                            style="font-weight: bold">Informasi Kepesertaan</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="iuran-tab" data-bs-toggle="tab" data-bs-target="#iuran" type="button"
+                        role="tab" aria-controls="iuran" aria-selected="false"><span style="font-weight: bold">Iuran
+                            Kepesertaan</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="dokumen-tab" data-bs-toggle="tab" data-bs-target="#dokumen"
+                        type="button" role="tab" aria-controls="dokumen" aria-selected="false"><span
+                            style="font-weight: bold">Dokumen</span></button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="informasi" role="tabpanel" aria-labelledby="informasi-tab">
+                    <input type="hidden" name="kepesertaan_id" placeholder="" value="" />
+                    <div class="card shadow-sm mt-3 data_personal">
+                        <div class="card-body mt-3 row">
+                            <h3 class="mb-7">Data Personal</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="col-3 kepesertaan_foto_show" style="display:none">
+                                <div class="me-7 mb-4">
+                                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                        <img src="{{asset('public/profile_default.png')}}" alt="image"
+                                            id="kepesertaan_foto">
+                                        <div
+                                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-7">
+                                <label for="file">Foto Profil</label>
+                                <input type="file" class="form-control" name="file" placeholder="" value=""
+                                    accept="image/png, image/gif, image/jpeg" />
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-7">
+                                    <input type="text" class="form-control form-control-solid" name="kepesertaan_nama"
+                                        placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Nama
+                                            Peserta</span></label>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Jenis Kelamin</span>
+                                </label>
+                                <select class="form-control" name="kepesertaan_jenis_kelamin"
+                                    id="kepesertaan_jenis_kelamin" required>
+                                    <option value="" selected disabled>Pilih Jenis Kelamin</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-floating mb-7">
+                                    <input type="text" class="form-control form-control-solid"
+                                        name="kepesertaan_tempat_lahir" placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Tempat
+                                            Lahir</span></label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-floating mb-7">
+                                    <input type="date" class="form-control form-control-solid"
+                                        name="kepesertaan_tanggal_lahir" id="kepesertaan_tanggal_lahir" placeholder=""
+                                        value="" required onchange="onMasaKerjaPensiun();" />
+                                    <label for="floatingInput"><span class="required">Tanggal
+                                            Lahir</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-7">
+                                    <input type="text" class="form-control form-control-solid"
+                                        name="kepesertaan_telphone_1" placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Telphone
+                                            1</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-7">
+                                    <input type="text" class="form-control form-control-solid"
+                                        name="kepesertaan_telphone_2" placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Telphone
+                                            2</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-7">
+                                    <input type="email" class="form-control form-control-solid"
+                                        name="kepesertaan_email_1" placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Email 1</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-7">
+                                    <input type="email" class="form-control form-control-solid"
+                                        name="kepesertaan_email_2" placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Email 2</span></label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-7">
+                                    <input type="text" class="form-control form-control-solid" name="kepesertaan_alamat"
+                                        placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">Alamat</span></label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mt-3 data_karyawan">
+                        <div class="card-body mt-3 row">
+                            <h3 class="mb-7">Data Karyawan</h3>
+                            <hr class="hr hr-blurry" />
+
+                            <div class="col-12">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
+                                        placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_npwp"
+                                        placeholder="NPWP" value="" required />
+                                    <label for="floatingInput"><span class="required">NPWP</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid"
+                                        name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok" placeholder=""
+                                        value="" required onkeyup="onPerhitunganIuran()" />
+                                    <label for="floatingInput"><span class="required">PHDP (Gaji
+                                            Pokok)</span></label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Terhitung Mulai Tanggal Peserta</span>
+                                </label>
+                                <input type="date" class="form-control form-control-solid"
+                                    name="kepesertaan_terhitung_mulai_tanggal" id="kepesertaan_terhitung_mulai_tanggal"
+                                    placeholder="" value="" required onchange="onMasaKerjaSekarang()" />
+                            </div>
+                            <div class="col-4">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Terhitung Mulai Tanggal Pensiun</span>
+                                </label>
+                                <input type="date" class="form-control form-control-solid"
+                                    name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
+                                    required />
+                            </div>
+                            <div class="col-4 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span>Masa Kerja Sekarang</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                        title="TMT Peserta - Tanggal Sekarang"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_sekarang"
+                                    placeholder="" value="0 Tahun" disabled />
+                            </div>
+                            <div class="col-8 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Status Kepesertaan</span>
+                                </label>
+                                <select class="form-control" name="kepesertaan_status_kepesertaan"
+                                    id="kepesertaan_status_kepesertaan" required onchange="showJenisPensiunan()">
+                                    <option value="" selected disabled>Pilih Status Kepesertaan</option>
+                                    <option value="Peserta">Peserta</option>
+                                    <option value="Pensiunan">Pensiunan</option>
+                                    <option value="Pensiun Ditunda">Pensiun Ditunda</option>
+                                    <option value="Pensiun Sekaligus">Pensiun Sekaligus</option>
+                                    <option value="Pensiunan Yang Sudah Tidak Berhak Menerima MP">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
+                                </select>
+                            </div>
+                            <div class="col-4 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span>Masa Kerja Pensiun</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                        title="Tanggal Pensiun - TMT Peserta"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_pensiun"
+                                    placeholder="" value="0 Tahun" disabled />
+                            </div>
+                            <div class="col-12 mb-7" id="display_jenis_pensiunan" style="display:none">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Jenis Pensiun</span>
+                                </label>
+                                <select class="form-control" name="kepesertaan_jenis_pensiun"
+                                    id="kepesertaan_jenis_pensiun">
+                                    <option value="" selected disabled>Pilih Jenis Pensiun</option>
+                                    <option value="Pensiun Normal">Pensiun Normal</option>
+                                    <option value="Pensiun Janda/Duda">Pensiun Janda/Duda</option>
+                                    <option value="Pensiun Anak">Pensiun Anak</option>
+                                </select>
+                            </div>
+                            <div class="col-8 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">Status Jabatan</span>
+                                </label>
+                                <select class="form-control" name="kepesertaan_status_jabatan"
+                                    id="kepesertaan_status_jabatan" required
+                                    onchange="onMasaPensiun();onMasaKerjaPensiun();">
+                                    <option value="" selected disabled>Pilih Status Jabatan</option>
+                                    <option value="Guru Besar">Guru Besar</option>
+                                    <option value="Dosen">Dosen</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                </select>
+                            </div>
+                            <div class="col-4 mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span>Masa Pensiun</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" id="auto_masa_pensiun"
+                                    placeholder="" value="0 Tahun" disabled />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mt-3 data_estimasi_mp">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Data Estimasi MP (Manfaat Pensiun) Normal</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Sekaligus</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="auto_sekaligus"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Pajak</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="auto_pajak"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>20 %</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="auto_20persen"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Bulanan</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="auto_bulanan"
+                                        placeholder="" value="Rp 0" disabled />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 mb-7">
-                        <label for="file">Foto Profil</label>
-                        <input type="file" class="form-control" name="file" placeholder="" value=""
-                            accept="image/png, image/gif, image/jpeg" />
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="text" class="form-control form-control-solid" name="kepesertaan_nama"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Nama Peserta</span></label>
+
+                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Data Iuran Dan Pengembangan</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Iuran Per Tahun</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="auto_iuran"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Iuran + Pengembangan Per Tahun</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        id="auto_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 mb-7">
-                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                            <span class="required">Jenis Kelamin</span>
-                        </label>
-                        <select class="form-control" name="kepesertaan_jenis_kelamin" id="kepesertaan_jenis_kelamin"
-                            required>
-                            <option value="" selected disabled>Pilih Jenis Kelamin</option>
-                            <option value="Laki-Laki">Laki-Laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">NIP UMM</span></label>
+                </div>
+                <div class="tab-pane fade" id="iuran" role="tabpanel" aria-labelledby="iuran-tab">
+                    <div class="card shadow-sm mt-3 data_tahun_iuran">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Data Tahun Iuran</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_iuran_tahun"
+                                        id="kepesertaan_iuran_tahun" placeholder="" value=""
+                                        oninput="onRegenerateIuran()" />
+                                    <label for="floatingInput"><span>Masukkan Tahun</span></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-floating mb-7">
-                            <input type="text" class="form-control form-control-solid" name="kepesertaan_tempat_lahir"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Tempat Lahir</span></label>
+
+                    <div class="card shadow-sm mt-3 data_iuran_total">
+                        <div class="card-body mt-3">
+                            <h3 class="mb-7">Data Iuran Total</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Januari</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Februari</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Maret</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>April</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Mei</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Juni</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Juli</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Agustus</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>September</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Oktober</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>November</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number" class="form-control form-control-solid iuran_total_list"
+                                            name="iuran_total_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Desember</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="mb-7">Jumlah Keseluruhan Iuran Total: <span id="jumlah_iuran_total" style="color: red">Rp 0</span></h4>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-floating mb-7">
-                            <input type="date" class="form-control form-control-solid" name="kepesertaan_tanggal_lahir"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Tanggal Lahir</span></label>
+
+                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                        <div class="card-body mt-3">
+                            <h3 class="mb-7">Data Iuran + Total Pengembangan</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Januari</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Februari</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Maret</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>April</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Mei</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Juni</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Juli</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Agustus</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>September</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Oktober</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>November</span></label>
+                                    </div>
+                                    <div class="form-floating mb-7">
+                                        <input type="number"
+                                            class="form-control form-control-solid iuran_pengembangan_list"
+                                            name="iuran_pengembangan_list[]" placeholder="" />
+                                        <label for="floatingInput"><span>Desember</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="mb-7">Jumlah Keseluruhan Iuran + Total Pengembangan: <span id="jumlah_iuran_pengembangan" style="color: red">Rp 0</span></h4>
                         </div>
                     </div>
-                    <div class="col-12 mb-7">
-                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                            <span class="required">Status Kepesertaan</span>
-                        </label>
-                        <select class="form-control" name="kepesertaan_status_kepesertaan"
-                            id="kepesertaan_status_kepesertaan" required onchange="showJenisPensiunan()">
-                            <option value="" selected disabled>Pilih Status Kepesertaan</option>
-                            <option value="Peserta">Peserta</option>
-                            <option value="Pensiunan">Pensiunan</option>
-                            <option value="Pensiun Ditunda">Pensiun Ditunda</option>
-                            <option value="Pensiun Sekaligus">Pensiun Sekaligus</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mb-7" id="display_jenis_pensiunan" style="display:none">
-                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                            <span class="required">Jenis Pensiun</span>
-                        </label>
-                        <select class="form-control" name="kepesertaan_jenis_pensiun" id="kepesertaan_jenis_pensiun">
-                            <option value="" selected disabled>Pilih Jenis Pensiun</option>
-                            <option value="Pensiun Normal">Pensiun Normal</option>
-                            <option value="Pensiun Janda/Duda">Pensiun Janda/Duda</option>
-                            <option value="Pensiun Anak">Pensiun Anak</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mb-7">
-                        <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                            <span class="required">Status Jabatan</span>
-                        </label>
-                        <select class="form-control" name="kepesertaan_status_jabatan" id="kepesertaan_status_jabatan"
-                            required>
-                            <option value="" selected disabled>Pilih Status Jabatan</option>
-                            <option value="Guru Besar">Guru Besar</option>
-                            <option value="Dosen">Dosen</option>
-                            <option value="Karyawan">Karyawan</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="date" class="form-control form-control-solid"
-                                name="kepesertaan_terhitung_mulai_tanggal" placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Terhitung Mulai Tanggal</span></label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="text" class="form-control form-control-solid" name="kepesertaan_telphone_1"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Telphone 1</span></label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="text" class="form-control form-control-solid" name="kepesertaan_telphone_2"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Telphone 2</span></label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="email" class="form-control form-control-solid" name="kepesertaan_email_1"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Email 1</span></label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="email" class="form-control form-control-solid" name="kepesertaan_email_2"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Email 2</span></label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-7">
-                            <input type="text" class="form-control form-control-solid" name="kepesertaan_alamat"
-                                placeholder="" value="" required />
-                            <label for="floatingInput"><span class="required">Alamat</span></label>
-                        </div>
-                    </div>
+                </div>
+                <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
                     <div class="col-12">
                         <div class="card shadow-sm">
                             <div class="card-body py-3 mt-3">
@@ -155,18 +490,19 @@
                                     <span class="svg-icon svg-icon-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
-                                                rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor" />
+                                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
+                                                transform="rotate(-90 11.364 20.364)" fill="currentColor" />
                                             <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
                                                 fill="currentColor" />
                                         </svg>
                                     </span>Tambah Data
                                 </button>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-lg btn-primary mt-1" style="width: 100%">Simpan Data
+
+                <button type="submit" class="btn btn-lg btn-primary py-3 mt-3" style="width: 100%">Simpan Data
                     <span class="svg-icon svg-icon-3 ms-1 me-0">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
@@ -177,11 +513,12 @@
                         </svg>
                     </span>
                 </button>
-
             </div>
         </form>
     </div>
 </div>
+
+
 
 <div class="modal fade bd-example-modal-lg" id="detail_list_preview" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index:9999999">

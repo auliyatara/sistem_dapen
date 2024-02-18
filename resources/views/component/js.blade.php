@@ -85,14 +85,37 @@
                     $.each(data, function( key, value ){
                         if(key == "user_foto"){
                             if(value != null){
-                                $("#profile_image").attr("src", `{{ asset('public/storage/user_foto/${value}') }}`);
-                                $("#header_image").attr("src", `{{ asset('public/storage/user_foto/${data.user_foto}') }}`);
+                                onCheckUrl(`{{ asset('public/storage/user_foto/${value}') }}`, function(exist) {
+                                    if(exist){
+                                        $("#profile_image").attr("src", `{{ asset('public/storage/user_foto/${value}') }}`);
+                                    }
+                                });
+
+                                onCheckUrl(`{{ asset('public/storage/user_foto/${data.user_foto}') }}`, function(exist) {
+                                    if(exist){
+                                        $("#header_image").attr("src", `{{ asset('public/storage/user_foto/${data.user_foto}') }}`);
+                                    }
+                                });   
                             }
                         }
                     })
                 } 
             }
         })
+
+        onCheckUrl = (parse_url, callback) =>{
+            let exist = true
+            $.ajax({
+                url: parse_url,
+                method: "GET"
+            })
+            .done(function() {
+                callback(true);
+            })
+            .fail(function() {
+                callback(false);
+            });
+        }
         
         
 

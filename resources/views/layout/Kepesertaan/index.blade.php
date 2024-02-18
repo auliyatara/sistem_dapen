@@ -29,8 +29,8 @@
                                     <!--end::Svg Icon-->Tambah Data</a>
                             </div>
                             @endif
-                           
-                            
+
+
                         </div>
                         <div class="card-body pt-3 py-3">
                             <div class="card-body pt-3 py-3">
@@ -39,34 +39,38 @@
                                         <div class="card shadow-sm mt-1" style="background-color:rgb(80,205,137);">
                                             <div class="card-body pt-3 p-1">
                                                 <h3 style="color:white;text-align:center">Peserta</h3>
-                                                <h1 id="count_peserta" style="color:white;font-size:50px;text-align:center">
+                                                <h1 id="count_peserta"
+                                                    style="color:white;font-size:50px;text-align:center">
                                                     0</h1>
-                                                    <div class="d-flex justify-content-around p-1">
-                                                        <div class="card shadow-sm"
-                                                    style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
-                                                    onclick="onInitFilter(1,'Guru Besar')">
-                                                    <div class="card-body pt-3 p-1">
-                                                        <h5 style="color:white;text-align:center">Guru Besar</h5>
-                                                        <h4 id="count_guru_besar" style="color:white;text-align:center">0</h4>
+                                                <div class="d-flex justify-content-around p-1">
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(1,'Guru Besar')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Guru Besar</h5>
+                                                            <h4 id="count_guru_besar"
+                                                                style="color:white;text-align:center">0</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(1,'Dosen')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Dosen</h5>
+                                                            <h4 id="count_dosen" style="color:white;text-align:center">0
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(1,'Karyawan')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Karyawan</h5>
+                                                            <h4 id="count_karyawan"
+                                                                style="color:white;text-align:center">0</h4>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="card shadow-sm"
-                                                    style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
-                                                    onclick="onInitFilter(1,'Dosen')">
-                                                    <div class="card-body pt-3 p-1">
-                                                        <h5 style="color:white;text-align:center">Dosen</h5>
-                                                        <h4 id="count_dosen" style="color:white;text-align:center">0</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="card shadow-sm"
-                                                    style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
-                                                    onclick="onInitFilter(1,'Karyawan')">
-                                                    <div class="card-body pt-3 p-1">
-                                                        <h5 style="color:white;text-align:center">Karyawan</h5>
-                                                        <h4 id="count_karyawan" style="color:white;text-align:center">0</h4>
-                                                    </div>
-                                                </div>
-                                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -76,79 +80,101 @@
                                                 <h3 style="color:white;text-align:center">Pensiun</h3>
                                                 <h1 id="count_pensiunan"
                                                     style="color:white;font-size:50px;text-align:center">0</h1>
-                                                    <div class="d-flex justify-content-around p-1">
-                                                        <div class="card shadow-sm"
-                                                            style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
-                                                            onclick="onInitFilter(2,'Pensiun Normal')">
-                                                            <div class="card-body pt-3 p-1">
-                                                                <h5 style="color:white;text-align:center">Normal</h5>
-                                                                <h4 id="count_pensiun_normal" style="color:white;text-align:center">0
-                                                                </h4>
-                                
-                                                            </div>
-                                                        </div>
-                                                        <div class="card shadow-sm"
-                                                            style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
-                                                            onclick="onInitFilter(2,'Pensiun Anak')">
-                                                            <div class="card-body pt-3 p-1">
-                                                                <h5 style="color:white;text-align:center">Anak</h5>
-                                                                <h4 id="count_pensiun_anak" style="color:white;text-align:center">0
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card shadow-sm"
-                                                            style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
-                                                            onclick="onInitFilter(2,'Pensiun Janda Duda')">
-                                                            <div class="card-body pt-3 p-1">
-                                                                <h5 style="color:white;text-align:center">Janda/Duda</h5>
-                                                                <h4 id="count_pensiun_janda_duda"
-                                                                    style="color:white;text-align:center">0</h4>
-                                
-                                                            </div>
+                                                <div class="d-flex justify-content-around p-1">
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(2,'Pensiun Normal')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Normal</h5>
+                                                            <h4 id="count_pensiun_normal"
+                                                                style="color:white;text-align:center">0
+                                                            </h4>
+
                                                         </div>
                                                     </div>
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(2,'Pensiun Anak')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Anak</h5>
+                                                            <h4 id="count_pensiun_anak"
+                                                                style="color:white;text-align:center">0
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card shadow-sm"
+                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        onclick="onInitFilter(2,'Pensiun Janda Duda')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Janda/Duda</h5>
+                                                            <h4 id="count_pensiun_janda_duda"
+                                                                style="color:white;text-align:center">0</h4>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card shadow-sm mt-1" style="background-color:rgb(249, 103, 103);">
-                                            <div class="card-body pt-3 py-3">
+                                            <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiunan Ditunda</h3>
                                                 <h2 id="count_pensiun_ditunda"
                                                     style="color:white;font-size:50px;text-align:center">0</h2>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-2">
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-4">
                                         <div class="card shadow-sm mt-1" style="background-color:rgb(93, 92, 59);">
-                                            <div class="card-body pt-3 py-3">
+                                            <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiun Sekaligus</h3>
                                                 <h2 id="count_pensiunan_sekaligus"
                                                     style="color:white;font-size:50px;text-align:center">0</h2>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
+                                        <div class="card shadow-sm mt-1" style="background-color:rgb(208, 113, 140);">
+                                            <div class="card-body pt-10 py-10">
+                                                <h3 style="color:white;text-align:center">Pensiunan Yang Sudah Tidak
+                                                    Berhak Menerima MP</h3>
+                                                <h2 id="count_pensiunan_yang_tdk_terima_mp"
+                                                    style="color:white;font-size:50px;text-align:center">0</h2>
 
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
                                         <label style="font-weight: bold">Filter Tampilan:</label>
                                     </div>
                                     <div class="col-9">
-                                        <select class="form-control" id="tipe_filter" onchange="onInitFilter()" style="width:100%">
+                                        <select class="form-control" id="tipe_filter" onchange="onInitFilter()"
+                                            style="width:100%">
                                             <option value="">Pilih Salah Satu</option>
                                             <option value="0">Semua</option>
                                             <option value="1">Peserta</option>
                                             <option value="2">Pensiunan</option>
                                             <option value="3">Pensiun Ditunda</option>
                                             <option value="4">Pensiunan Sekaligus</option>
+                                            <option value="5">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="table-responsive">
                                 <table id="table_primary" class="table table-striped" style="width:100%">
                                     <thead>
@@ -156,10 +182,9 @@
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">NIP</th>
-                                            <th class="text-center">Tempat, Tanggal Lahir</th>
-                                            <th class="text-center">Jenis Kelamin</th>
-                                            {{-- <th class="text-center">Email</th>
-                                            <th class="text-center">Telephone</th> --}}
+                                            <th class="text-center">TTL</th>
+                                            <th class="text-center">TMT Peserta</th>
+                                            <th class="text-center">Status Peserta</th>
                                             <th class="text-center" style="width:250px">Action</th>
                                         </tr>
                                     </thead>
@@ -178,106 +203,346 @@
 <!--end::Content-->
 </div>
 
-<div class="modal fade bd-example-modal-lg" id="detail_modal" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-xl" id="detail_modal" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Detail Data <span id="modal_title"></span></h3>
             </div>
             <div class="modal-body">
-                {{-- <h4>Informasi Umum</h4> --}}
-                <div class="row">
-                    <div class="col-4 detail_kepesertaan_foto_show">
-                        <div class="me-7 mb-4">
-                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{asset('public/profile_default.png')}}" alt="image"
-                                    id="detail_kepesertaan_foto">
-                                <div
-                                    class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="informasi_detail-tab" data-bs-toggle="tab" data-bs-target="#informasi_detail"
+                            type="button" role="tab" aria-controls="informasi_detail" aria-selected="true"><span
+                                style="font-weight: bold">Informasi Kepesertaan</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="iuran_detail-tab" data-bs-toggle="tab" data-bs-target="#iuran_detail" type="button" role="tab"
+                            aria-controls="iuran_detail" aria-selected="false"><span style="font-weight: bold">Iuran
+                                Kepesertaan</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="dokumen_detail-tab" data-bs-toggle="tab" data-bs-target="#dokumen_detail" type="button"
+                            role="tab" aria-controls="dokumen_detail" aria-selected="false"><span
+                                style="font-weight: bold">Dokumen</span></button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active pt-3" id="informasi_detail" role="tabpanel" aria-labelledby="informasi_detail-tab">
+                        <div class="row">
+                            <div class="col-4 detail_kepesertaan_foto_show">
+                                <div class="me-7 mb-4">
+                                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                        <img src="{{asset('public/profile_default.png')}}" alt="image"
+                                            id="detail_kepesertaan_foto">
+                                        <div
+                                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <h3 class="mt-7">Data Personal</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Nama Peserta</td>
+                                                <td>: <span id="detail_kepesertaan_nama"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Jenis Kelamin</td>
+                                                <td>: <span id="detail_kepesertaan_jenis_kelamin"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Tempat, Tanggal Lahir</td>
+                                                <td>: <span id="detail_kepesertaan_tempat_lahir"></span>,<span
+                                                        id="detail_kepesertaan_tanggal_lahir"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Alamat</td>
+                                                <td>: <span id="detail_kepesertaan_alamat"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Telephone 1</td>
+                                                <td>: <span id="detail_kepesertaan_telphone_1"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Telephone 2</td>
+                                                <td>: <span id="detail_kepesertaan_telphone_2"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Email 1</td>
+                                                <td>: <span id="detail_kepesertaan_email_1"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Email 2</td>
+                                                <td>: <span id="detail_kepesertaan_email_2"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <h3 class="mt-7">Data karyawan</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">NIP</td>
+                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">PHDP (Gaji Pokok)</td>
+                                                <td>: <span id="detail_kepesertaan_gaji_pokok"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Peserta</td>
+                                                <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Status Jabatan</td>
+                                                <td>: <span id="detail_kepesertaan_status_jabatan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Status Kepesertaan</td>
+                                                <td>: <span id="detail_kepesertaan_status_kepesertaan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Jenis Pensiun</td>
+                                                <td>: <span id="detail_kepesertaan_jenis_pensiun"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">NPWP</td>
+                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Pensiun</td>
+                                                <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal_pensiun"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Masa Kerja Sekarang</td>
+                                                <td>: <span id="detail_masa_kerja_sekarang"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Masa Pensiun</td>
+                                                <td>: <span id="detail_masa_pensiun"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Masa Kerja Pensiun</td>
+                                                <td>: <span id="detail_masa_kerja_pensiun"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <h3 class="mt-7">Data Estimasi MP (Manfaat Pensiun) Normal</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Sekaligus</td>
+                                                <td>: <span id="detail_sekaligus"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">20%</td>
+                                                <td>: <span id="detail_20persen"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Pajak</td>
+                                                <td>: <span id="detail_pajak"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Bulanan</td>
+                                                <td>: <span id="detail_bulanan"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <h3 class="mt-7">Data Iuran Dan Pengembangan</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Iuran Per Tahun</td>
+                                                <td>: <span id="detail_iuran"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Iuran + Pengembangan Per Tahun</td>
+                                                <td>: <span id="detail_iuran_pengembangan"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="tab-pane fade pt-3" id="iuran_detail" role="tabpanel" aria-labelledby="iuran_detail-tab">
+                        <div class="col-12 mb-7">
+                            <label class="align-items-center fs-5 fw-bold mb-2">
+                                <span>Tahun Iuran</span>
+                            </label>
+                            <select class="form-control" onchange="onChangeTahunIuranDetail()" id="detail_iuran_tahun"></select>
+                            <input type="hidden" id="detail_kepesertaan_id">
+                        </div>
+                       
                         <div class="row">
-                            <div class="col-12">
-                                <table>
+                            <div class="col-6">
+                                <h3 class="mt-7">Data Iuran Total</h3>
+                                <hr class="hr hr-blurry" />
+                                <table class="table table-striped">
                                     <tr>
-                                        <td style="font-weight:bold">Nama Peserta</td>
-                                        <td>: <span id="detail_kepesertaan_nama"></span></td>
+                                        <td class="fw-bold p-1 col-5">Januari</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Jenis Kelamin</td>
-                                        <td>: <span id="detail_kepesertaan_jenis_kelamin"></span></td>
+                                        <td class="fw-bold p-1 col-5">Februari</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">NIP</td>
-                                        <td>: <span id="detail_kepesertaan_nip"></span></td>
+                                        <td class="fw-bold p-1 col-5">Maret</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Tempat, Tanggal Lahir</td>
-                                        <td>: <span id="detail_kepesertaan_tempat_lahir"></span>,<span
-                                                id="detail_kepesertaan_tanggal_lahir"></span></td>
+                                        <td class="fw-bold p-1 col-5">April</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Status Kepesertaan</td>
-                                        <td>: <span id="detail_kepesertaan_status_kepesertaan"></span></td>
+                                        <td class="fw-bold p-1 col-5">Mei</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Jenis Pensiunan</td>
-                                        <td>: <span id="detail_kepesertaan_jenis_pensiun"></span></td>
+                                        <td class="fw-bold p-1 col-5">Juni</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Status Jabatan</td>
-                                        <td>: <span id="detail_kepesertaan_status_jabatan"></span></td>
+                                        <td class="fw-bold p-1 col-5">Juli</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Terhitung Mulai Tanggal</td>
-                                        <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
+                                        <td class="fw-bold p-1 col-5">Agustus</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Telephone 1</td>
-                                        <td>: <span id="detail_kepesertaan_telphone_1"></span></td>
+                                        <td class="fw-bold p-1 col-5">September</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Telephone 2</td>
-                                        <td>: <span id="detail_kepesertaan_telphone_2"></span></td>
+                                        <td class="fw-bold p-1 col-5">Oktober</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Email 1</td>
-                                        <td>: <span id="detail_kepesertaan_email_1"></span></td>
+                                        <td class="fw-bold p-1 col-5">November</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Email 2</td>
-                                        <td>: <span id="detail_kepesertaan_email_2"></span></td>
+                                        <td class="fw-bold p-1 col-5">Desember</td>
+                                        <td class="fw-normal col-7 detail_iuran_total_list">Rp 0</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight:bold">Alamat</td>
-                                        <td>: <span id="detail_kepesertaan_alamat"></span></td>
+                                        <td class="fw-bold p-1 col-5 bg-primary">Jumlah Iuran Total</td>
+                                        <td class="fw-normal col-7 detail_jumlah_iuran_total_list bg-primary">Rp 0</td>
                                     </tr>
-        
                                 </table>
                             </div>
+
+                            <div class="col-6">
+                                <h3 class="mt-7">Data Iuran + Total Pengembangan</h3>
+                                <hr class="hr hr-blurry" />
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Januari</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Februari</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Maret</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">April</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Mei</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Juni</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Juli</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Agustus</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">September</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Oktober</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">November</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7">Desember</td>
+                                        <td class="fw-normal col-5 detail_iuran_pengembangan_list">Rp 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold p-1 col-7 bg-primary">Jumlah Iuran + Total Pengembangan</td>
+                                        <td class="fw-normal col-5 detail_jumlah_iuran_pengembangan_list bg-primary">Rp 0</td>
+                                    </tr>
+                                </table>
+                            </div>
+                           
                         </div>
                     </div>
-                    <div class="col-12" style="margin-top:40px">
-                        <h4>Kepesertaan Dokumen</h4>
-                        <table class="table table-striped">
-                            <tr>
-                                <th class="text-center">Nama Dokumen</th>
-                                <th class="text-center">Preview Dokumen</th>
-                            </tr>
-                            <tbody id="detail_dokumen_list">
+                    <div class="tab-pane fade pt-3" id="dokumen_detail" role="tabpanel" aria-labelledby="dokumen_detail-tab">
+                        <div class="col-12" style="margin-top:40px">
+                            <table class="table table-striped">
                                 <tr>
-                                    <td class="text-center" colspan="2">No Data Available</td>
+                                    <th class="text-center" style="font-weight: bold">Nama Dokumen</th>
+                                    <th class="text-center" style="font-weight: bold">Preview Dokumen</th>
                                 </tr>
-                            </tbody>
-                            
-                        </table>
+                                <tbody id="detail_dokumen_list">
+                                    <tr>
+                                        <td class="text-center" colspan="2">No Data Available</td>
+                                    </tr>
+                                </tbody>
     
+                            </table>
+    
+                        </div>
                     </div>
                 </div>
+
+                
                 <div id="detail_kepesertaan_link_url"></div>
             </div>
         </div>
