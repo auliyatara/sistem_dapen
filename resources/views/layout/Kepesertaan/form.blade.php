@@ -189,6 +189,7 @@
                                     <option value="Pensiunan">Pensiunan</option>
                                     <option value="Pensiun Ditunda">Pensiun Ditunda</option>
                                     <option value="Pensiun Sekaligus">Pensiun Sekaligus</option>
+                                    <option value="Pensiunan Yang Sudah Tidak Berhak Menerima MP">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
                                 </select>
                             </div>
                             <div class="col-4 mb-7">
@@ -306,9 +307,9 @@
                             <div class="row">
                                 <div class="form-floating mb-7">
                                     <input type="number" class="form-control form-control-solid" name="kepesertaan_iuran_tahun"
-                                        id="kepesertaan_iuran_tahun" placeholder="" value="" required
+                                        id="kepesertaan_iuran_tahun" placeholder="" value=""
                                         oninput="onRegenerateIuran()" />
-                                    <label for="floatingInput"><span class="required">Masukkan Tahun</span></label>
+                                    <label for="floatingInput"><span>Masukkan Tahun</span></label>
                                 </div>
                             </div>
                         </div>

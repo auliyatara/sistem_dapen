@@ -155,26 +155,28 @@ class KepesertaanController extends Controller
                     KepesertaanDokumen::create($insert_dokumen);
                 }
 
-                foreach($iuran_total as $key=>$value){
-                    $insert_data =[
-                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
-                        "kepesertaan_iuran_type" => 'iuran_total',
-                        "kepesertaan_iuran_bulan" => $key+1,
-                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
-                        "kepesertaan_iuran_jumlah" => $value,
-                    ];
-                    KepesertaanIuran::create($insert_data);
-                }
-
-                foreach($iuran_pengembangan as $key=>$value){
-                    $insert_data =[
-                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
-                        "kepesertaan_iuran_type" => 'iuran_pengembangan',
-                        "kepesertaan_iuran_bulan" => $key+1,
-                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
-                        "kepesertaan_iuran_jumlah" => $value,
-                    ];
-                    KepesertaanIuran::create($insert_data);
+                if($kepesertaan_iuran_tahun != ''){
+                    foreach($iuran_total as $key=>$value){
+                        $insert_data =[
+                            "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                            "kepesertaan_iuran_type" => 'iuran_total',
+                            "kepesertaan_iuran_bulan" => $key+1,
+                            "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                            "kepesertaan_iuran_jumlah" => $value,
+                        ];
+                        KepesertaanIuran::create($insert_data);
+                    }
+    
+                    foreach($iuran_pengembangan as $key=>$value){
+                        $insert_data =[
+                            "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                            "kepesertaan_iuran_type" => 'iuran_pengembangan',
+                            "kepesertaan_iuran_bulan" => $key+1,
+                            "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                            "kepesertaan_iuran_jumlah" => $value,
+                        ];
+                        KepesertaanIuran::create($insert_data);
+                    }
                 }
                 return $kepesertaan;
             });      
@@ -259,26 +261,28 @@ class KepesertaanController extends Controller
                 unset($data['iuran_pengembangan_list']);
 
                 KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->where('kepesertaan_iuran_tahun',$kepesertaan_iuran_tahun)->delete();
-                foreach($iuran_total as $key=>$value){
-                    $insert_data =[
-                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
-                        "kepesertaan_iuran_type" => 'iuran_total',
-                        "kepesertaan_iuran_bulan" => $key+1,
-                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
-                        "kepesertaan_iuran_jumlah" => $value,
-                    ];
-                    KepesertaanIuran::create($insert_data);
-                }
-
-                foreach($iuran_pengembangan as $key=>$value){
-                    $insert_data =[
-                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
-                        "kepesertaan_iuran_type" => 'iuran_pengembangan',
-                        "kepesertaan_iuran_bulan" => $key+1,
-                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
-                        "kepesertaan_iuran_jumlah" => $value,
-                    ];
-                    KepesertaanIuran::create($insert_data);
+                if($kepesertaan_iuran_tahun != ''){
+                    foreach($iuran_total as $key=>$value){
+                        $insert_data =[
+                            "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                            "kepesertaan_iuran_type" => 'iuran_total',
+                            "kepesertaan_iuran_bulan" => $key+1,
+                            "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                            "kepesertaan_iuran_jumlah" => $value,
+                        ];
+                        KepesertaanIuran::create($insert_data);
+                    }
+    
+                    foreach($iuran_pengembangan as $key=>$value){
+                        $insert_data =[
+                            "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                            "kepesertaan_iuran_type" => 'iuran_pengembangan',
+                            "kepesertaan_iuran_bulan" => $key+1,
+                            "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                            "kepesertaan_iuran_jumlah" => $value,
+                        ];
+                        KepesertaanIuran::create($insert_data);
+                    }
                 }
 
                 unset($data['file']);
