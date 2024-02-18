@@ -29,4 +29,9 @@ class Kepesertaan extends Model
     {
         return $this->hasMany(KepesertaanDokumen::class, 'kepesertaan_dokumen_kepesertaan_id');
     }
+
+    public function kepesertaan_iuran()
+    {
+        return $this->hasMany(KepesertaanIuran::class, 'kepesertaan_iuran_kepesertaan_id');
+    }
 }

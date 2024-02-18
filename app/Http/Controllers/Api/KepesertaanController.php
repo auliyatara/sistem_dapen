@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Kepesertaan;
 use App\Models\KepesertaanLink;
 use App\Models\KepesertaanDokumen;
+use App\Models\KepesertaanIuran;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
@@ -72,7 +73,10 @@ class KepesertaanController extends Controller
     }
 
     public function show($id){
-        $operation = Kepesertaan::with('kepesertaan_dokumen')->where('kepesertaan_id',$id)->first();
+        $year = isset($_GET['year'])? $_GET['year']:date("Y");
+        $operation = Kepesertaan::where('kepesertaan_id',$id)->with('kepesertaan_dokumen')->with(['kepesertaan_iuran' => function ($query) use ($year) {
+            $query->where('kepesertaan_iuran_tahun', $year)->orderBy('kepesertaan_iuran_type', 'desc')->orderBy('kepesertaan_iuran_bulan', 'asc');
+        }])->first();
         if($operation){
             $link = KepesertaanLink::where('kepesertaan_link_nama',$operation['kepesertaan_status_kepesertaan'])->first();
             $operation['kepesertaan_link_url'] = $link['kepesertaan_link_url'];
@@ -106,6 +110,7 @@ class KepesertaanController extends Controller
             }
         }
 
+        $operation['iuran_tahun_distinct'] = DB::select(" SELECT distinct kepesertaan_iuran_tahun FROM kepesertaan_iurans where kepesertaan_iuran_kepesertaan_id = '".$id."' Order By kepesertaan_iuran_tahun desc");
         
         return $this->responseFirst($operation);
     }
@@ -125,8 +130,14 @@ class KepesertaanController extends Controller
                     $request->file('file')->move(public_path('storage/kepesertaan_foto'), $data['kepesertaan_foto']);
                 }
                 unset($data['file']);
-                $kepesertaan = Kepesertaan::create($data);
+                $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
+                $iuran_total = $data['iuran_total_list'];
+                $iuran_pengembangan = $data['iuran_pengembangan_list'];
+                unset($data['kepesertaan_iuran_tahun']);
+                unset($data['iuran_total_list']);
+                unset($data['iuran_pengembangan_list']);
 
+                $kepesertaan = Kepesertaan::create($data);
                 foreach($dokumen_nama as $key=>$value){
                     $insert_dokumen =[
                         "kepesertaan_dokumen_kepesertaan_id" =>$data['kepesertaan_id'],
@@ -143,8 +154,31 @@ class KepesertaanController extends Controller
 
                     KepesertaanDokumen::create($insert_dokumen);
                 }
+
+                foreach($iuran_total as $key=>$value){
+                    $insert_data =[
+                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                        "kepesertaan_iuran_type" => 'iuran_total',
+                        "kepesertaan_iuran_bulan" => $key+1,
+                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                        "kepesertaan_iuran_jumlah" => $value,
+                    ];
+                    KepesertaanIuran::create($insert_data);
+                }
+
+                foreach($iuran_pengembangan as $key=>$value){
+                    $insert_data =[
+                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                        "kepesertaan_iuran_type" => 'iuran_pengembangan',
+                        "kepesertaan_iuran_bulan" => $key+1,
+                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                        "kepesertaan_iuran_jumlah" => $value,
+                    ];
+                    KepesertaanIuran::create($insert_data);
+                }
                 return $kepesertaan;
             });      
+
             return $this->responseCreate($operation);
         } catch (\Exception $e) {
             return $this->responseCreate($e->getMessage(),true);
@@ -216,6 +250,37 @@ class KepesertaanController extends Controller
                     Storage::disk('public')->putFileAs('kepesertaan_foto/', $request->file('file'), $data['kepesertaan_foto']);
                     $request->file('file')->move(public_path('storage/kepesertaan_foto'), $data['kepesertaan_foto']);
                 }
+
+                $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
+                $iuran_total = $data['iuran_total_list'];
+                $iuran_pengembangan = $data['iuran_pengembangan_list'];
+                unset($data['kepesertaan_iuran_tahun']);
+                unset($data['iuran_total_list']);
+                unset($data['iuran_pengembangan_list']);
+
+                KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->where('kepesertaan_iuran_tahun',$kepesertaan_iuran_tahun)->delete();
+                foreach($iuran_total as $key=>$value){
+                    $insert_data =[
+                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                        "kepesertaan_iuran_type" => 'iuran_total',
+                        "kepesertaan_iuran_bulan" => $key+1,
+                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                        "kepesertaan_iuran_jumlah" => $value,
+                    ];
+                    KepesertaanIuran::create($insert_data);
+                }
+
+                foreach($iuran_pengembangan as $key=>$value){
+                    $insert_data =[
+                        "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
+                        "kepesertaan_iuran_type" => 'iuran_pengembangan',
+                        "kepesertaan_iuran_bulan" => $key+1,
+                        "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
+                        "kepesertaan_iuran_jumlah" => $value,
+                    ];
+                    KepesertaanIuran::create($insert_data);
+                }
+
                 unset($data['file']);
                 return kepesertaan::find($id)->update($data);
             });
@@ -228,8 +293,12 @@ class KepesertaanController extends Controller
 
     public function destroy($id){
         try {  
-            $operation = Kepesertaan::find($id)->delete();
-            $destroydoc = kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id',$id)->delete();
+            $operation = DB::transaction(function () use($id) {
+                kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id',$id)->delete();
+                KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->delete();
+                return Kepesertaan::find($id)->delete();
+            });
+            
             return $this->responseDelete($operation);
         } catch (\Exception $e) {
             return $this->responseDelete($e->getMessage());
