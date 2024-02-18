@@ -201,7 +201,14 @@
                         if(key != 'kepesertaan_link_url'){
                             if(key == 'kepesertaan_foto'){
                                 if(value != null){
-                                    $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
+                                    onCheckUrl(`{{ asset('public/storage/kepesertaan_foto/${value}') }}`, function(exist) {
+                                        if(exist){
+                                            $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
+                                        } else{
+                                            $("#kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
+                                        }
+                                    });
+                                    
                                     $('.kepesertaan_foto_show').show()
                                 }
                             } else{
