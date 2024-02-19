@@ -45,7 +45,6 @@
                 success: function(response){
                     if(response.status == true){
                         var array = onLoadRow(response.data)
-                        console.log(array)
                         table.rows.add(array).draw();    
                     } 
                 }
