@@ -148,7 +148,7 @@
                                 <div class="form-floating mb-7">
                                     <input type="number" class="form-control form-control-solid"
                                         name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok" placeholder=""
-                                        value="" required onkeyup="onPerhitunganIuran()" />
+                                        value="" required />
                                     <label for="floatingInput"><span class="required">PHDP (Gaji
                                             Pokok)</span></label>
                                 </div>
@@ -189,7 +189,8 @@
                                     <option value="Pensiunan">Pensiunan</option>
                                     <option value="Pensiun Ditunda">Pensiun Ditunda</option>
                                     <option value="Pensiun Sekaligus">Pensiun Sekaligus</option>
-                                    <option value="Pensiunan Yang Sudah Tidak Berhak Menerima MP">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
+                                    <option value="Pensiunan Yang Sudah Tidak Berhak Menerima MP">Pensiunan Yang Sudah
+                                        Tidak Berhak Menerima MP</option>
                                 </select>
                             </div>
                             <div class="col-4 mb-7">
@@ -306,175 +307,291 @@
                             <hr class="hr hr-blurry" />
                             <div class="row">
                                 <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_iuran_tahun"
-                                        id="kepesertaan_iuran_tahun" placeholder="" value=""
-                                        oninput="onRegenerateIuran()" />
+                                    <input type="number" class="form-control form-control-solid"
+                                        name="kepesertaan_iuran_tahun" id="kepesertaan_iuran_tahun" placeholder=""
+                                        value="" oninput="onRegenerateIuran()" />
                                     <label for="floatingInput"><span>Masukkan Tahun</span></label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card shadow-sm mt-3 data_iuran_total">
-                        <div class="card-body mt-3">
-                            <h3 class="mb-7">Data Iuran Total</h3>
-                            <hr class="hr hr-blurry" />
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Januari</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Februari</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Maret</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>April</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Mei</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Juni</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Juli</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Agustus</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>September</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Oktober</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>November</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid iuran_total_list"
-                                            name="iuran_total_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Desember</span></label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h4 class="mb-7">Jumlah Keseluruhan Iuran Total: <span id="jumlah_iuran_total" style="color: red">Rp 0</span></h4>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
-                        <div class="card-body mt-3">
-                            <h3 class="mb-7">Data Iuran + Total Pengembangan</h3>
-                            <hr class="hr hr-blurry" />
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Januari</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Februari</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Maret</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>April</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Mei</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Juni</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Juli</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Agustus</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>September</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Oktober</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>November</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number"
-                                            class="form-control form-control-solid iuran_pengembangan_list"
-                                            name="iuran_pengembangan_list[]" placeholder="" />
-                                        <label for="floatingInput"><span>Desember</span></label>
+                    <div class="row">
+                        <div class="col-6 p-2">
+                            <div class="card shadow-sm mt-3 data_iuran_total col-12">
+                                <div class="card-body mt-3">
+                                    <h3 class="mb-7">Data Iuran Total</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th class="col-3 fw-bold text-center bg-primary">
+                                                        <h4>Bulan</h4>
+                                                    </th>
+                                                    <th class="col-5 fw-bold text-center bg-primary">
+                                                        <h4>PHDP Bulanan</h4>
+                                                    </th>
+                                                    <th class="col-4 fw-bold text-center bg-primary">
+                                                        <h4>Iuran Per Bulan</h4>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Januari</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_1" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_1')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_1" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Februari</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_2" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_2')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_2" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Maret</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_3" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_3')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_3" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">April</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_4" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_4')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_4" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Mei</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_5" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_5')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_5" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Juni</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_6" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_6')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_6" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Juli</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_7" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_7')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_7" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Agustus</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_8" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_8')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_8" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">September</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_9" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_9')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_9" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Oktober</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_10" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_10')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_10" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">November</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_11" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_11')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_11" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Desember</td>
+                                                    <td><input type="number" class="form-control iuran_total_list"
+                                                            id="phdp_total_12" name="iuran_total_list[]"
+                                                            oninput="onChangeIuranTotal('total_12')" placeholder="" /></td>
+                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                            id="iuran_total_12" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr style="background-color: #b8e2f9">
+                                                    <td class="p-2 fw-bold">
+                                                        <h4>Jumlah Keseluruhan</h4>
+                                                    </td>
+                                                    <td><input type="text" class="form-control" id="jumlah_iuran_total"
+                                                            placeholder="" disabled value="Rp 0" /></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <h4 class="mb-7">Jumlah Keseluruhan Iuran + Total Pengembangan: <span id="jumlah_iuran_pengembangan" style="color: red">Rp 0</span></h4>
                         </div>
+                            
+                        <div class="col-6 p-2">
+                            <div class="card shadow-sm mt-3 data_iuran_pengembangan col-12">
+                                <div class="card-body mt-3">
+                                    <h3 class="mb-7">Data Iuran + Total Pengembangan</h3>
+                                    <hr class="hr hr-blurry" />
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th class="col-3 fw-bold text-center bg-primary">
+                                                        <h4>Bulan</h4>
+                                                    </th>
+                                                    <th class="col-5 fw-bold text-center bg-primary">
+                                                        <h4>PHDP Bulanan</h4>
+                                                    </th>
+                                                    <th class="col-4 fw-bold text-center bg-primary">
+                                                        <h4>Iuran Per Bulan</h4>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Januari</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_1" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_1')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_1" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Februari</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_2" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_2')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_2" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Maret</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_3" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_3')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_3" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">April</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_4" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_4')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_4" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Mei</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_5" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_5')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_5" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Juni</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_6" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_6')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_6" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Juli</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_7" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_7')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_7" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Agustus</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_8" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_8')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_8" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">September</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_9" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_9')" placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_9" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Oktober</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_10" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_10')"
+                                                            placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_10" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">November</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_11" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_11')"
+                                                            placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_11" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2 fw-bold">Desember</td>
+                                                    <td><input type="number" class="form-control iuran_pengembangan_list"
+                                                            id="phdp_pengembangan_12" name="iuran_pengembangan_list[]"
+                                                            oninput="onChangeIuranPengembangan('pengembangan_12')"
+                                                            placeholder="" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                            id="iuran_pengembangan_12" placeholder="" disabled /></td>
+                                                </tr>
+                                                <tr style="background-color: #b8e2f9">
+                                                    <td class="p-2 fw-bold">
+                                                        <h4>Jumlah Keseluruhan</h4>
+                                                    </td>
+                                                    <td><input type="text" class="form-control"
+                                                            id="jumlah_iuran_pengembangan" placeholder="" disabled
+                                                            value="Rp 0" /></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
