@@ -36,7 +36,7 @@
                             <div class="card-body pt-3 py-3">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(80,205,137);">
+                                        <div class="card shadow-sm mt-1" style="background-color:#fc936d;">
                                             <div class="card-body pt-3 p-1">
                                                 <h3 style="color:white;text-align:center">Peserta</h3>
                                                 <h1 id="count_peserta"
@@ -44,7 +44,7 @@
                                                     0</h1>
                                                 <div class="d-flex justify-content-around p-1">
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Guru Besar')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Guru Besar</h5>
@@ -53,7 +53,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Dosen')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Dosen</h5>
@@ -62,7 +62,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(56, 116, 83);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Karyawan')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Karyawan</h5>
@@ -75,14 +75,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(132, 159, 248);">
+                                        <div class="card shadow-sm mt-1" style="background-color:#45b2d6;">
                                             <div class="card-body pt-3 p-1">
                                                 <h3 style="color:white;text-align:center">Pensiun</h3>
                                                 <h1 id="count_pensiunan"
                                                     style="color:white;font-size:50px;text-align:center">0</h1>
                                                 <div class="d-flex justify-content-around p-1">
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Normal')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Normal</h5>
@@ -93,7 +93,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Anak')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Anak</h5>
@@ -103,7 +103,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:rgb(54, 73, 134);color:white;cursor:pointer"
+                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Janda Duda')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Janda/Duda</h5>
@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(249, 103, 103);">
+                                        <div class="card shadow-sm mt-1" style="background-color:#a967eb;">
                                             <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiunan Ditunda</h3>
                                                 <h2 id="count_pensiun_ditunda"
@@ -133,7 +133,7 @@
 
 
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(93, 92, 59);">
+                                        <div class="card shadow-sm mt-1" style="background-color:#f25e7a;">
                                             <div class="card-body pt-13 py-13">
                                                 <h3 style="color:white;text-align:center">Pensiun Sekaligus</h3>
                                                 <h2 id="count_pensiunan_sekaligus"
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="card shadow-sm mt-1" style="background-color:rgb(208, 113, 140);">
+                                        <div class="card shadow-sm mt-1" style="background-color:#d0718c;">
                                             <div class="card-body pt-10 py-10">
                                                 <h3 style="color:white;text-align:center">Pensiunan Yang Sudah Tidak
                                                     Berhak Menerima MP</h3>
@@ -182,7 +182,7 @@
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">NIP</th>
-                                            <th class="text-center">TTL</th>
+                                            <th class="text-center" style="width:250px">TTL</th>
                                             <th class="text-center">TMT Peserta</th>
                                             <th class="text-center">Status Peserta</th>
                                             <th class="text-center" style="width:250px">Action</th>
@@ -270,11 +270,11 @@
                                     <div class="col-6">
                                         <table class=" table table-striped">
                                             <tr>
-                                                <td style="font-weight:bold">Telephone 1</td>
+                                                <td style="font-weight:bold">Telpon 1</td>
                                                 <td>: <span id="detail_kepesertaan_telphone_1"></span></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:bold">Telephone 2</td>
+                                                <td style="font-weight:bold">Telpon 2</td>
                                                 <td>: <span id="detail_kepesertaan_telphone_2"></span></td>
                                             </tr>
                                             <tr>

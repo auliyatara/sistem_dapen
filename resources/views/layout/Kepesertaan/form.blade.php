@@ -88,16 +88,14 @@
                                 <div class="form-floating mb-7">
                                     <input type="text" class="form-control form-control-solid"
                                         name="kepesertaan_telphone_1" placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">Telphone
-                                            1</span></label>
+                                    <label for="floatingInput"><span class="required">Telpon 1</span></label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-floating mb-7">
                                     <input type="text" class="form-control form-control-solid"
                                         name="kepesertaan_telphone_2" placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">Telphone
-                                            2</span></label>
+                                    <label for="floatingInput"><span class="required">Telpon 2</span></label>
                                 </div>
                             </div>
                             <div class="col-6">
