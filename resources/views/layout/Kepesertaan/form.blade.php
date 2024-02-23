@@ -272,30 +272,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
-                        <div class="card-body mt-3">
-
-                            <h3 class="mb-7">Data Iuran Dan Pengembangan</h3>
-                            <hr class="hr hr-blurry" />
-                            <div class="row">
-                                <div class="col-6 mb-4">
-                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Iuran Per Tahun</span>
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid" id="auto_iuran"
-                                        placeholder="" value="Rp 0" disabled />
-                                </div>
-                                <div class="col-6 mb-4">
-                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Iuran + Pengembangan Per Tahun</span>
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        id="auto_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="tab-pane fade" id="iuran" role="tabpanel" aria-labelledby="iuran-tab">
                     <div class="card shadow-sm mt-3 data_tahun_iuran">
@@ -309,6 +285,29 @@
                                         name="kepesertaan_iuran_tahun" id="kepesertaan_iuran_tahun" placeholder=""
                                         value="" oninput="onRegenerateIuran()" />
                                     <label for="floatingInput"><span>Masukkan Tahun</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Data Iuran Dan Pengembangan Tahun Sebelumnya</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Iuran Per Tahun Sebelumnya</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Iuran + Pengembangan Per Tahun Sebelumnya</span> 
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
                                 </div>
                             </div>
                         </div>
@@ -430,12 +429,11 @@
                                                             id="iuran_total_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
-                                                    <td class="p-2 fw-bold">
-                                                        <h4>Jumlah Keseluruhan</h4>
+                                                    <td class="p-2 fw-bold" colspan="2">
+                                                        <h4>Jumlah Keseluruhan Iuran Total</h4>
                                                     </td>
                                                     <td><input type="text" class="form-control" id="jumlah_iuran_total"
                                                             placeholder="" disabled value="Rp 0" /></td>
-                                                    <td></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -575,8 +573,8 @@
                                                             id="iuran_pengembangan_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
-                                                    <td class="p-2 fw-bold">
-                                                        <h4>Jumlah Keseluruhan</h4>
+                                                    <td class="p-2 fw-bold" colspan="2">
+                                                        <h4>Jumlah Keseluruhan Iuran + Total Pengembangan</h4>
                                                     </td>
                                                     <td><input type="text" class="form-control"
                                                             id="jumlah_iuran_pengembangan" placeholder="" disabled
@@ -590,6 +588,23 @@
                             </div>
                         </div>
                         
+                    </div>
+
+                    <div class="card shadow-sm mt-3 data_jumlah_keseluruhan">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Total Keseluruhan Sampai Tahun <span class="year_choose">-</span></h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Iuran Per Tahun Sebelumnya</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="jumlah_keseluruhan"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
