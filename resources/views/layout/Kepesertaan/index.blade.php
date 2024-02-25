@@ -369,25 +369,6 @@
                                             </tr>
                                         </table>
                                     </div>
-
-                                    <h3 class="mt-7">Data Iuran Dan Pengembangan</h3>
-                                    <hr class="hr hr-blurry" />
-                                    <div class="col-6">
-                                        <table class=" table table-striped">
-                                            <tr>
-                                                <td style="font-weight:bold">Iuran Per Tahun</td>
-                                                <td>: <span id="detail_iuran"></span></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="col-6">
-                                        <table class=" table table-striped">
-                                            <tr>
-                                                <td style="font-weight:bold">Iuran + Pengembangan Per Tahun</td>
-                                                <td>: <span id="detail_iuran_pengembangan"></span></td>
-                                            </tr>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                             
@@ -400,6 +381,27 @@
                             </label>
                             <select class="form-control" onchange="onChangeTahunIuranDetail()" id="detail_iuran_tahun"></select>
                             <input type="hidden" id="detail_kepesertaan_id">
+                        </div>
+
+                        <h3 class="mt-7">Data Iuran Dan Pengembangan Tahun Sebelumnya</h3>
+                        <hr class="hr hr-blurry" />
+                        <div class="row">
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Iuran Per Tahun Sebelumnya</td>
+                                        <td>: <span id="detail_iuran_year_before">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Iuran + Pengembangan Per Tahun Sebelumnya</td>
+                                        <td>: <span id="detail_iuran_pengembangan_year_before">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                        
                         <div class="row">
@@ -520,7 +522,19 @@
                                     </tr>
                                 </table>
                             </div>
-                           
+
+                                <h3 class="mb-7 mt-7">Total Keseluruhan Sampai Tahun <span class="year_choose">-</span></h3>
+                                <hr class="hr hr-blurry" />
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Total Keseluruhan</td>
+                                                <td>: <span id="detail_iuran_keseluruhan">Rp 0</span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="tab-pane fade pt-3" id="dokumen_detail" role="tabpanel" aria-labelledby="dokumen_detail-tab">

@@ -181,7 +181,7 @@
                                     <span class="required">Status Kepesertaan</span>
                                 </label>
                                 <select class="form-control" name="kepesertaan_status_kepesertaan"
-                                    id="kepesertaan_status_kepesertaan" required onchange="showJenisPensiunan()">
+                                    id="kepesertaan_status_kepesertaan" required onchange="showJenisPensiunan();onCheckReadOnly()">
                                     <option value="" selected disabled>Pilih Status Kepesertaan</option>
                                     <option value="Peserta">Peserta</option>
                                     <option value="Pensiunan">Pensiunan</option>
@@ -597,9 +597,6 @@
                             <hr class="hr hr-blurry" />
                             <div class="row">
                                 <div class="col-12 mb-4">
-                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Iuran Per Tahun Sebelumnya</span>
-                                    </label>
                                     <input type="text" class="form-control form-control-solid" id="jumlah_keseluruhan"
                                         placeholder="" value="Rp 0" disabled />
                                 </div>
@@ -610,7 +607,7 @@
                 <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
                     <div class="col-12">
                         <div class="card shadow-sm">
-                            <div class="card-body py-3 mt-3">
+                            <div class="card-body py-3 mt-3 data_dokumen_kepesertaan">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span>Dokumen Kepesertaan</span>
                                 </label>

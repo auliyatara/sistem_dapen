@@ -137,7 +137,8 @@
         $('.form_data').show()
         $('#profile_li').hide()
         $('.kepesertaan_foto_show').hide()
-
+        $('#formData input').prop('readonly', false);
+        $('#kepesertaan_status_jabatan').prop('disabled', false);
     };
 
     onBack = () => {
@@ -760,25 +761,42 @@
                 $('.detail_iuran_pengembangan_list').html(formatToRupiah(0))
                 $('.detail_jumlah_iuran_total_list').html(formatToRupiah(0))
                 $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(0))
+                $('#detail_iuran_year_before').html(formatToRupiah(formatToRupiah(0)))
+                $('#detail_iuran_pengembangan_year_before').html(formatToRupiah(formatToRupiah(0)))
 
                 if(list_iuran.length){
                     $.each(list_iuran, function( key, value ){
                         let index = value['kepesertaan_iuran_bulan'] - 1
                         if(value['kepesertaan_iuran_jumlah'] > 0){
-                            $('.detail_'+value['kepesertaan_iuran_type']+'_list:eq(' + index + ')').html(formatToRupiah(value['kepesertaan_iuran_jumlah']));
+                            var iutan_tahun = 0
+                            var iuran_pengembagan = 0
+                            var iuran_value = 0
+
+                            if(value['kepesertaan_iuran_type'] == 'iuran_total'){
+                                iuran_tahun = parseFloat(value['kepesertaan_iuran_jumlah'])*0.075;
+                                iuran_value = iuran_tahun
+                                jumlah_iuran_total += iuran_tahun
+                            } else if (value['kepesertaan_iuran_type'] == 'iuran_pengembangan'){
+                                iuran_tahun = parseFloat(value['kepesertaan_iuran_jumlah'])*0.075;
+                                iuran_pengembagan += ((0.045/12)*iuran_tahun ) + iuran_tahun
+                                iuran_value = iuran_pengembagan
+                                jumlah_iuran_pengembagan += iuran_pengembagan
+                            }
+                            $('.detail_'+value['kepesertaan_iuran_type']+'_list:eq(' + index + ')').html(formatToRupiah(iuran_value));
                         } else{
                             $('.detail_'+value['kepesertaan_iuran_type']+'_list:eq(' + index + ')').html(formatToRupiah(0));
                         }
 
-                        if(value['kepesertaan_iuran_type'] == 'iuran_total'){
-                            jumlah_iuran_total += value['kepesertaan_iuran_jumlah']
-                        } else if (value['kepesertaan_iuran_type'] == 'iuran_pengembangan'){
-                            jumlah_iuran_pengembagan += value['kepesertaan_iuran_jumlah']
-                        }
                     })
+                    
+                    $('#detail_iuran_year_before').html(formatToRupiah(response.data.year_before_iuran_total))
+                    $('#detail_iuran_pengembangan_year_before').html(formatToRupiah(response.data.year_before_iuran_pengembangan))
 
                     $('.detail_jumlah_iuran_total_list').html(formatToRupiah(jumlah_iuran_total))
                     $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(jumlah_iuran_pengembagan))
+
+                    let total_keseluruhan = response.data.year_before_iuran_total + response.data.year_before_iuran_pengembangan +jumlah_iuran_total +jumlah_iuran_pengembagan
+                    $('#detail_iuran_keseluruhan').html(formatToRupiah(total_keseluruhan))
                 }
             }
         })
@@ -818,20 +836,17 @@
         let total = jumlah_iuran_pengembangan+jumlah_iuran_total+before_jumlah_iuran_pengembangan+before_jumlah_iuran_total
         $('#jumlah_keseluruhan').val(formatToRupiah(total))
     }
-    // onPerhitunganIuran = (phdp='',detail=false) =>{
-    //     if(phdp == ''){
-    //         phdp = $('#kepesertaan_gaji_pokok').val()
-    //     }
-
-    //     let iuran_bulanan = 0.075*phdp
-    //     let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
-
-    //     if(detail){
-    //         $('#detail_iuran').html(formatToRupiah(iuran_bulanan))
-    //         $('#detail_iuran_pengembangan').html(formatToRupiah(iuran_pengembangan_per_tahun))
-    //     } else{
-    //         $('#auto_iuran').val(formatToRupiah(iuran_bulanan))
-    //         $('#auto_iuran_pengembangan').val(formatToRupiah(iuran_pengembangan_per_tahun))
-    //     }
-    // }
+    
+    onCheckReadOnly=()=>{
+        if($('[name=kepesertaan_id]').val() != '' && $('#kepesertaan_status_kepesertaan').val() != "Peserta"){
+            $('#formData input').prop('readonly', true);
+            $('.data_personal input').prop('readonly', false);
+            $('.data_dokumen_kepesertaan input').prop('readonly', false);
+            $('#kepesertaan_status_kepesertaan').prop('readonly', false);
+            $('#kepesertaan_status_jabatan').prop('disabled', true);
+        } else{
+            $('#formData input').prop('readonly', false);
+            $('#kepesertaan_status_jabatan').prop('disabled', false);
+        }
+    }
 </script>
