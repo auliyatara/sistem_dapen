@@ -271,6 +271,7 @@
                         $('#jumlah_iuran_pengembangan').val(formatToRupiah(jumlah_iuran_pengembagan))
                         onPerhitunganTotal()
                     }
+                    onCheckReadOnly()
                 } 
             }
         })

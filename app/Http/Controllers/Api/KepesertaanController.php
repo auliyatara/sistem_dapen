@@ -79,7 +79,7 @@ class KepesertaanController extends Controller
         }])->first();
         if($operation){
             $link = KepesertaanLink::where('kepesertaan_link_nama',$operation['kepesertaan_status_kepesertaan'])->first();
-            $operation['kepesertaan_link_url'] = $link['kepesertaan_link_url'];
+            $operation['kepesertaan_link_url'] = isset($link['kepesertaan_link_url'])?$link['kepesertaan_link_url']:'';
         } else{
             $data = explode("_",$id);
             if($data[0]==1){
