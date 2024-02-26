@@ -79,7 +79,7 @@ class KepesertaanController extends Controller
         }])->first();
         if($operation){
             $link = KepesertaanLink::where('kepesertaan_link_nama',$operation['kepesertaan_status_kepesertaan'])->first();
-            $operation['kepesertaan_link_url'] = $link['kepesertaan_link_url'];
+            $operation['kepesertaan_link_url'] = isset($link['kepesertaan_link_url'])?$link['kepesertaan_link_url']:'';
         } else{
             $data = explode("_",$id);
             if($data[0]==1){
@@ -111,6 +111,23 @@ class KepesertaanController extends Controller
         }
 
         $operation['iuran_tahun_distinct'] = DB::select(" SELECT distinct kepesertaan_iuran_tahun FROM kepesertaan_iurans where kepesertaan_iuran_kepesertaan_id = '".$id."' Order By kepesertaan_iuran_tahun desc");
+
+        $getIuran = DB::select("SELECT kepesertaan_iuran_type, SUM(kepesertaan_iuran_jumlah) as kepesertaan_iuran_jumlah FROM kepesertaan_iurans ki WHERE kepesertaan_iuran_kepesertaan_id = '".$id."' AND kepesertaan_iuran_tahun < '".$year."' GROUP BY kepesertaan_iuran_type");
+        
+        if(count($getIuran)){
+            foreach($getIuran as $k=>$v){
+                if($v->kepesertaan_iuran_type == 'iuran_total'){
+                    $counter = $v->kepesertaan_iuran_jumlah * 0.075;
+                }else{
+                    $temp = $v->kepesertaan_iuran_jumlah * 0.075;
+                    $counter = ((0.045/12)*$temp) + $temp;
+                }
+                $operation['year_before_'.$v->kepesertaan_iuran_type] = round($counter, 2);
+            }
+        } else{
+            $operation['year_before_iuran_total'] = 0;
+            $operation['year_before_iuran_pengembangan'] = 0;
+        }
         
         return $this->responseFirst($operation);
     }
