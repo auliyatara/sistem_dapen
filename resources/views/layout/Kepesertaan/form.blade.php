@@ -84,6 +84,27 @@
                                             Lahir</span></label>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
+                                        placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nik"
+                                        placeholder="NIK" value=""  />
+                                    <label for="floatingInput"><span>NIK</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_npwp"
+                                        placeholder="NPWP" value="" />
+                                    <label for="floatingInput"><span>NPWP</span></label>
+                                </div>
+                            </div>
                             <div class="col-6">
                                 <div class="form-floating mb-7">
                                     <input type="text" class="form-control form-control-solid"
@@ -128,21 +149,7 @@
                             <h3 class="mb-7">Data Karyawan</h3>
                             <hr class="hr hr-blurry" />
 
-                            <div class="col-12">
-                                <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
-                                        placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-4">
-                                <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_npwp"
-                                        placeholder="NPWP" value="" required />
-                                    <label for="floatingInput"><span class="required">NPWP</span></label>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-4">
+                                                        <div class="col-6 mb-4">
                                 <div class="form-floating mb-7">
                                     <input type="number" class="form-control form-control-solid"
                                         name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok" placeholder=""
