@@ -315,9 +315,13 @@
                     <div class="row">
                         <div class="col-6 p-2">
                             <div class="card shadow-sm mt-3 data_iuran_total col-12">
+                                <div class="card-header">
+                                    <h3 class="card-title">Data Iuran Total</h3>
+                                    <div class="card-toolbar">
+                                        <a href="javascript:setIuranGajiPokok()" class="btn btn-sm btn-success">Set Sesuai Gaji Pokok</a>
+                                    </div>
+                                </div>
                                 <div class="card-body mt-3">
-                                    <h3 class="mb-7">Data Iuran Total</h3>
-                                    <hr class="hr hr-blurry" />
                                     <div class="row">
                                         <div class="col-12">
                                             <table class="table table-striped">
@@ -444,9 +448,10 @@
                             
                         <div class="col-6 p-2">
                             <div class="card shadow-sm mt-3 data_iuran_pengembangan col-12">
+                                <div class="card-header">
+                                    <h3 class="card-title">Data Iuran + Total Pengembangan</h3>
+                                </div>
                                 <div class="card-body mt-3">
-                                    <h3 class="mb-7">Data Iuran + Total Pengembangan</h3>
-                                    <hr class="hr hr-blurry" />
                                     <div class="row">
                                         <div class="col-12">
                                             <table class="table table-striped">
