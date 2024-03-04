@@ -67,15 +67,14 @@
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 mb-4">
                                 <div class="form-floating mb-7">
                                     <input type="text" class="form-control form-control-solid"
                                         name="kepesertaan_tempat_lahir" placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">Tempat
-                                            Lahir</span></label>
+                                    <label for="floatingInput"><span class="required">Tempat Lahir</span></label>
                                 </div>
                             </div>
-                            <div class="col-9">
+                            <div class="col-6 mb-4">
                                 <div class="form-floating mb-7">
                                     <input type="date" class="form-control form-control-solid"
                                         name="kepesertaan_tanggal_lahir" id="kepesertaan_tanggal_lahir" placeholder="" 
@@ -157,13 +156,13 @@
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span class="required">Terhitung Mulai Tanggal Peserta</span>
+                                    <span class="required"> Estimasi Terhitung Mulai Tanggal Peserta</span>
                                 </label>
                                 <input type="date" class="form-control form-control-solid"
                                     name="kepesertaan_terhitung_mulai_tanggal" id="kepesertaan_terhitung_mulai_tanggal"
                                     placeholder="" value="" required onchange="onMasaKerjaSekarang()" />
                             </div>
-                            <div class="col-4">
+                            <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span class="required">Terhitung Mulai Tanggal Pensiun</span>
                                 </label>
@@ -171,11 +170,11 @@
                                     name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
                                     required />
                             </div>
-                            <div class="col-4 mb-7">
+                            <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span>Masa Kerja Sekarang</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                        title="TMT Peserta - Tanggal Sekarang"></i>
+                                        title="Estimasi TMT Peserta - Tanggal Sekarang"></i>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_sekarang"
                                     placeholder="" value="0 Tahun" disabled />
@@ -199,7 +198,7 @@
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span>Masa Kerja Pensiun</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                        title="Tanggal Pensiun - TMT Peserta"></i>
+                                        title="Estimasi TMT Peserta - TMT Pensiun"></i>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_pensiun"
                                     placeholder="" value="0 Tahun" disabled />
