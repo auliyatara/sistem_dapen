@@ -878,7 +878,11 @@
         let iuran_bulanan = 0.075*gapok
         let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
         $('.iuran_total_perhitungan').val(formatToRupiah(iuran_bulanan))
+        $('#jumlah_iuran_total').val(formatToRupiah(iuran_bulanan*12))
+
+        
         $('.iuran_pengembangan_perhitungan').val(formatToRupiah(iuran_pengembangan_per_tahun))
+        $('#jumlah_iuran_pengembangan').val(formatToRupiah(iuran_pengembangan_per_tahun*12))
         onPerhitunganTotal()
     }
 
