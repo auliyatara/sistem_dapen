@@ -275,13 +275,25 @@
                                                 <td>: <span id="detail_kepesertaan_npwp"></span></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:bold">Alamat</td>
-                                                <td>: <span id="detail_kepesertaan_alamat"></span></td>
+                                                <td style="font-weight:bold">NIP</td>
+                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
                                             </tr>
-                                        </table>
+                                            <tr>
+                                                <td style="font-weight:bold">NIK</td>
+                                                <td>: <span id="detail_kepesertaan_nik"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NPWP</td>
+                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
+                                            </tr>
+                                            </table>
                                     </div>
                                     <div class="col-6">
                                         <table class=" table table-striped">
+                                            <tr>
+                                                <td style="font-weight:bold">Alamat</td>
+                                                <td>: <span id="detail_kepesertaan_alamat"></span></td>
+                                            </tr>
                                             <tr>
                                                 <td style="font-weight:bold">Telpon 1</td>
                                                 <td>: <span id="detail_kepesertaan_telphone_1"></span></td>
