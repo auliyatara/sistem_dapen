@@ -78,10 +78,31 @@
                             <div class="col-9">
                                 <div class="form-floating mb-7">
                                     <input type="date" class="form-control form-control-solid"
-                                        name="kepesertaan_tanggal_lahir" id="kepesertaan_tanggal_lahir" placeholder=""
+                                        name="kepesertaan_tanggal_lahir" id="kepesertaan_tanggal_lahir" placeholder="" 
                                         value="" required onchange="onMasaKerjaPensiun();" />
                                     <label for="floatingInput"><span class="required">Tanggal
                                             Lahir</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nik"
+                                        placeholder="NIK" value="" required />
+                                    <label for="floatingInput"><span class="required">NIK</span></label>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_npwp"
+                                        placeholder="NPWP" value=""  />
+                                    <label for="floatingInput"><span class="">NPWP</span></label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-7">
+                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
+                                        placeholder="" value="" required />
+                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -94,8 +115,8 @@
                             <div class="col-6">
                                 <div class="form-floating mb-7">
                                     <input type="text" class="form-control form-control-solid"
-                                        name="kepesertaan_telphone_2" placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">Telpon 2</span></label>
+                                        name="kepesertaan_telphone_2" placeholder="" value="" />
+                                    <label for="floatingInput"><span class="">Telpon 2</span></label>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -108,8 +129,8 @@
                             <div class="col-6">
                                 <div class="form-floating mb-7">
                                     <input type="email" class="form-control form-control-solid"
-                                        name="kepesertaan_email_2" placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">Email 2</span></label>
+                                        name="kepesertaan_email_2" placeholder="" value=""  />
+                                    <label for="floatingInput"><span class="">Email 2</span></label>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -127,31 +148,14 @@
                         <div class="card-body mt-3 row">
                             <h3 class="mb-7">Data Karyawan</h3>
                             <hr class="hr hr-blurry" />
-
-                            <div class="col-12">
-                                <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
-                                        placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
-                                </div>
-                            </div>
                             <div class="col-6 mb-4">
-                                <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_npwp"
-                                        placeholder="NPWP" value="" required />
-                                    <label for="floatingInput"><span class="required">NPWP</span></label>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-4">
-                                <div class="form-floating mb-7">
+                                <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                    <span class="required">PHDP (Gaji Pokok)</span></label>
                                     <input type="number" class="form-control form-control-solid"
                                         name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok" placeholder=""
                                         value="" required />
-                                    <label for="floatingInput"><span class="required">PHDP (Gaji
-                                            Pokok)</span></label>
-                                </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span class="required">Terhitung Mulai Tanggal Peserta</span>
                                 </label>
