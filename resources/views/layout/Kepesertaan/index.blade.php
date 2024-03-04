@@ -261,14 +261,39 @@
                                                 <td>: <span id="detail_kepesertaan_tempat_lahir"></span>,<span
                                                         id="detail_kepesertaan_tanggal_lahir"></span></td>
                                             </tr>
+                                            
+                                            <tr>
+                                                <td style="font-weight:bold">NIK</td>
+                                                <td>: <span id="detail_kepesertaan_nik"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NIP</td>
+                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NPWP</td>
+                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NIP</td>
+                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NIK</td>
+                                                <td>: <span id="detail_kepesertaan_nik"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">NPWP</td>
+                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
+                                            </tr>
+                                            </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class=" table table-striped">
                                             <tr>
                                                 <td style="font-weight:bold">Alamat</td>
                                                 <td>: <span id="detail_kepesertaan_alamat"></span></td>
                                             </tr>
-                                        </table>
-                                    </div>
-                                    <div class="col-6">
-                                        <table class=" table table-striped">
                                             <tr>
                                                 <td style="font-weight:bold">Telpon 1</td>
                                                 <td>: <span id="detail_kepesertaan_telphone_1"></span></td>
@@ -293,10 +318,6 @@
                                     <div class="col-6">
                                         <table class=" table table-striped">
                                             <tr>
-                                                <td style="font-weight:bold">NIP</td>
-                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
-                                            </tr>
-                                            <tr>
                                                 <td style="font-weight:bold">PHDP (Gaji Pokok)</td>
                                                 <td>: <span id="detail_kepesertaan_gaji_pokok"></span></td>
                                             </tr>
@@ -320,10 +341,6 @@
                                     </div>
                                     <div class="col-6">
                                         <table class=" table table-striped">
-                                            <tr>
-                                                <td style="font-weight:bold">NPWP</td>
-                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
-                                            </tr>
                                             <tr>
                                                 <td style="font-weight:bold">Terhitung Mulai Tanggal Pensiun</td>
                                                 <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal_pensiun"></span></td>
