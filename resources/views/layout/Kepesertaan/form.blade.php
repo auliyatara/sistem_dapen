@@ -341,7 +341,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_1" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_1')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_1" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -349,7 +349,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_2" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_2')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_2" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -357,7 +357,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_3" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_3')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_3" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -365,7 +365,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_4" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_4')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_4" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -373,7 +373,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_5" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_5')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_5" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -381,7 +381,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_6" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_6')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_6" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -389,7 +389,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_7" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_7')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_7" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -397,7 +397,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_8" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_8')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_8" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -405,7 +405,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_9" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_9')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_9" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -413,7 +413,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_10" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_10')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_10" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -421,7 +421,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_11" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_11')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_11" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -429,7 +429,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_12" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_12')" placeholder="" /></td>
-                                                    <td><input type="text" class="form-control iuran_total_list"
+                                                    <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
@@ -472,7 +472,7 @@
                                                             id="phdp_pengembangan_1" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_1')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_1" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -481,7 +481,7 @@
                                                             id="phdp_pengembangan_2" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_2')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_2" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -490,7 +490,7 @@
                                                             id="phdp_pengembangan_3" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_3')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_3" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -499,7 +499,7 @@
                                                             id="phdp_pengembangan_4" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_4')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_4" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -508,7 +508,7 @@
                                                             id="phdp_pengembangan_5" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_5')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_5" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -517,7 +517,7 @@
                                                             id="phdp_pengembangan_6" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_6')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_6" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -526,7 +526,7 @@
                                                             id="phdp_pengembangan_7" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_7')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_7" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -535,7 +535,7 @@
                                                             id="phdp_pengembangan_8" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_8')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_8" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -544,7 +544,7 @@
                                                             id="phdp_pengembangan_9" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_9')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_9" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -554,7 +554,7 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_10')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_10" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -564,7 +564,7 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_11')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_11" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
@@ -574,7 +574,7 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_12')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list"
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                             id="iuran_pengembangan_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">

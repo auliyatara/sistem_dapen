@@ -872,8 +872,13 @@
 
     setIuranGajiPokok=()=>{
         var gapok = $("#kepesertaan_gaji_pokok").val()
-        $('.iuran_total_list').val(gapok)
-        $('.iuran_pengembangan_list').val(gapok)
+        $('input[name="iuran_total_list[]"]').val(gapok)
+        $('input[name="iuran_pengembangan_list[]"]').val(gapok)
+
+        let iuran_bulanan = 0.075*gapok
+        let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
+        $('.iuran_total_perhitungan').val(formatToRupiah(iuran_bulanan))
+        $('.iuran_pengembangan_perhitungan').val(formatToRupiah(iuran_pengembangan_per_tahun))
         onPerhitunganTotal()
     }
 
