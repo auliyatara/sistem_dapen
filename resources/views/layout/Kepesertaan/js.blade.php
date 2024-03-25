@@ -326,7 +326,9 @@
                                     
                                     $('.detail_kepesertaan_foto_show').show()
                                 }
-                            } else{
+                            } else if(key == "kepesertaan_gaji_pokok"){
+                                $('#detail_'+key).html(formatToRupiah(value))
+                            } else {
                                 $('#detail_'+key).html(value)
                             }
                         } else if(value != ''){
@@ -584,9 +586,11 @@
 
                 result = `${years} Tahun ${months} Bulan ${days} Hari`;
                 parse_year = years
+                parse_month = months
                 if(years >=32){
                     result = `32 Tahun 0 Bulan 0 Hari`;
                     parse_year = 32
+                    parse_month = 0
                 }
             }
             if(detail){
@@ -603,12 +607,14 @@
                 }
             }
         
-        onEstimasiSekaligus(parse_year, phdp, detail)
+        onEstimasiSekaligus(parse_year,parse_month, phdp, detail)
         onPerhitunganBulanan(parse_year, phdp, detail)
     }
 
-    onEstimasiSekaligus = (masa_kerja_pensiun,phdp,detail) =>{
-        let total = masa_kerja_pensiun * phdp * 2.5
+    onEstimasiSekaligus = (tahun,bulan,phdp,detail) =>{
+        console.log(tahun)
+        console.log(bulan/12)
+        let total = (tahun+(bulan/12)) * phdp * 2.5
         let result = formatToRupiah(total)
         if(detail){
             $('#detail_sekaligus').html(result)
@@ -814,7 +820,12 @@
                     $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(jumlah_iuran_pengembagan))
 
                     let total_keseluruhan = response.data.year_before_iuran_total + response.data.year_before_iuran_pengembangan +jumlah_iuran_total +jumlah_iuran_pengembagan
-                    $('#detail_iuran_keseluruhan').html(formatToRupiah(total_keseluruhan))
+                    if (isNaN(value)) {
+                        $('#detail_iuran_keseluruhan').html(formatToRupiah(0))
+                    } else {
+                        $('#detail_iuran_keseluruhan').html(formatToRupiah(total_keseluruhan))
+                    }
+                    
                 }
             }
         })
@@ -853,7 +864,11 @@
         let before_jumlah_iuran_total =  parseFloat(formatToNumber($('#year_before_iuran_total').val()))
 
         let total = jumlah_iuran_pengembangan+jumlah_iuran_total+before_jumlah_iuran_pengembangan+before_jumlah_iuran_total
-        $('#jumlah_keseluruhan').val(formatToRupiah(total))
+        if (isNaN(value)) {
+            $('#jumlah_keseluruhan').val(formatToRupiah(0))
+        } else {
+            $('#jumlah_keseluruhan').val(formatToRupiah(total))
+        }
     }
     
     onCheckReadOnly=()=>{
@@ -895,5 +910,32 @@
             }
         });
         $("#kepesertaan_gaji_pokok").val(latest_gapok)
+    }
+
+    setTanggalPensiun=()=>{
+        let jabatan = $("#kepesertaan_status_jabatan").val()
+        let tanggal_lahir = $("#kepesertaan_tanggal_lahir").val()
+        
+       if(jabatan != null && tanggal_lahir!= '' ){
+            if(jabatan == "Guru Besar"){
+                masa_pensiun = 70
+            } else if(jabatan == "Dosen"){
+                masa_pensiun = 65
+            } else if(jabatan == "Karyawan"){
+                masa_pensiun = 58
+            } else{
+                masa_pensiun = 0
+            }
+
+            let getYear = new Date(tanggal_lahir);
+            let pensionYear = masa_pensiun + getYear.getFullYear();
+            getYear.setFullYear(pensionYear);
+            var updatedDateString = getYear.toISOString().split('T')[0];
+
+            $("#kepesertaan_terhitung_mulai_tanggal_pensiun").val(updatedDateString)
+       } else{
+            $("#kepesertaan_terhitung_mulai_tanggal_pensiun").val('')
+       }
+       
     }
 </script>

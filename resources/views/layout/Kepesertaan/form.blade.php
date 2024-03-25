@@ -78,7 +78,7 @@
                                 <div class="form-floating mb-7">
                                     <input type="date" class="form-control form-control-solid"
                                         name="kepesertaan_tanggal_lahir" id="kepesertaan_tanggal_lahir" placeholder="" 
-                                        value="" required onchange="onMasaKerjaPensiun();" />
+                                        value="" required onchange="onMasaKerjaPensiun();setTanggalPensiun();" />
                                     <label for="floatingInput"><span class="required">Tanggal
                                             Lahir</span></label>
                                 </div>
@@ -166,13 +166,13 @@
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span class="required">Terhitung Mulai Tanggal Pensiun</span>
                                 </label>
-                                <input type="date" class="form-control form-control-solid"
+                                <input type="date" class="form-control form-control-solid" id="kepesertaan_terhitung_mulai_tanggal_pensiun"
                                     name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
-                                    required />
+                                    required disabled/>
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span>Masa Kerja Sekarang</span>
+                                    <span>Masa Kerja Sekarang <code>(Maksimal 32 tahun 0 bulan 0 hari)</code></span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                         title="Estimasi TMT Peserta - Tanggal Sekarang"></i>
                                 </label>
@@ -196,7 +196,7 @@
                             </div>
                             <div class="col-4 mb-7">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span>Masa Kerja Pensiun</span>
+                                    <span>Masa Kerja Pensiun </span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                         title="Estimasi TMT Peserta - TMT Pensiun"></i>
                                 </label>
@@ -221,7 +221,7 @@
                                 </label>
                                 <select class="form-control" name="kepesertaan_status_jabatan"
                                     id="kepesertaan_status_jabatan" required
-                                    onchange="onMasaPensiun();onMasaKerjaPensiun();">
+                                    onchange="onMasaPensiun();onMasaKerjaPensiun();setTanggalPensiun();">
                                     <option value="" selected disabled>Pilih Status Jabatan</option>
                                     <option value="Guru Besar">Guru Besar</option>
                                     <option value="Dosen">Dosen</option>
@@ -300,14 +300,14 @@
                             <div class="row">
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Iuran Per Tahun Sebelumnya</span>
+                                        <span>Total keseluruhan Iuran Total sampai Tahun</span><span class="year_choose">...</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
                                         placeholder="" value="Rp 0" disabled />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Iuran + Pengembangan Per Tahun Sebelumnya</span> 
+                                        <span>Total keseluruhan Iuran + Total Pengembangan sampai Tahun</span><span class="year_choose">...</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                         id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
@@ -316,10 +316,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 p-2">
+                        <div class="col-12 p-2">
                             <div class="card shadow-sm mt-3 data_iuran_total col-12">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Iuran Total</h3>
+                                    <h3 class="card-title">Data Iuran</h3>
                                     <div class="card-toolbar">
                                         <a href="javascript:setIuranGajiPokok()" class="btn btn-sm btn-success">Set Sesuai Gaji Pokok</a>
                                     </div>
@@ -329,14 +329,17 @@
                                         <div class="col-12">
                                             <table class="table table-striped">
                                                 <tr>
-                                                    <th class="col-3 fw-bold text-center bg-primary">
+                                                    <th class="col-2 fw-bold text-center bg-primary">
                                                         <h4>Bulan</h4>
                                                     </th>
-                                                    <th class="col-5 fw-bold text-center bg-primary">
+                                                    <th class="col-4 fw-bold text-center bg-primary">
                                                         <h4>PHDP Bulanan</h4>
                                                     </th>
-                                                    <th class="col-4 fw-bold text-center bg-primary">
-                                                        <h4>Iuran Per Bulan</h4>
+                                                    <th class="col-3 fw-bold text-center bg-primary">
+                                                        <h4>Data Iuran Total</h4>
+                                                    </th>
+                                                    <th class="col-3 fw-bold text-center bg-primary">
+                                                        <h4>Data Iuran + Total Pengembangan</h4>
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -346,6 +349,8 @@
                                                             oninput="onChangeIuranTotal('total_1')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_1" placeholder="" disabled /></td>
+                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                            id="iuran_pengembangan_1" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Februari</td>
@@ -354,6 +359,8 @@
                                                             oninput="onChangeIuranTotal('total_2')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_2" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_2" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Maret</td>
@@ -362,6 +369,8 @@
                                                             oninput="onChangeIuranTotal('total_3')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_3" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_3" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">April</td>
@@ -370,6 +379,8 @@
                                                             oninput="onChangeIuranTotal('total_4')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_4" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_4" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Mei</td>
@@ -378,6 +389,8 @@
                                                             oninput="onChangeIuranTotal('total_5')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_5" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_5" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Juni</td>
@@ -386,6 +399,8 @@
                                                             oninput="onChangeIuranTotal('total_6')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_6" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_6" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Juli</td>
@@ -394,6 +409,8 @@
                                                             oninput="onChangeIuranTotal('total_7')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_7" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_7" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Agustus</td>
@@ -402,6 +419,8 @@
                                                             oninput="onChangeIuranTotal('total_8')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_8" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_8" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">September</td>
@@ -410,6 +429,8 @@
                                                             oninput="onChangeIuranTotal('total_9')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_9" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_9" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Oktober</td>
@@ -418,6 +439,8 @@
                                                             oninput="onChangeIuranTotal('total_10')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_10" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_10" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">November</td>
@@ -426,6 +449,8 @@
                                                             oninput="onChangeIuranTotal('total_11')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_11" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_11" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Desember</td>
@@ -434,13 +459,19 @@
                                                             oninput="onChangeIuranTotal('total_12')" placeholder="" /></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_12" placeholder="" disabled /></td>
+                                                            <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
+                                                                id="iuran_pengembangan_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
                                                     <td class="p-2 fw-bold" colspan="2">
-                                                        <h4>Jumlah Keseluruhan Iuran Total</h4>
+                                                        <h4>Jumlah Keseluruhan</h4>
                                                     </td>
                                                     <td><input type="text" class="form-control" id="jumlah_iuran_total"
                                                             placeholder="" disabled value="Rp 0" /></td>
+                                                            <td><input type="text" class="form-control"
+                                                                    id="jumlah_iuran_pengembangan" placeholder="" disabled
+                                                                    value="Rp 0" /></td>
+                                                            <td></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -449,7 +480,7 @@
                             </div>
                         </div>
                             
-                        <div class="col-6 p-2">
+                        <div class="col-6 p-2 d-none">
                             <div class="card shadow-sm mt-3 data_iuran_pengembangan col-12">
                                 <div class="card-header">
                                     <h3 class="card-title">Data Iuran + Total Pengembangan</h3>
@@ -475,8 +506,7 @@
                                                             id="phdp_pengembangan_1" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_1')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_1" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Februari</td>
@@ -484,8 +514,7 @@
                                                             id="phdp_pengembangan_2" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_2')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_2" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Maret</td>
@@ -493,8 +522,7 @@
                                                             id="phdp_pengembangan_3" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_3')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_3" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">April</td>
@@ -502,8 +530,7 @@
                                                             id="phdp_pengembangan_4" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_4')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_4" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Mei</td>
@@ -511,8 +538,7 @@
                                                             id="phdp_pengembangan_5" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_5')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_5" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Juni</td>
@@ -520,8 +546,7 @@
                                                             id="phdp_pengembangan_6" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_6')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_6" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Juli</td>
@@ -529,8 +554,7 @@
                                                             id="phdp_pengembangan_7" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_7')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_7" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Agustus</td>
@@ -538,8 +562,7 @@
                                                             id="phdp_pengembangan_8" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_8')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_8" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">September</td>
@@ -547,8 +570,7 @@
                                                             id="phdp_pengembangan_9" name="iuran_pengembangan_list[]"
                                                             oninput="onChangeIuranPengembangan('pengembangan_9')" placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_9" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Oktober</td>
@@ -557,8 +579,7 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_10')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_10" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">November</td>
@@ -567,8 +588,7 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_11')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_11" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="p-2 fw-bold">Desember</td>
@@ -577,16 +597,12 @@
                                                             oninput="onChangeIuranPengembangan('pengembangan_12')"
                                                             placeholder="" />
                                                     </td>
-                                                    <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
-                                                            id="iuran_pengembangan_12" placeholder="" disabled /></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
                                                     <td class="p-2 fw-bold" colspan="2">
                                                         <h4>Jumlah Keseluruhan Iuran + Total Pengembangan</h4>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            id="jumlah_iuran_pengembangan" placeholder="" disabled
-                                                            value="Rp 0" /></td>
                                                     <td></td>
                                                 </tr>
                                             </table>
@@ -598,10 +614,10 @@
                         
                     </div>
 
-                    <div class="card shadow-sm mt-3 data_jumlah_keseluruhan">
+                    <div class="card shadow-sm mt-3 data_jumlah_keseluruhan d-none">
                         <div class="card-body mt-3">
 
-                            <h3 class="mb-7">Total Keseluruhan Sampai Tahun <span class="year_choose">-</span></h3>
+                            <h3 class="mb-7">Total Keseluruhan Sampai Tahun <span class="year_choose">...</span></h3>
                             <hr class="hr hr-blurry" />
                             <div class="row">
                                 <div class="col-12 mb-4">
