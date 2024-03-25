@@ -55,7 +55,7 @@
     onLoadRow = (data) =>{
         var array = []
         $.each( data, function( k, v ){
-            if(k == 'iuran_tahun_distinct' || k == 'year_before_iuran_total'  || k == 'iuran_pengembangan'){
+            if(k == 'iuran_tahun_distinct' || k == 'year_before_iuran_total'  || k == 'year_before_iuran_pengembangan'){
             } else{
                 let buttonEdit = (authEdit?` <a href="javascript:onEdit('${v.kepesertaan_id}')" class="btn btn-sm btn-success">
                                     Edit
@@ -107,6 +107,7 @@
                         </td>
                     </td>
                 `
+                console.log(v)
                 let ttl = v.kepesertaan_tempat_lahir+", "+ v.kepesertaan_tanggal_lahir
                 let push_array = [parseInt(k)+1,v.kepesertaan_nama,v.kepesertaan_nip,ttl,v.kepesertaan_terhitung_mulai_tanggal,v.kepesertaan_status_jabatan,html_action]
                 array.push(push_array);
