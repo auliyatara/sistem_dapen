@@ -1,6 +1,12 @@
 <script>
     const authEdit = "<?php echo $edit;?>"
 
+    document.getElementById("kepesertaan_terhitung_mulai_tanggal_pensiun").addEventListener("mousedown", function(event) {
+        event.preventDefault();
+    });
+
+    
+
     var urlpath ={
         insert: "{{ route('kepesertaan_api.store') }}",
         update: "{{ route('kepesertaan_api.update', ['kepesertaan_api' => ':id']) }}",

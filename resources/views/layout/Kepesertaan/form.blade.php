@@ -168,7 +168,7 @@
                                 </label>
                                 <input type="date" class="form-control form-control-solid" id="kepesertaan_terhitung_mulai_tanggal_pensiun"
                                     name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
-                                    required disabled/>
+                                    required readonly onkeydown="return false" onmousedown="return false"/>
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -685,3 +685,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    #kepesertaan_terhitung_mulai_tanggal_pensiun::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+</style>
