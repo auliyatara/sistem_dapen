@@ -274,22 +274,10 @@
                                                 <td style="font-weight:bold">NPWP</td>
                                                 <td>: <span id="detail_kepesertaan_npwp"></span></td>
                                             </tr>
-                                            <tr>
-                                                <td style="font-weight:bold">NIP</td>
-                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
-                                            </tr>
                                             </table>
                                     </div>
                                     <div class="col-6">
                                         <table class=" table table-striped">
-                                            <tr>
-                                                <td style="font-weight:bold">NIK</td>
-                                                <td>: <span id="detail_kepesertaan_nik"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:bold">NPWP</td>
-                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
-                                            </tr>
                                             <tr>
                                                 <td style="font-weight:bold">Alamat</td>
                                                 <td>: <span id="detail_kepesertaan_alamat"></span></td>
