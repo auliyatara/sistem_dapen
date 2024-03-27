@@ -300,14 +300,37 @@
                             <div class="row">
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran Total sampai Tahun</span><span class="year_choose">...</span>
+                                        <span>Total keseluruhan Iuran Peserta Tahun</span><span class="year_choose">...</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
                                         placeholder="" value="Rp 0" disabled />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran + Total Pengembangan sampai Tahun</span><span class="year_choose">...</span>
+                                        <span>Total keseluruhan Iuran + Pengembangan Peserta sampai Tahun</span><span class="year_choose">...</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Total Data Iuran Dan Pengembangan Tahun Ini</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-6 fw-normal mb-2">
+                                        <span>Total keseluruhan Iuran Peserta Sampai Dengan Bulan..? Tahun..?</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
+                                        placeholder="" value="Rp 0" disabled />
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-6 fw-normal mb-2">
+                                        <span>Total keseluruhan Iuran + Pengembangan Peserta Sampai Dengan Bulan...? Tahun..?</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                         id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
