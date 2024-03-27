@@ -274,18 +274,6 @@
                                                 <td style="font-weight:bold">NPWP</td>
                                                 <td>: <span id="detail_kepesertaan_npwp"></span></td>
                                             </tr>
-                                            <tr>
-                                                <td style="font-weight:bold">NIP</td>
-                                                <td>: <span id="detail_kepesertaan_nip"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:bold">NIK</td>
-                                                <td>: <span id="detail_kepesertaan_nik"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:bold">NPWP</td>
-                                                <td>: <span id="detail_kepesertaan_npwp"></span></td>
-                                            </tr>
                                             </table>
                                     </div>
                                     <div class="col-6">
@@ -322,7 +310,7 @@
                                                 <td>: <span id="detail_kepesertaan_gaji_pokok"></span></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Peserta</td>
+                                                <td style="font-weight:bold"> Estimasi Terhitung Mulai Tanggal Peserta</td>
                                                 <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
                                             </tr>
                                             <tr>
@@ -406,7 +394,7 @@
                             <div class="col-6">
                                 <table class=" table table-striped">
                                     <tr>
-                                        <td style="font-weight:bold">Iuran Per Tahun Sebelumnya</td>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran Total sampai Tahun <span class="year_choose">...</span></td>
                                         <td>: <span id="detail_iuran_year_before">Rp 0</span></td>
                                     </tr>
                                 </table>
@@ -414,7 +402,7 @@
                             <div class="col-6">
                                 <table class=" table table-striped">
                                     <tr>
-                                        <td style="font-weight:bold">Iuran + Pengembangan Per Tahun Sebelumnya</td>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran + Total Pengembangan sampai Tahun <span class="year_choose">...</span></td>
                                         <td>: <span id="detail_iuran_pengembangan_year_before">Rp 0</span></td>
                                     </tr>
                                 </table>
@@ -540,7 +528,8 @@
                                 </table>
                             </div>
 
-                                <h3 class="mb-7 mt-7">Total Keseluruhan Sampai Tahun <span class="year_choose">-</span></h3>
+                            <div class="d-none">
+                                <h3 class="mb-7 mt-7">Total Keseluruhan Sampai Tahun <span class="year_choose">...</span></h3>
                                 <hr class="hr hr-blurry" />
                                 <div class="row">
                                     <div class="col-12 mb-4">
@@ -552,6 +541,7 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>  
                         </div>
                     </div>
                     <div class="tab-pane fade pt-3" id="dokumen_detail" role="tabpanel" aria-labelledby="dokumen_detail-tab">
