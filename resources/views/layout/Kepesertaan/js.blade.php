@@ -873,7 +873,7 @@
              parse_year = $("#detail_iuran_tahun").val()
         }
                 
-        $('.year_choose').html($('#detail_iuran_tahun').val())
+        $('.year_choose').html($('#detail_iuran_tahun').val()-1)
         $.ajax({
             url: urlpath.show.replace(':id', id),
             type: 'GET',
