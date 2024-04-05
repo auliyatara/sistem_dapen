@@ -361,7 +361,7 @@ class KepesertaanController extends Controller
                         KepesertaanIuran::create($insert_data);
                     }
 
-                    if(KepesertaanBefore::where('kepesertaan_before_kepesertaan_id', $id)){
+                    if(KepesertaanBefore::where('kepesertaan_before_kepesertaan_id', $id)->count()>0){
                         if($kepesertaan_total_manual != '' || $kepesertaan_pengembangan_manual != ''){
                             $insert_data =[
                                 "kepesertaan_before_kepesertaan_id" =>$data['kepesertaan_id'],
