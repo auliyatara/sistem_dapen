@@ -10,6 +10,7 @@ use App\Models\Kepesertaan;
 use App\Models\KepesertaanLink;
 use App\Models\KepesertaanDokumen;
 use App\Models\KepesertaanIuran;
+use App\Models\KepesertaanBefore;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
@@ -128,13 +129,24 @@ class KepesertaanController extends Controller
             $operation['year_before_iuran_total'] = 0;
             $operation['year_before_iuran_pengembangan'] = 0;
         }
-        
+
+        $kepesertaan_before = KepesertaanBefore::where('kepesertaan_before_kepesertaan_id',$id)->get();
+        foreach($kepesertaan_before as $k=>$v){
+            if($v['kepesertaan_before_total'] != ''){
+                $operation['year_before_iuran_total'] += $v['kepesertaan_before_total'];
+            }
+
+            if($v['kepesertaan_before_pengembangan'] != ''){
+                $operation['year_before_iuran_pengembangan'] += $v['kepesertaan_before_pengembangan'];
+            }
+        }
         return $this->responseFirst($operation);
     }
 
     public function store(Request $request){
         try {
             $data = $request->all();
+
             $data['kepesertaan_id'] = Str::substr((Uuid::uuid4())->getHex(), 0, 16);
             $dokumen_file = isset($data['list_file_dokumen'])?$data['list_file_dokumen']:array();
             $dokumen_nama = isset($data['list_dokumen_nama'])?$data['list_dokumen_nama']:array();
@@ -146,13 +158,20 @@ class KepesertaanController extends Controller
                     Storage::disk('public')->putFileAs('kepesertaan_foto/', $request->file('file'), $data['kepesertaan_foto']);
                     $request->file('file')->move(public_path('storage/kepesertaan_foto'), $data['kepesertaan_foto']);
                 }
+
                 unset($data['file']);
                 $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
                 $iuran_total = $data['iuran_total_list'];
                 $iuran_pengembangan = $data['iuran_pengembangan_list'];
+                $lock_list =  $data['kepesertaan_iuran_lock'];
+                $kepesertaan_total_manual = $data['kepesertaan_total_manual'];
+                $kepesertaan_pengembangan_manual = $data['kepesertaan_pengembangan_manual'];
                 unset($data['kepesertaan_iuran_tahun']);
                 unset($data['iuran_total_list']);
                 unset($data['iuran_pengembangan_list']);
+                unset($data['kepesertaan_iuran_lock']);
+                unset($data['kepesertaan_total_manual']);
+                unset($data['kepesertaan_pengembangan_manual']);
 
                 $kepesertaan = Kepesertaan::create($data);
                 foreach($dokumen_nama as $key=>$value){
@@ -172,27 +191,49 @@ class KepesertaanController extends Controller
                     KepesertaanDokumen::create($insert_dokumen);
                 }
 
+
                 if($kepesertaan_iuran_tahun != ''){
-                    foreach($iuran_total as $key=>$value){
+                    foreach($iuran_total as $key=>$value){  
+                        if(in_array($key+1,$lock_list)){
+                            $lock = 1;
+                        }else{
+                            $lock = 0;
+                        }   
                         $insert_data =[
                             "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
                             "kepesertaan_iuran_type" => 'iuran_total',
                             "kepesertaan_iuran_bulan" => $key+1,
                             "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
                             "kepesertaan_iuran_jumlah" => $value,
+                            "kepesertaan_iuran_lock" => $lock,
                         ];
                         KepesertaanIuran::create($insert_data);
                     }
     
                     foreach($iuran_pengembangan as $key=>$value){
+                        if(in_array($key+1,$lock_list)){
+                            $lock = 1;
+                        }else{
+                            $lock = 0;
+                        }
                         $insert_data =[
                             "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
                             "kepesertaan_iuran_type" => 'iuran_pengembangan',
                             "kepesertaan_iuran_bulan" => $key+1,
                             "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
                             "kepesertaan_iuran_jumlah" => $value,
+                            "kepesertaan_iuran_lock" => $lock,
                         ];
                         KepesertaanIuran::create($insert_data);
+                    }
+
+                    if($kepesertaan_total_manual != '' || $kepesertaan_pengembangan_manual != ''){
+                        $insert_data =[
+                            "kepesertaan_before_kepesertaan_id" =>$data['kepesertaan_id'],
+                            "kepesertaan_before_total" => $kepesertaan_total_manual,
+                            "kepesertaan_before_pengembangan" => $kepesertaan_pengembangan_manual,
+                        ];
+                        KepesertaanBefore::create($insert_data);
                     }
                 }
                 return $kepesertaan;
@@ -273,33 +314,73 @@ class KepesertaanController extends Controller
                 $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
                 $iuran_total = $data['iuran_total_list'];
                 $iuran_pengembangan = $data['iuran_pengembangan_list'];
+                $lock_list =  $data['kepesertaan_iuran_lock'];
                 unset($data['kepesertaan_iuran_tahun']);
                 unset($data['iuran_total_list']);
                 unset($data['iuran_pengembangan_list']);
+                unset($data['kepesertaan_iuran_lock']);
+
+                $kepesertaan_total_manual = $data['kepesertaan_total_manual'];
+                $kepesertaan_pengembangan_manual = $data['kepesertaan_pengembangan_manual'];
+                unset($data['kepesertaan_total_manual']);
+                unset($data['kepesertaan_pengembangan_manual']);
 
                 KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->where('kepesertaan_iuran_tahun',$kepesertaan_iuran_tahun)->delete();
                 if($kepesertaan_iuran_tahun != ''){
                     foreach($iuran_total as $key=>$value){
+                        if(in_array($key+1,$lock_list)){
+                            $lock = 1;
+                        }else{
+                            $lock = 0;
+                        }  
                         $insert_data =[
                             "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
                             "kepesertaan_iuran_type" => 'iuran_total',
                             "kepesertaan_iuran_bulan" => $key+1,
                             "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
                             "kepesertaan_iuran_jumlah" => $value,
+                            "kepesertaan_iuran_lock" => $lock,
                         ];
                         KepesertaanIuran::create($insert_data);
                     }
     
                     foreach($iuran_pengembangan as $key=>$value){
+                        if(in_array($key+1,$lock_list)){
+                            $lock = 1;
+                        }else{
+                            $lock = 0;
+                        }  
                         $insert_data =[
                             "kepesertaan_iuran_kepesertaan_id" =>$data['kepesertaan_id'],
                             "kepesertaan_iuran_type" => 'iuran_pengembangan',
                             "kepesertaan_iuran_bulan" => $key+1,
                             "kepesertaan_iuran_tahun" => $kepesertaan_iuran_tahun,
                             "kepesertaan_iuran_jumlah" => $value,
+                            "kepesertaan_iuran_lock" => $lock,
                         ];
                         KepesertaanIuran::create($insert_data);
                     }
+
+                    if(KepesertaanBefore::where('kepesertaan_before_kepesertaan_id', $id)){
+                        if($kepesertaan_total_manual != '' || $kepesertaan_pengembangan_manual != ''){
+                            $insert_data =[
+                                "kepesertaan_before_kepesertaan_id" =>$data['kepesertaan_id'],
+                                "kepesertaan_before_total" => $kepesertaan_total_manual,
+                                "kepesertaan_before_pengembangan" => $kepesertaan_pengembangan_manual,
+                            ];
+                            KepesertaanBefore::where('kepesertaan_before_kepesertaan_id', $id)->update($insert_data);
+                        }
+                    } else{
+                        if($kepesertaan_total_manual != '' || $kepesertaan_pengembangan_manual != ''){
+                            $insert_data =[
+                                "kepesertaan_before_kepesertaan_id" =>$data['kepesertaan_id'],
+                                "kepesertaan_before_total" => $kepesertaan_total_manual,
+                                "kepesertaan_before_pengembangan" => $kepesertaan_pengembangan_manual,
+                            ];
+                            KepesertaanBefore::create($insert_data);
+                        }  
+                    }
+                    
                 }
 
                 unset($data['file']);
