@@ -163,7 +163,7 @@ class KepesertaanController extends Controller
                 $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
                 $iuran_total = $data['iuran_total_list'];
                 $iuran_pengembangan = $data['iuran_pengembangan_list'];
-                $lock_list =  $data['kepesertaan_iuran_lock'];
+                $lock_list =  isset($data['kepesertaan_iuran_lock'])?$data['kepesertaan_iuran_lock']:[];
                 $kepesertaan_total_manual = $data['kepesertaan_total_manual'];
                 $kepesertaan_pengembangan_manual = $data['kepesertaan_pengembangan_manual'];
                 unset($data['kepesertaan_iuran_tahun']);
@@ -314,7 +314,7 @@ class KepesertaanController extends Controller
                 $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
                 $iuran_total = $data['iuran_total_list'];
                 $iuran_pengembangan = $data['iuran_pengembangan_list'];
-                $lock_list =  $data['kepesertaan_iuran_lock'];
+                $lock_list =  isset($data['kepesertaan_iuran_lock'])?$data['kepesertaan_iuran_lock']:[];
                 unset($data['kepesertaan_iuran_tahun']);
                 unset($data['iuran_total_list']);
                 unset($data['iuran_pengembangan_list']);
