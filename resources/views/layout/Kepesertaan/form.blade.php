@@ -286,8 +286,8 @@
                                 <div class="form-floating mb-7">
                                     <input type="number" class="form-control form-control-solid"
                                         name="kepesertaan_iuran_tahun" id="kepesertaan_iuran_tahun" placeholder=""
-                                        value="" oninput="onRegenerateIuran()" />
-                                    <label for="floatingInput"><span>Masukkan Tahun</span></label>
+                                        value="" oninput="onRegenerateIuran()" required/>
+                                    <label for="floatingInput"><span class="required">Masukkan Tahun</span></label>
                                 </div>
                             </div>
                         </div>
@@ -300,14 +300,14 @@
                             <div class="row">
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran Peserta Tahun</span><span class="year_choose">...</span>
+                                        <span>Total keseluruhan Iuran Peserta Sampai Tahun <span class="year_before_choose">...</span></span> 
                                     </label>
                                     <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
                                         placeholder="" value="Rp 0" disabled />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran + Pengembangan Peserta sampai Tahun</span><span class="year_choose">...</span>
+                                        <span>Total keseluruhan Iuran + Pengembangan Peserta Sampai Tahun <span class="year_before_choose">...</span></span> 
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                         id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
@@ -315,7 +315,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow-sm mt-3 data_iuran_pengembangan">
+                    <div class="card shadow-sm mt-3 data_iuran_pengembangan_manual">
+                        <div class="card-body mt-3">
+
+                            <h3 class="mb-7">Data Iuran Dan Pengembangan Tahun Sebelumnya (Manual)</h3>
+                            <hr class="hr hr-blurry" />
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Total keseluruhan Iuran Peserta Sampai Tahun <span class="year_before_choose">...</span></span> 
+                                    </label>
+                                    <input type="number" class="form-control form-control-solid" id="kepesertaan_total_manual"
+                                        placeholder="" value="0" name="kepesertaan_total_manual" oninput="changeManual('total')"/>
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label class="d-flex align-items-center fs-5 fw-normal mb-2">
+                                        <span>Total keseluruhan Iuran + Pengembangan Peserta Sampai Tahun <span class="year_before_choose">...</span></span> 
+                                    </label>
+                                    <input type="number" class="form-control form-control-solid"
+                                        id="kepesertaan_pengembangan_manual" placeholder="" value="0" name="kepesertaan_pengembangan_manual" oninput="changeManual('pengembangan')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mt-3 data_iuran_total">
                         <div class="card-body mt-3">
 
                             <h3 class="mb-7">Total Data Iuran Dan Pengembangan Tahun Ini</h3>
@@ -323,17 +346,17 @@
                             <div class="row">
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-6 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran Peserta Sampai Dengan Bulan..? Tahun..?</span>
+                                        <span>Total keseluruhan Iuran Peserta Sampai Dengan Bulan <span class="month_choose">...</span> Tahun <span class="year_choose">...</span></span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" id="year_before_iuran_total"
+                                    <input type="text" class="form-control form-control-solid" id="year_now_iuran_total"
                                         placeholder="" value="Rp 0" disabled />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-6 fw-normal mb-2">
-                                        <span>Total keseluruhan Iuran + Pengembangan Peserta Sampai Dengan Bulan...? Tahun..?</span>
+                                        <span>Total keseluruhan Iuran + Pengembangan Peserta Sampai Dengan Bulan <span class="month_choose">...</span> Tahun <span class="year_choose">...</span></span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
-                                        id="year_before_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
+                                        id="year_now_iuran_pengembangan" placeholder="" value="Rp 0" disabled />
                                 </div>
                             </div>
                         </div>
@@ -355,8 +378,11 @@
                                                     <th class="col-2 fw-bold text-center bg-primary">
                                                         <h4>Bulan</h4>
                                                     </th>
-                                                    <th class="col-4 fw-bold text-center bg-primary">
+                                                    <th class="col-3 fw-bold text-center bg-primary">
                                                         <h4>PHDP Bulanan</h4>
+                                                    </th>
+                                                    <th class="col-1 fw-bold text-center bg-primary">
+                                                        <h4>Kunci Data</h4>
                                                     </th>
                                                     <th class="col-3 fw-bold text-center bg-primary">
                                                         <h4>Data Iuran Total</h4>
@@ -370,6 +396,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_1" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_1')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="1" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_1" placeholder="" disabled /></td>
                                                     <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -380,6 +407,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_2" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_2')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="2" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_2" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -390,6 +418,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_3" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_3')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="3" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_3" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -400,6 +429,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_4" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_4')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="4" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_4" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -410,6 +440,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_5" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_5')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="5" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_5" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -420,6 +451,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_6" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_6')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="6" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_6" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -430,6 +462,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_7" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_7')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="7" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_7" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -440,6 +473,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_8" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_8')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="8" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_8" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -450,6 +484,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_9" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_9')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="9" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_9" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -460,6 +495,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_10" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_10')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="10" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_10" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -470,6 +506,7 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_11" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_11')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="11" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_11" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
@@ -480,13 +517,14 @@
                                                     <td><input type="number" class="form-control iuran_total_list"
                                                             id="phdp_total_12" name="iuran_total_list[]"
                                                             oninput="onChangeIuranTotal('total_12')" placeholder="" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" value="12" id="kepesertaan_iuran_lock" name="kepesertaan_iuran_lock[]"></td>
                                                     <td><input type="text" class="form-control iuran_total_list iuran_total_perhitungan"
                                                             id="iuran_total_12" placeholder="" disabled /></td>
                                                             <td><input type="text" class="form-control iuran_pengembangan_list iuran_pengembangan_perhitungan"
                                                                 id="iuran_pengembangan_12" placeholder="" disabled /></td>
                                                 </tr>
                                                 <tr style="background-color: #b8e2f9">
-                                                    <td class="p-2 fw-bold" colspan="2">
+                                                    <td class="p-2 fw-bold" colspan="3">
                                                         <h4>Jumlah Keseluruhan</h4>
                                                     </td>
                                                     <td><input type="text" class="form-control" id="jumlah_iuran_total"

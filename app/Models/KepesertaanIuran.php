@@ -27,7 +27,7 @@ class KepesertaanIuran extends Model
 
     public function kepesertaan()
     {
-        return $this->belongsTo(Kepesesrtaan::class);
+        return $this->belongsTo(Kepesertaan::class);
     }
 
 }

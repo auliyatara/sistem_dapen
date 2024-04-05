@@ -113,7 +113,6 @@
                         </td>
                     </td>
                 `
-                console.log(v)
                 let ttl = v.kepesertaan_tempat_lahir+", "+ v.kepesertaan_tanggal_lahir
                 let push_array = [parseInt(k)+1,v.kepesertaan_nama,v.kepesertaan_nip,ttl,v.kepesertaan_terhitung_mulai_tanggal,v.kepesertaan_status_jabatan,html_action]
                 array.push(push_array);
@@ -147,7 +146,53 @@
         $('#formData input').prop('readonly', false);
         $('#kepesertaan_status_jabatan').prop('disabled', false);
         $(".iuran_pengembangan_list").prop('readonly', true);
+        $('#kepesertaan_iuran_tahun').val(new Date().getFullYear())
+        $('.year_choose').html($('#kepesertaan_iuran_tahun').val())
+        $('.year_before_choose').html($('#kepesertaan_iuran_tahun').val()-1)
+
+        if($('#kepesertaan_iuran_tahun').val() <= 2024){
+            $('.data_iuran_pengembangan_manual').show()
+            $('.data_iuran_pengembangan').hide()
+        } else{
+            $('.data_iuran_pengembangan_manual').hide()
+            $('.data_iuran_pengembangan').show()
+            $('#kepesertaan_total_manual').val(0)
+            $('#kepesertaan_pengembangan_manual').val(0)
+            changeManual('total')
+            changeManual('pengembangan')
+        }
     };
+
+    changeManual = (type) =>{
+        let default_value = $('#kepesertaan_'+type+'_manual').val()
+        if(default_value == ""){
+            default_value=0
+        }
+        $('#year_before_iuran_'+type).val(default_value)
+
+        var sum = 0;
+        $("input[name='iuran_total_list[]']").each(function() {
+            var value = parseFloat($(this).val())*0.075;
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+
+        let total = sum + formatToNumber($('#year_before_iuran_total').val())
+        $('#year_now_iuran_total').val(formatToRupiah(total))
+
+        sum = 0;
+        $("input[name='iuran_pengembangan_list[]']").each(function(index) {
+            var iuran_bulanan = parseFloat($(this).val())*0.075;
+            var value =((0.045/12)*iuran_bulanan ) + iuran_bulanan
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+
+        total = sum + formatToNumber($('#year_before_iuran_pengembangan').val())
+        $('#year_now_iuran_pengembangan').val(formatToRupiah(total))
+    }
 
     onBack = () => {
         $('.table_data').show()
@@ -239,6 +284,11 @@
                     $('#kepesertaan_dokumen_kepesertaan_id').val(response.data.kepesertaan_id)
                     $('#year_before_iuran_total').val(formatToRupiah(response.data.year_before_iuran_total))
                     $('#year_before_iuran_pengembangan').val(formatToRupiah(response.data.year_before_iuran_pengembangan))
+
+                    if($('#kepesertaan_iuran_tahun').val() <= 2024){
+                        $('#kepesertaan_total_manual').val(response.data.year_before_iuran_total)
+                        $('#kepesertaan_pengembangan_manual').val(response.data.year_before_iuran_pengembangan)
+                    }
                     
                     if(response.data.kepesertaan_status_kepesertaan == 'Pensiunan'){
                         showJenisPensiunan()
@@ -252,7 +302,6 @@
                     onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal)
                     // onPerhitunganIuran(data.kepesertaan_gaji_pokok)
 
-                    $('#kepesertaan_iuran_tahun').val(new Date().getFullYear())
                     var list_iuran = response.data.kepesertaan_iuran
                     var jumlah_iuran_total = 0;
                     var jumlah_iuran_pengembagan = 0;
@@ -262,10 +311,16 @@
                             $('input[name="'+value['kepesertaan_iuran_type']+'_list[]"]:eq(' + index + ')').val(value['kepesertaan_iuran_jumlah']);
                             
                             if(value['kepesertaan_iuran_type'] == 'iuran_total'){
+                                if(value['kepesertaan_iuran_lock'] == 1){
+                                    $('input[name="kepesertaan_iuran_lock[]"][value="'+(key+1)+'"]').prop('checked', true);
+                                } else{
+                                    $('input[name="kepesertaan_iuran_lock[]"][value="'+(key+1)+'"]').prop('checked', false);
+                                }
                                 if(value['kepesertaan_iuran_jumlah'] > 0){
                                     jumlah_iuran_total += parseFloat(value['kepesertaan_iuran_jumlah'])*0.075;
                                 }
                                 onChangeIuranTotal('total_'+value['kepesertaan_iuran_bulan'],value['kepesertaan_iuran_jumlah'])
+                                
                             } else if (value['kepesertaan_iuran_type'] == 'iuran_pengembangan'){
                                 if(value['kepesertaan_iuran_jumlah'] > 0){
                                     var iuran_bulanan = parseFloat(value['kepesertaan_iuran_jumlah'])*0.075;
@@ -273,6 +328,7 @@
                                 }
                                 onChangeIuranPengembangan('pengembangan_'+value['kepesertaan_iuran_bulan'],value['kepesertaan_iuran_jumlah'])
                             }
+                            
                         })
 
                         $('#jumlah_iuran_total').val(formatToRupiah(jumlah_iuran_total))
@@ -619,8 +675,6 @@
     }
 
     onEstimasiSekaligus = (tahun,bulan,phdp,detail) =>{
-        console.log(tahun)
-        console.log(bulan/12)
         let total = (tahun+(bulan/12)) * phdp * 2.5
         let result = formatToRupiah(total)
         if(detail){
@@ -681,6 +735,17 @@
             $('#phdp_pengembangan_'+split[1]).val(phdp)
             onChangeIuranPengembangan("pengembangan_"+split[1])
 
+            var sum = 0;
+        $("input[name='iuran_total_list[]']").each(function() {
+            var value = parseFloat($(this).val())*0.075;
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+        $('#jumlah_iuran_total').val(formatToRupiah(sum));
+
+        let total = sum + formatToNumber($('#year_before_iuran_total').val())
+        $('#year_now_iuran_total').val(formatToRupiah(total))
         }
     }
 
@@ -698,13 +763,20 @@
             $('#iuran_'+id).val(formatToRupiah(iuran_pengembangan_per_tahun))
 
             var sum = 0;
-        $("input[name='iuran_pengembangan_list[]']").each(function() {
+        $("input[name='iuran_pengembangan_list[]']").each(function(index) {
             var iuran_bulanan = parseFloat($(this).val())*0.075;
             var value =((0.045/12)*iuran_bulanan ) + iuran_bulanan
             if (!isNaN(value)) {
                 sum += value;
             }
+            if($(this).val()>0){
+                $('.month_choose').html(index+1)
+            }
         });
+
+        let total = sum + formatToNumber($('#year_before_iuran_pengembangan').val())
+        $('#year_now_iuran_pengembangan').val(formatToRupiah(total))
+
         $('#jumlah_iuran_pengembangan').val(formatToRupiah(sum));
         }
     }
@@ -715,13 +787,27 @@
     }
 
     formatToNumber = (rupiah)=> {
-        let removerp = rupiah.replace('Rp ','');
+        let removerp = rupiah.replace('Rp','').trim();
         let removedot = removerp.replaceAll('.','')
-        return removedot.replace(',','.');
+        return parseFloat(removedot.replace(',','.'));
     }
 
     onRegenerateIuran = () =>{
         let id = $('[name=kepesertaan_id]').val()
+        $('.year_choose').html($('#kepesertaan_iuran_tahun').val())
+        $('.year_before_choose').html($('#kepesertaan_iuran_tahun').val()-1)
+        $('input[name="kepesertaan_iuran_lock[]"]').prop('checked', false);
+        if($('#kepesertaan_iuran_tahun').val() <= 2024){
+            $('.data_iuran_pengembangan_manual').show()
+            $('.data_iuran_pengembangan').hide()
+        } else{
+            $('.data_iuran_pengembangan_manual').hide()
+            $('.data_iuran_pengembangan').show()
+            $('#kepesertaan_total_manual').val(0)
+            $('#kepesertaan_pengembangan_manual').val(0)
+            changeManual('total')
+            changeManual('pengembangan')
+        }
         if(id){
             $.ajax({
             url: urlpath.show.replace(':id', id),
@@ -740,13 +826,24 @@
                 $('#jumlah_iuran_pengembangan').val(formatToRupiah(0))
                 $('#year_before_iuran_total').val(formatToRupiah(response.data.year_before_iuran_total))
                  $('#year_before_iuran_pengembangan').val(formatToRupiah(response.data.year_before_iuran_pengembangan))
-
+                 if($('#kepesertaan_iuran_tahun').val() <= 2024){
+                    $('#kepesertaan_total_manual').val(response.data.year_before_iuran_total)
+                    $('#kepesertaan_pengembangan_manual').val(response.data.year_before_iuran_pengembangan)
+                }
                 if(list_iuran.length){
+                    let month_choose = 0;
                     $.each(list_iuran, function( key, value ){
                         let index = value['kepesertaan_iuran_bulan'] - 1
                         $('input[name="'+value['kepesertaan_iuran_type']+'_list[]"]:eq(' + index + ')').val(value['kepesertaan_iuran_jumlah']);
-
+                        if(value['kepesertaan_iuran_jumlah'] > 0){
+                            month_choose =  value['kepesertaan_iuran_bulan']
+                        }
                         if(value['kepesertaan_iuran_type'] == 'iuran_total'){
+                            if(value['kepesertaan_iuran_lock'] == 1){
+                                    $('input[name="kepesertaan_iuran_lock[]"][value="'+(key+1)+'"]').prop('checked', true);
+                            } else{
+                                $('input[name="kepesertaan_iuran_lock[]"][value="'+(key+1)+'"]').prop('checked', false);
+                            }
                             if(value['kepesertaan_iuran_jumlah'] > 0){
                                 jumlah_iuran_total += parseFloat(value['kepesertaan_iuran_jumlah'])*0.075;
                             }
@@ -761,7 +858,7 @@
                     })
 
 
-                    
+                    $('.month_choose').html(month_choose)
                     $('#jumlah_iuran_total').val(formatToRupiah(jumlah_iuran_total))
                     $('#jumlah_iuran_pengembangan').val(formatToRupiah(jumlah_iuran_pengembagan))
                 }
@@ -827,7 +924,7 @@
                     $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(jumlah_iuran_pengembagan))
 
                     let total_keseluruhan = response.data.year_before_iuran_total + response.data.year_before_iuran_pengembangan +jumlah_iuran_total +jumlah_iuran_pengembagan
-                    if (isNaN(value)) {
+                    if (isNaN(total_keseluruhan)) {
                         $('#detail_iuran_keseluruhan').html(formatToRupiah(0))
                     } else {
                         $('#detail_iuran_keseluruhan').html(formatToRupiah(total_keseluruhan))
@@ -847,6 +944,9 @@
             }
         });
         $('#jumlah_iuran_total').val(formatToRupiah(sum));
+
+        let total = sum + formatToNumber($('#year_before_iuran_total').val())
+        $('#year_now_iuran_total').val(formatToRupiah(total))
         onPerhitunganTotal()
         setLatestGapok()
     });
@@ -871,7 +971,7 @@
         let before_jumlah_iuran_total =  parseFloat(formatToNumber($('#year_before_iuran_total').val()))
 
         let total = jumlah_iuran_pengembangan+jumlah_iuran_total+before_jumlah_iuran_pengembangan+before_jumlah_iuran_total
-        if (isNaN(value)) {
+        if (isNaN(total)) {
             $('#jumlah_keseluruhan').val(formatToRupiah(0))
         } else {
             $('#jumlah_keseluruhan').val(formatToRupiah(total))
@@ -894,17 +994,40 @@
 
     setIuranGajiPokok=()=>{
         var gapok = $("#kepesertaan_gaji_pokok").val()
-        $('input[name="iuran_total_list[]"]').val(gapok)
-        $('input[name="iuran_pengembangan_list[]"]').val(gapok)
+        var jumlah_iuran_total = 0
+        var jumlah_iuran_pengembangan = 0
 
-        let iuran_bulanan = 0.075*gapok
-        let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
-        $('.iuran_total_perhitungan').val(formatToRupiah(iuran_bulanan))
-        $('#jumlah_iuran_total').val(formatToRupiah(iuran_bulanan*12))
+        $('input[name="kepesertaan_iuran_lock[]"]').each(function(index) {
+            if (!$(this).is(':checked')) {
+                $('input[name="iuran_total_list[]"]').eq(index).val(gapok)
+                $('input[name="iuran_pengembangan_list[]"]').eq(index).val(gapok)
 
-        
-        $('.iuran_pengembangan_perhitungan').val(formatToRupiah(iuran_pengembangan_per_tahun))
-        $('#jumlah_iuran_pengembangan').val(formatToRupiah(iuran_pengembangan_per_tahun*12))
+                let iuran_bulanan = 0.075*gapok
+                let iuran_pengembangan_per_tahun = ((0.045/12)*iuran_bulanan ) + iuran_bulanan
+                $('.iuran_total_perhitungan').eq(index).val(formatToRupiah(iuran_bulanan)) 
+                $('.iuran_pengembangan_perhitungan').eq(index).val(formatToRupiah(iuran_pengembangan_per_tahun))   
+                jumlah_iuran_total += iuran_bulanan
+                jumlah_iuran_pengembangan += iuran_pengembangan_per_tahun
+            } else{
+                let existing_gapok = $('input[name="iuran_total_list[]"]').eq(index).val()
+                let existing_iuran_bulanan = 0.075*existing_gapok
+                let existing_iuran_pengembangan_per_tahun = ((0.045/12)*existing_iuran_bulanan ) + existing_iuran_bulanan
+                jumlah_iuran_total += existing_iuran_bulanan
+                jumlah_iuran_pengembangan += existing_iuran_pengembangan_per_tahun
+            }
+
+            $('#jumlah_iuran_total').val(formatToRupiah(jumlah_iuran_total))
+            $('#jumlah_iuran_pengembangan').val(formatToRupiah(jumlah_iuran_pengembangan))
+
+            var total = jumlah_iuran_pengembangan + formatToNumber($('#year_before_iuran_pengembangan').val())
+            $('#year_now_iuran_pengembangan').val(formatToRupiah(total))
+
+            total = jumlah_iuran_total + formatToNumber($('#year_before_iuran_total').val())
+            $('#year_now_iuran_total').val(formatToRupiah(total))
+            if($('input[name="iuran_total_list[]"]').eq(index).val()>0){
+                $('.month_choose').html(index+1)
+            }
+        });
         onPerhitunganTotal()
     }
 
