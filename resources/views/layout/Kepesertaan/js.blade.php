@@ -149,6 +149,8 @@
         $('#kepesertaan_iuran_tahun').val(new Date().getFullYear())
         $('.year_choose').html($('#kepesertaan_iuran_tahun').val())
         $('.year_before_choose').html($('#kepesertaan_iuran_tahun').val()-1)
+        $('.type_peserta').show()
+        $('.type_non_peserta').hide()
 
         if($('#kepesertaan_iuran_tahun').val() <= 2024){
             $('.data_iuran_pengembangan_manual').show()
@@ -294,6 +296,14 @@
                         showJenisPensiunan()
                     } else if(response.data.kepesertaan_status_kepesertaan == 'Pensiun Ditunda'){
                         showJenisPensiunan()
+                    }
+
+                    if(response.data.kepesertaan_status_kepesertaan == 'Peserta'){
+                        $('.type_peserta').show()
+                        $('.type_non_peserta').hide()
+                    } else{
+                        $('.type_peserta').hide()
+                        $('.type_non_peserta').show()
                     }
 
                     let data = response.data
@@ -874,6 +884,7 @@
         }
                 
         $('.year_choose').html($('#detail_iuran_tahun').val()-1)
+        $('.year_choose_now').html($('#detail_iuran_tahun').val())
         $.ajax({
             url: urlpath.show.replace(':id', id),
             type: 'GET',
@@ -889,8 +900,10 @@
                 $('.detail_iuran_pengembangan_list').html(formatToRupiah(0))
                 $('.detail_jumlah_iuran_total_list').html(formatToRupiah(0))
                 $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(0))
-                $('#detail_iuran_year_before').html(formatToRupiah(formatToRupiah(0)))
-                $('#detail_iuran_pengembangan_year_before').html(formatToRupiah(formatToRupiah(0)))
+                $('#detail_iuran_year_before').html(formatToRupiah(0))
+                $('#detail_iuran_pengembangan_year_before').html(formatToRupiah(0))
+                $('#detail_iuran_year_now').html(formatToRupiah(0))
+                $('#detail_iuran_pengembangan_year_now').html(formatToRupiah(0))
 
                 if(list_iuran.length){
                     $.each(list_iuran, function( key, value ){
@@ -919,6 +932,9 @@
                     
                     $('#detail_iuran_year_before').html(formatToRupiah(response.data.year_before_iuran_total))
                     $('#detail_iuran_pengembangan_year_before').html(formatToRupiah(response.data.year_before_iuran_pengembangan))
+
+                    $('#detail_iuran_year_now').html(formatToRupiah(response.data.year_before_iuran_total+jumlah_iuran_total))
+                    $('#detail_iuran_pengembangan_year_now').html(formatToRupiah(response.data.year_before_iuran_pengembangan+jumlah_iuran_pengembagan))
 
                     $('.detail_jumlah_iuran_total_list').html(formatToRupiah(jumlah_iuran_total))
                     $('.detail_jumlah_iuran_pengembangan_list').html(formatToRupiah(jumlah_iuran_pengembagan))
@@ -985,9 +1001,22 @@
             $('.data_dokumen_kepesertaan input').prop('readonly', false);
             $('#kepesertaan_status_kepesertaan').prop('readonly', false);
             $('#kepesertaan_status_jabatan').prop('disabled', true);
+            
         } else{
             $('#formData input').prop('readonly', false);
             $('#kepesertaan_status_jabatan').prop('disabled', false);
+           
+        }
+
+        if($('#kepesertaan_status_kepesertaan').val() == "Peserta" || $('#kepesertaan_status_kepesertaan').val() == ""){
+            $('.type_peserta').show()
+            $('.type_non_peserta').hide()
+            $('.type_non_peserta').prop('readonly', true);
+        } else{
+            $('.type_peserta').hide()
+            $('.type_non_peserta').show ()
+            $('.type_non_peserta').prop('readonly', false);
+
         }
         $(".iuran_pengembangan_list").prop('readonly', true);
     }

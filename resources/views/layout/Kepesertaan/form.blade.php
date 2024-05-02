@@ -166,9 +166,11 @@
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span class="required">Terhitung Mulai Tanggal Pensiun</span>
                                 </label>
-                                <input type="date" class="form-control form-control-solid" id="kepesertaan_terhitung_mulai_tanggal_pensiun"
+                                <input type="date" class="form-control form-control-solid type_peserta" id="kepesertaan_terhitung_mulai_tanggal_pensiun"
                                     name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
                                     required readonly onkeydown="return false" onmousedown="return false"/>
+                                <input type="date" class="form-control form-control-solid type_non_peserta" id="kepesertaan_tanggal_pensiun"
+                                    name="kepesertaan_tanggal_pensiun" placeholder="" value=""/>
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -176,8 +178,10 @@
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                         title="Estimasi TMT Peserta - Tanggal Sekarang"></i>
                                 </label>
-                                <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_sekarang"
+                                <input type="text" class="form-control form-control-solid type_peserta" id="auto_masa_kerja_sekarang"
                                     placeholder="" value="0 Tahun" disabled />
+                                <input type="text" class="form-control form-control-solid type_non_peserta" id="kepesertaan_masa_kerja_sekarang" name="kepesertaan_masa_kerja_sekarang"
+                                    placeholder="" value="0 Tahun" />
                             </div>
                             <div class="col-8 mb-7">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -248,29 +252,33 @@
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>Sekaligus</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" id="auto_sekaligus"
+                                    <input type="text" class="form-control form-control-solid type_peserta" id="auto_sekaligus"
                                         placeholder="" value="Rp 0" disabled />
+                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_sekaligus" name="kepesertaan_nilai_sekaligus" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>Pajak</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" id="auto_pajak"
+                                    <input type="text" class="form-control form-control-solid  type_peserta" id="auto_pajak"
                                         placeholder="" value="Rp 0" disabled />
+                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_pajak" name="kepesertaan_nilai_pajak" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>20 %</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" id="auto_20persen"
+                                    <input type="text" class="form-control form-control-solid type_peserta"  id="auto_20persen"
                                         placeholder="" value="Rp 0" disabled />
+                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_20_persen" name="kepesertaan_nilai_20_persen" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                         <span>Bulanan</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" id="auto_bulanan"
+                                    <input type="text" class="form-control form-control-solid  type_peserta" id="auto_bulanan"
                                         placeholder="" value="Rp 0" disabled />
+                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_bulanan" name="kepesertaan_nilai_bulanan" placeholder="" value="0" />
                                 </div>
                             </div>
                         </div>

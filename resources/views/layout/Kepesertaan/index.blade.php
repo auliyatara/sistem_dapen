@@ -408,6 +408,27 @@
                                 </table>
                             </div>
                         </div>
+
+                        <h3 class="mt-7">Total Data Iuran Dan Pengembangan Tahun Ini</h3>
+                        <hr class="hr hr-blurry" />
+                        <div class="row">
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran Peserta Sampai Dengan Tahun <span class="year_choose_now">...</span></td>
+                                        <td>: <span id="detail_iuran_year_now">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran + Pengembangan Peserta Sampai Dengan Tahun <span class="year_choose_now">...</span></td>
+                                        <td>: <span id="detail_iuran_pengembangan_year_now">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                        
                         <div class="row">
                             <div class="col-6">
