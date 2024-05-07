@@ -70,15 +70,16 @@ License: For each use you must have a valid license purchased only from above li
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Body-->
-            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1 position-relative" style="background-image:url({{asset('public/images/utama.png')}});background-repeat:no-repeat;background-size: cover; ">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255, 255, 255, 0.5);z-index:0"></div>
                 <!--begin::Form-->
-                <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+                <div class="d-flex flex-center flex-column flex-lg-row-fluid" style="z-index: 10">
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px">
                         <!--begin::Form-->
                             <!--begin::Heading-->
                             <div class="text-center">
-                                <img alt="Logo" src="{{asset('public/images/logo_dapen.png')}}" width=400px/>
+                                <img alt="Logo" src="{{asset('public/images/logo_dapen.png')}}" width=350px/>
                                 <!--begin::Title-->
                                 {{-- <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                                 <!--end::Title-->
