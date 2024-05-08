@@ -217,6 +217,7 @@
                                     <option value="Pensiun Normal">Pensiun Normal</option>
                                     <option value="Pensiun Janda/Duda">Pensiun Janda/Duda</option>
                                     <option value="Pensiun Anak">Pensiun Anak</option>
+                                    <option value="Pensiun Dipercepat">Pensiun Dipercepat</option>
                                 </select>
                             </div>
                             <div class="col-8 mb-7">
