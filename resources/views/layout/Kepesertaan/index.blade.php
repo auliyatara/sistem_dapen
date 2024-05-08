@@ -44,7 +44,7 @@
                                                     0</h1>
                                                 <div class="d-flex justify-content-around p-1">
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
+                                                        style="width:32%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Guru Besar')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Guru Besar</h5>
@@ -53,7 +53,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
+                                                        style="width:32%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Dosen')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Dosen</h5>
@@ -62,7 +62,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#bd6f53;color:white;cursor:pointer"
+                                                        style="width:32%;background-color:#bd6f53;color:white;cursor:pointer"
                                                         onclick="onInitFilter(1,'Karyawan')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Karyawan</h5>
@@ -74,15 +74,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="card shadow-sm mt-1" style="background-color:#45b2d6;">
-                                            <div class="card-body pt-3 p-1">
+                                            <div class="card-body pt-2 p-1">
                                                 <h3 style="color:white;text-align:center">Pensiun</h3>
                                                 <h1 id="count_pensiunan"
-                                                    style="color:white;font-size:50px;text-align:center">0</h1>
+                                                    style="color:white;font-size:55px;text-align:center">0</h1>
                                                 <div class="d-flex justify-content-around p-1">
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
+                                                        style="width:24%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Normal')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Normal</h5>
@@ -93,7 +93,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
+                                                        style="width:24%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Anak')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Anak</h5>
@@ -103,13 +103,21 @@
                                                         </div>
                                                     </div>
                                                     <div class="card shadow-sm"
-                                                        style="width:33%;background-color:#188fc7;color:white;cursor:pointer"
+                                                        style="width:24%;background-color:#188fc7;color:white;cursor:pointer"
                                                         onclick="onInitFilter(2,'Pensiun Janda Duda')">
                                                         <div class="card-body pt-3 p-1">
                                                             <h5 style="color:white;text-align:center">Janda/Duda</h5>
                                                             <h4 id="count_pensiun_janda_duda"
                                                                 style="color:white;text-align:center">0</h4>
-
+                                                        </div>
+                                                    </div>
+                                                    <div class="card shadow-sm"
+                                                        style="width:24%;background-color:#188fc7;color:white;cursor:pointer"
+                                                        onclick="onInitFilter(2,'Pensiun Dipercepat')">
+                                                        <div class="card-body pt-3 p-1">
+                                                            <h5 style="color:white;text-align:center">Dipercepat</h5>
+                                                            <h4 id="count_pensiun_dipercepat"
+                                                                style="color:white;text-align:center">0</h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -404,6 +412,27 @@
                                     <tr>
                                         <td style="font-weight:bold">Total keseluruhan Iuran + Total Pengembangan sampai Tahun <span class="year_choose">...</span></td>
                                         <td>: <span id="detail_iuran_pengembangan_year_before">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-7">Total Data Iuran Dan Pengembangan Tahun Ini</h3>
+                        <hr class="hr hr-blurry" />
+                        <div class="row">
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran Peserta Sampai Dengan Tahun <span class="year_choose_now">...</span></td>
+                                        <td>: <span id="detail_iuran_year_now">Rp 0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class=" table table-striped">
+                                    <tr>
+                                        <td style="font-weight:bold">Total keseluruhan Iuran + Pengembangan Peserta Sampai Dengan Tahun <span class="year_choose_now">...</span></td>
+                                        <td>: <span id="detail_iuran_pengembangan_year_now">Rp 0</span></td>
                                     </tr>
                                 </table>
                             </div>

@@ -60,6 +60,7 @@ class KepesertaanController extends Controller
                 WHEN kepesertaan_jenis_pensiun = 'Pensiun Normal' THEN 'pensiun_normal'
                 WHEN kepesertaan_jenis_pensiun = 'Pensiun Janda/Duda' THEN 'pensiun_janda_duda'
                 WHEN kepesertaan_jenis_pensiun = 'Pensiun Anak' THEN 'pensiun_anak'
+                WHEN kepesertaan_jenis_pensiun = 'Pensiun Dipercepat' THEN 'pensiun_dipercepat'
             END AS initial	
         FROM
             kepesertaans k
@@ -98,7 +99,7 @@ class KepesertaanController extends Controller
                 $filter = "kepesertaan_jenis_pensiun_tdk_berhak_mp";
             } else if($data[0]==5){
                 $status = "Pensiunan Yang Sudah Tidak Berhak Menerima MP";
-            }
+            } 
 
             if($data[2] == ""){      
                 $operation = Kepesertaan::where('kepesertaan_status_kepesertaan',$status)->where($filter,$data[1])->get();
