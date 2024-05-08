@@ -79,7 +79,7 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Form-->
                             <!--begin::Heading-->
                             <div class="text-center">
-                                <img alt="Logo" src="{{asset('public/images/logo_dapen.png')}}" width=400px/>
+                                <img alt="Logo" src="{{asset('public/images/logo_dapen.png')}}" width=350px/>
                                 <!--begin::Title-->
                                 {{-- <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                                 <!--end::Title-->
