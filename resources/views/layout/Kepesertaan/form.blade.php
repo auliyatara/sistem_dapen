@@ -156,7 +156,7 @@
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span class="required"> Estimasi Terhitung Mulai Tanggal Peserta</span>
+                                    <span class="required">Terhitung Mulai Tanggal Peserta</span>
                                 </label>
                                 <input type="date" class="form-control form-control-solid"
                                     name="kepesertaan_terhitung_mulai_tanggal" id="kepesertaan_terhitung_mulai_tanggal"
@@ -176,7 +176,7 @@
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span>Masa Kerja Sekarang <code>(Maksimal 32 tahun 0 bulan 0 hari)</code></span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                        title="Estimasi TMT Peserta - Tanggal Sekarang"></i>
+                                        title="TMT Peserta - Tanggal Sekarang"></i>
                                 </label>
                                 <input type="text" class="form-control form-control-solid type_peserta" id="auto_masa_kerja_sekarang"
                                     placeholder="" value="0 Tahun" disabled />
@@ -202,7 +202,7 @@
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span>Masa Kerja Pensiun </span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                        title="Estimasi TMT Peserta - TMT Pensiun"></i>
+                                        title="TMT Peserta - TMT Pensiun"></i>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" id="auto_masa_kerja_pensiun"
                                     placeholder="" value="0 Tahun" disabled />
