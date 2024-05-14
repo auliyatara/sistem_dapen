@@ -318,7 +318,7 @@
                                                 <td>: <span id="detail_kepesertaan_gaji_pokok"></span></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:bold"> Estimasi Terhitung Mulai Tanggal Peserta</td>
+                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Peserta</td>
                                                 <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
                                             </tr>
                                             <tr>
