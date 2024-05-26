@@ -104,68 +104,249 @@
                                     <label for="floatingInput"><span class="required">Masukkan Tahun</span></label>
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Januari</span></label>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-10">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Januari</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Februari</span></label>
+                                   
+
+                                   <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Februari</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>   
+                                   </div>
+
+                                   <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Maret</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
+                                   </div>
+                                  
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>April</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Maret</span></label>
+                                   
+                                    <div class="row">
+                                        <div class='col-8'>
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Mei</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>April</span></label>
+                                    
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Juni</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Mei</span></label>
-                                    </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Juni</span></label>
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Juli</span></label>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Juli</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Agustus</span></label>
+                                   
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Agustus</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>September</span></label>
+                                    
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>September</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>September</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Oktober</span></label>
+                                    
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Oktober</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Oktober</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>November</span></label>
+                                   
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>November</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-floating mb-7">
-                                        <input type="number" class="form-control form-control-solid keuangan_bulan_list"
-                                            name="keuangan_bulan_list[]" placeholder=""/>
-                                        <label for="floatingInput"><span>Desember</span></label>
+                                    
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating mb-7">
+                                                <input type="number" step="any" class="form-control form-control-solid keuangan_bulan_list"
+                                                    name="keuangan_bulan_list[]" placeholder=""/>
+                                                <label for="floatingInput"><span>Desember</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-7">
+                                                <select class="form-control form-control-solid keuangan_satuan_list" name="keuangan_satuan_list[]">
+                                                    <option value="" selected></option>
+                                                    <option value="Rp">Rp</option>
+                                                    <option value="%">%</option>
+                                                </select>
+                                                <label for="floatingInput"><span>Satuan</span></label>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
