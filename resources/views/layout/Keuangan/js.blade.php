@@ -57,15 +57,24 @@
 
                             $.each(value.keuangan_detail, function( keyDetail, valueDetail ){
                                 var bulan = ``;
-                                if(value.keuangan_detail[keyDetail].keuangan_bulan.length){
-                                    $.each(value.keuangan_detail[keyDetail].keuangan_bulan, function( keyBulan, valueBulan ){
-                                        bulan += ` <td class="text-center">${formatToRupiah(valueBulan['keuangan_bulan_jumlah'])}</td>`
-                                    })
-                                } else{
-                                    for(var i =1;i<=12;i++){
-                                        bulan += ` <td class="text-center">0</td>`
+                            if (value.keuangan_detail[keyDetail].keuangan_bulan.length) {
+                                $.each(value.keuangan_detail[keyDetail].keuangan_bulan, function(keyBulan, valueBulan) {
+                                    // Cek satuan dan gunakan format yang sesuai
+                                    var jumlah = valueBulan['keuangan_bulan_jumlah'] !== null ? valueBulan['keuangan_bulan_jumlah'] : 0;
+                                    var satuan = valueBulan['keuangan_bulan_satuan'];
+                                    if (satuan === 'Rp' ) {
+                                        bulan += ` <td class="text-center">${formatToRupiah(jumlah)}</td>`;
+                                    } else if (satuan === '%') {
+                                        bulan += ` <td class="text-center">${jumlah}%</td>`;
+                                    } else {
+                                        bulan += ` <td class="text-center">${jumlah}</td>`; // Default case
                                     }
+                                });
+                            } else {
+                                for (var i = 1; i <= 12; i++) {
+                                    bulan += ` <td class="text-center">Rp0</td>`;
                                 }
+                            }
 
                                 let buttonSet = `<a href="javascript:onAddModal('${valueDetail.keuangan_detail_id}')" class="btn btn-icon btn-bg-light btn-active-color-success btn-sm me-1">
                                         <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Navigation/Right-2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px" viewBox="0 0 24 24" version="1.1">
@@ -121,10 +130,14 @@
                 if(response.status == true){
                     var data = response.data
                     $('.keuangan_bulan_list').val('')
+                    $('.keuangan_satuan_list').val('')
                     // alert()
                     if(data.length){
                         $('input[name="keuangan_bulan_list[]"]').each(function(index) {
                             $(this).val(data[index]['keuangan_bulan_jumlah']);
+                        });
+                        $('.keuangan_satuan_list').each(function(index) {
+                            $(this).val(data[index]['keuangan_bulan_satuan']);
                         });
                     }
                 } 
@@ -235,6 +248,10 @@
                         } else{
                             swal("Warning", response.message, "warning");
                         }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Menampilkan halaman error
+                        $('body').html(jqXHR.responseText);
                     }
                 })
             }

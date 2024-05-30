@@ -31,10 +31,13 @@ class KeuanganBulanController extends Controller
                         "keuangan_bulan_bulan" =>$key+1,
                         "keuangan_bulan_tahun" =>$data['keuangan_tahun'],
                         "keuangan_bulan_jumlah" =>$value,
+                        "keuangan_bulan_satuan" => $data['keuangan_satuan_list'][$key] ?? null
+
                     ];
 
                     $process = KeuanganBulan::create($insert);
                 }
+              
 
                 return $process;
             });
