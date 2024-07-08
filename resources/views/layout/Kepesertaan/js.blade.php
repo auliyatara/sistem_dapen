@@ -261,9 +261,9 @@
                         if(key != 'kepesertaan_link_url'){
                             if(key == 'kepesertaan_foto'){
                                 if(value != null){
-                                    onCheckUrl(`{{ asset('storage/kepesertaan_foto/${value}') }}`, function(exist) {
+                                    onCheckUrl(`{{ asset('public/storage/kepesertaan_foto/${value}') }}`, function(exist) {
                                         if(exist){
-                                            $("#kepesertaan_foto").attr("src", `{{ asset('storage/kepesertaan_foto/${value}') }}`);
+                                            $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
                                             $("#kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
                                         }
@@ -389,9 +389,9 @@
                         if(key != 'kepesertaan_link_url'){
                             if(key == 'kepesertaan_foto'){
                                 if(value != null){
-                                    onCheckUrl(`{{ asset('storage/kepesertaan_foto/${value}') }}`, function(exist) {
+                                    onCheckUrl(`{{ asset('public/storage/kepesertaan_foto/${value}') }}`, function(exist) {
                                         if(exist){
-                                            $("#detail_kepesertaan_foto").attr("src", `{{ asset('storage/kepesertaan_foto/${value}') }}`);
+                                            $("#detail_kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
                                             $("#detail_kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
                                         }
@@ -565,7 +565,7 @@
     }
 
     onPreviewList = (file) =>{
-        $('.preview_file').html(`<embed src="{{ asset('storage/kepesertaan_dokumen/${file}') }}" style="width:100%" height="500px">`)
+        $('.preview_file').html(`<embed src="{{ asset('public/storage/kepesertaan_dokumen/${file}') }}" style="width:100%" height="500px">`)
         $('#detail_list_preview').modal('show')
     }
 
