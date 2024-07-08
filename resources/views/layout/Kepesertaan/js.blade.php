@@ -309,7 +309,7 @@
                     let data = response.data
                     onMasaPensiun(data.kepesertaan_status_jabatan)
                     onMasaKerjaSekarang(data.kepesertaan_terhitung_mulai_tanggal)
-                    onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal)
+                    onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal,data)
                     // onPerhitunganIuran(data.kepesertaan_gaji_pokok)
 
                     var list_iuran = response.data.kepesertaan_iuran
@@ -453,7 +453,7 @@
 
                     onMasaPensiun(data.kepesertaan_status_jabatan,true)
                     onMasaKerjaSekarang(data.kepesertaan_terhitung_mulai_tanggal,true)
-                    onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal,true)
+                    onMasaKerjaPensiun(data.kepesertaan_tanggal_lahir, data.kepesertaan_status_jabatan, data.kepesertaan_gaji_pokok, data.kepesertaan_terhitung_mulai_tanggal,data,true)
                     // onPerhitunganIuran(data.kepesertaan_gaji_pokok,true)
 
                     $('#detail_iuran_tahun').html('<option value="" selected disabled>Pilih Tahun Iuran</option>')
@@ -614,7 +614,8 @@
         }
     }
 
-    onMasaKerjaPensiun = (tgl_lahir='',status_jabatan='',phdp='',tmt='',detail=false) =>{
+    onMasaKerjaPensiun = (tgl_lahir='',status_jabatan='',phdp='',tmt='',data='',detail=false) =>{
+        
         if(tgl_lahir == ''){
             tgl_lahir = $('#kepesertaan_tanggal_lahir').val()
         }
@@ -680,54 +681,73 @@
                 }
             }
         
-        onEstimasiSekaligus(parse_year,parse_month, phdp, detail)
-        onPerhitunganBulanan(parse_year, phdp, detail)
+        onEstimasiSekaligus(parse_year,parse_month, phdp, data, detail)
+        onPerhitunganBulanan(parse_year, phdp, data, detail)
     }
 
-    onEstimasiSekaligus = (tahun,bulan,phdp,detail) =>{
+    onEstimasiSekaligus = (tahun,bulan,phdp,data,detail) =>{
         let total = (tahun+(bulan/12)) * phdp * 2.5
-        let result = formatToRupiah(total)
+        // total  = data.kepesertaan_nilai_sekaligus
+        // if(total == null){
+        //     total = 0 ;
+        // }
+        result = formatToRupiah(total);
         if(detail){
             $('#detail_sekaligus').html(result)
+            // $('#detail_sekaligus').html(result)
         } else{
-            $('#auto_sekaligus').val(result)
+            $('#kepesertaan_nilai_sekaligus').val(total)
         }
-        on20persen(total,detail)
+        on20persen(total,data,detail)
     }
 
-    on20persen = (estimasi_sekaligus,detail) =>{
+    on20persen = (estimasi_sekaligus,data,detail) =>{
         let total = estimasi_sekaligus * 0.2
+        // total     = data.kepesertaan_nilai_20_persen
+        // if(data.kepesertaan_nilai_20_persen == null){
+        //     total = 0 ;
+        // }
         let result = formatToRupiah(total)
+
         if(detail){
             $('#detail_20persen').html(result)
         } else{
-            $('#auto_20persen').val(result)
+            $('#kepesertaan_nilai_20_persen').val(total)
         }
-        onPerhitunganPajak(total,detail)
+        onPerhitunganPajak(total,data,detail)
     }
 
-    onPerhitunganPajak = (persentase,detail) =>{
-        let pajak = 0
+    onPerhitunganPajak = (persentase,data,detail) =>{
+        let total = 0
         if(persentase > 50000000){
-            pajak = 0.05 * (persentase-50000000)
+            total = 0.05 * (persentase-50000000)
         }
-        let result = formatToRupiah(pajak)
 
+        // total     = data.kepesertaan_nilai_pajak
+        // if(total == null){
+        //     total = 0 ;
+        // }
+        let result = formatToRupiah(total)
+        
         if(detail){
             $('#detail_pajak').html(result)
         } else{
-            $('#auto_pajak').val(result)
+            $('#kepesertaan_nilai_pajak').val(total)
         }
     }
 
-    onPerhitunganBulanan = (masa_kerja_pensiun,phdp,detail) =>{
+    onPerhitunganBulanan = (masa_kerja_pensiun,phdp,data,detail) =>{
         let total = (masa_kerja_pensiun * phdp * 0.025) * 0.8
+        // total     = data.kepesertaan_nilai_bulanan
+        // if(total == null){
+        //     total = 0 ;
+        // }
         let result = formatToRupiah(total)
-
+        
         if(detail){
             $('#detail_bulanan').html(result)
         } else{
-            $('#auto_bulanan').val(result)
+            $('#kepesertaan_nilai_bulanan').val(total)
         }
     }
 
