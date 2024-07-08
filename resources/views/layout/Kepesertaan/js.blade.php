@@ -261,11 +261,11 @@
                         if(key != 'kepesertaan_link_url'){
                             if(key == 'kepesertaan_foto'){
                                 if(value != null){
-                                    onCheckUrl(`{{ asset('public/storage/kepesertaan_foto/${value}') }}`, function(exist) {
+                                    onCheckUrl(`{{ asset('storage/kepesertaan_foto/${value}') }}`, function(exist) {
                                         if(exist){
-                                            $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
+                                            $("#kepesertaan_foto").attr("src", `{{ asset('storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
+                                            $("#kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
                                         }
                                     });
                                     
@@ -389,11 +389,11 @@
                         if(key != 'kepesertaan_link_url'){
                             if(key == 'kepesertaan_foto'){
                                 if(value != null){
-                                    onCheckUrl(`{{ asset('public/storage/kepesertaan_foto/${value}') }}`, function(exist) {
+                                    onCheckUrl(`{{ asset('storage/kepesertaan_foto/${value}') }}`, function(exist) {
                                         if(exist){
-                                            $("#detail_kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
+                                            $("#detail_kepesertaan_foto").attr("src", `{{ asset('storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
+                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
                                         }
                                     });
                                     
@@ -565,7 +565,7 @@
     }
 
     onPreviewList = (file) =>{
-        $('.preview_file').html(`<embed src="{{ asset('public/storage/kepesertaan_dokumen/${file}') }}" style="width:100%" height="500px">`)
+        $('.preview_file').html(`<embed src="{{ asset('storage/kepesertaan_dokumen/${file}') }}" style="width:100%" height="500px">`)
         $('#detail_list_preview').modal('show')
     }
 
@@ -691,12 +691,16 @@
         // if(total == null){
         //     total = 0 ;
         // }
+        console.log(phdp);
+        console.log(total);
+        console.log(detail);
         result = formatToRupiah(total);
         if(detail){
             $('#detail_sekaligus').html(result)
             // $('#detail_sekaligus').html(result)
         } else{
-            $('#kepesertaan_nilai_sekaligus').val(total)
+            $('#auto_sekaligus').val(total);
+            $('#kepesertaan_nilai_sekaligus').val(total);
         }
         on20persen(total,data,detail)
     }
@@ -712,6 +716,7 @@
         if(detail){
             $('#detail_20persen').html(result)
         } else{
+            $('#auto_20persen').val(total)
             $('#kepesertaan_nilai_20_persen').val(total)
         }
         onPerhitunganPajak(total,data,detail)
@@ -732,6 +737,7 @@
         if(detail){
             $('#detail_pajak').html(result)
         } else{
+            $('#auto_pajak').val(total)
             $('#kepesertaan_nilai_pajak').val(total)
         }
     }
@@ -747,6 +753,7 @@
         if(detail){
             $('#detail_bulanan').html(result)
         } else{
+            $('#auto_bulanan').val(total)
             $('#kepesertaan_nilai_bulanan').val(total)
         }
     }
