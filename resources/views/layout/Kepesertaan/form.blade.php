@@ -150,13 +150,13 @@
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
                                     <span class="required">PHDP (Gaji Pokok)</span></label>
-                                    <input type="number" class="form-control form-control-solid"
+                                    <input type="text" class="form-control form-control-solid"
                                         name="kepesertaan_gaji_pokok" id="kepesertaan_gaji_pokok" placeholder=""
-                                        value="" required />
+                                        value="" required onkeyup="convertrp('kepesertaan_gaji_pokok')" />
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span class="required">Terhitung Mulai Tanggal Peserta</span>
+                                    <span class="required">TMT Peserta</span>
                                 </label>
                                 <input type="date" class="form-control form-control-solid"
                                     name="kepesertaan_terhitung_mulai_tanggal" id="kepesertaan_terhitung_mulai_tanggal"
@@ -164,11 +164,10 @@
                             </div>
                             <div class="col-6 mb-4">
                                 <label class="d-flex align-items-center fs-5 fw-normal mb-2">
-                                    <span class="required">Terhitung Mulai Tanggal Pensiun</span>
+                                    <span class="required">Tanggal Pensiun</span>
                                 </label>
                                 <input type="date" class="form-control form-control-solid type_peserta" id="kepesertaan_terhitung_mulai_tanggal_pensiun"
-                                    name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value=""
-                                    required readonly onkeydown="return false" onmousedown="return false"/>
+                                    name="kepesertaan_terhitung_mulai_tanggal_pensiun" placeholder="" value="" readonly/>
                                 <input type="date" class="form-control form-control-solid type_non_peserta" id="kepesertaan_tanggal_pensiun"
                                     name="kepesertaan_tanggal_pensiun" placeholder="" value=""/>
                             </div>
@@ -255,7 +254,7 @@
                                     </label>
                                     <input type="text" class="form-control form-control-solid type_peserta" id="auto_sekaligus"
                                         placeholder="" value="Rp 0" disabled />
-                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_sekaligus" name="kepesertaan_nilai_sekaligus" placeholder="" value="0" />
+                                    <input type="text" onkeyup="convertrp('kepesertaan_nilai_sekaligus')" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_sekaligus" name="kepesertaan_nilai_sekaligus" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -263,7 +262,7 @@
                                     </label>
                                     <input type="text" class="form-control form-control-solid  type_peserta" id="auto_pajak"
                                         placeholder="" value="Rp 0" disabled />
-                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_pajak" name="kepesertaan_nilai_pajak" placeholder="" value="0" />
+                                    <input type="text" onkeyup="convertrp('kepesertaan_nilai_pajak')" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_pajak" name="kepesertaan_nilai_pajak" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -271,7 +270,7 @@
                                     </label>
                                     <input type="text" class="form-control form-control-solid type_peserta"  id="auto_20persen"
                                         placeholder="" value="Rp 0" disabled />
-                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_20_persen" name="kepesertaan_nilai_20_persen" placeholder="" value="0" />
+                                    <input type="text" onkeyup="convertrp('kepesertaan_nilai_20_persen')" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_20_persen" name="kepesertaan_nilai_20_persen" placeholder="" value="0" />
                                 </div>
                                 <div class="col-6 mb-4">
                                     <label class="d-flex align-items-center fs-5 fw-normal mb-2">
@@ -279,7 +278,7 @@
                                     </label>
                                     <input type="text" class="form-control form-control-solid  type_peserta" id="auto_bulanan"
                                         placeholder="" value="Rp 0" disabled />
-                                    <input type="number" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_bulanan" name="kepesertaan_nilai_bulanan" placeholder="" value="0" />
+                                    <input type="text" onkeyup="convertrp('kepesertaan_nilai_bulanan')" class="form-control form-control-solid type_non_peserta" id="kepesertaan_nilai_bulanan" name="kepesertaan_nilai_bulanan" placeholder="" value="0" />
                                 </div>
                             </div>
                         </div>
@@ -733,7 +732,7 @@
                                 fill="currentColor"></path>
                         </svg>
                     </span>
-                </button>
+                </inp>
             </div>
         </form>
     </div>
