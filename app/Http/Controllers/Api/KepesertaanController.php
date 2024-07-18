@@ -167,6 +167,12 @@ class KepesertaanController extends Controller
                 $lock_list =  isset($data['kepesertaan_iuran_lock'])?$data['kepesertaan_iuran_lock']:[];
                 $kepesertaan_total_manual = $data['kepesertaan_total_manual'];
                 $kepesertaan_pengembangan_manual = $data['kepesertaan_pengembangan_manual'];
+
+                $gaji = str_replace(".",'',$data['kepesertaan_gaji_pokok']);
+                $skgs = str_replace(".",'',$data['kepesertaan_nilai_sekaligus']);
+                $prsn = str_replace(".",'',$data['kepesertaan_nilai_20_persen']);
+                $pajk = str_replace(".",'',$data['kepesertaan_nilai_pajak']);
+                $bln  = str_replace(".",'',$data['kepesertaan_nilai_bulanan']);
                 unset($data['kepesertaan_iuran_tahun']);
                 unset($data['iuran_total_list']);
                 unset($data['iuran_pengembangan_list']);
@@ -174,6 +180,18 @@ class KepesertaanController extends Controller
                 unset($data['kepesertaan_total_manual']);
                 unset($data['kepesertaan_pengembangan_manual']);
 
+                unset($data['kepesertaan_gaji_pokok']);
+                unset($data['kepesertaan_nilai_sekaligus']);
+                unset($data['kepesertaan_nilai_20_persen']);
+                unset($data['kepesertaan_nilai_pajak']);
+                unset($data['kepesertaan_nilai_bulanan']);
+
+                $data['kepesertaan_gaji_pokok'] = $gaji ;
+                $data['kepesertaan_nilai_sekaligus'] = $skgs ;
+                $data['kepesertaan_nilai_20_persen'] = $prsn ;
+                $data['kepesertaan_nilai_pajak'] = $pajk ;
+                $data['kepesertaan_nilai_bulanan'] = $bln ;
+                
                 $kepesertaan = Kepesertaan::create($data);
                 foreach($dokumen_nama as $key=>$value){
                     $insert_dokumen =[
@@ -384,7 +402,25 @@ class KepesertaanController extends Controller
                     
                 }
 
+                $gaji = str_replace(".",'',$data['kepesertaan_gaji_pokok']);
+                $skgs = str_replace(".",'',$data['kepesertaan_nilai_sekaligus']);
+                $prsn = str_replace(".",'',$data['kepesertaan_nilai_20_persen']);
+                $pajk = str_replace(".",'',$data['kepesertaan_nilai_pajak']);
+                $bln  = str_replace(".",'',$data['kepesertaan_nilai_bulanan']);
+                
                 unset($data['file']);
+                unset($data['kepesertaan_gaji_pokok']);
+                unset($data['kepesertaan_nilai_sekaligus']);
+                unset($data['kepesertaan_nilai_20_persen']);
+                unset($data['kepesertaan_nilai_pajak']);
+                unset($data['kepesertaan_nilai_bulanan']);
+
+                $data['kepesertaan_gaji_pokok'] = $gaji ;
+                $data['kepesertaan_nilai_sekaligus'] = $skgs ;
+                $data['kepesertaan_nilai_20_persen'] = $prsn ;
+                $data['kepesertaan_nilai_pajak'] = $pajk ;
+                $data['kepesertaan_nilai_bulanan'] = $bln ;
+                
                 return kepesertaan::find($id)->update($data);
             });
 

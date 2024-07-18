@@ -318,7 +318,7 @@
                                                 <td>: <span id="detail_kepesertaan_gaji_pokok"></span></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Peserta</td>
+                                                <td style="font-weight:bold">TMT Peserta</td>
                                                 <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal"></span></td>
                                             </tr>
                                             <tr>
@@ -338,8 +338,8 @@
                                     <div class="col-6">
                                         <table class=" table table-striped">
                                             <tr>
-                                                <td style="font-weight:bold">Terhitung Mulai Tanggal Pensiun</td>
-                                                <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal_pensiun"></span></td>
+                                                <td style="font-weight:bold">Tanggal Pensiun</td>
+                                                <td>: <span id="detail_kepesertaan_terhitung_mulai_tanggal_pensiun"></span><span id="detail_kepesertaan_tanggal_pensiun"></span></td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:bold">Masa Kerja Sekarang</td>

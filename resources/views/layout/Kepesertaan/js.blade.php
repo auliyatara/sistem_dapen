@@ -265,7 +265,7 @@
                                         if(exist){
                                             $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
+                                            $("#kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
                                         }
                                     });
                                     
@@ -393,7 +393,7 @@
                                         if(exist){
                                             $("#detail_kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('profile_default.png')}}`);
+                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
                                         }
                                     });
                                     
@@ -686,75 +686,96 @@
     }
 
     onEstimasiSekaligus = (tahun,bulan,phdp,data,detail) =>{
-        let total = (tahun+(bulan/12)) * phdp * 2.5
-        // total  = data.kepesertaan_nilai_sekaligus
-        // if(total == null){
-        //     total = 0 ;
-        // }
-        console.log(phdp);
-        console.log(total);
-        console.log(detail);
+        kepesertaan = data.kepesertaan_status_kepesertaan ;
+        let total = 0 ;
+        if(kepesertaan.toLowerCase() == 'peserta'){
+            total = (tahun+(bulan/12)) * phdp * 2.5
+        }else{
+            total  = data.kepesertaan_nilai_sekaligus
+            if(total == null){
+                total = 0 ;
+            }
+
+        }
         result = formatToRupiah(total);
         if(detail){
             $('#detail_sekaligus').html(result)
             // $('#detail_sekaligus').html(result)
         } else{
-            $('#auto_sekaligus').val(total);
-            $('#kepesertaan_nilai_sekaligus').val(total);
+            $('#auto_sekaligus').val(formatRupiah(total.toString()));
+            $('#kepesertaan_nilai_sekaligus').val(formatRupiah(total.toString()));
         }
         on20persen(total,data,detail)
     }
 
     on20persen = (estimasi_sekaligus,data,detail) =>{
-        let total = estimasi_sekaligus * 0.2
-        // total     = data.kepesertaan_nilai_20_persen
-        // if(data.kepesertaan_nilai_20_persen == null){
-        //     total = 0 ;
-        // }
+        kepesertaan = data.kepesertaan_status_kepesertaan ;
+        let total = 0 ;
+        if(kepesertaan.toLowerCase() == 'peserta'){
+            total = estimasi_sekaligus * 0.2
+
+        }else{
+            total  = data.kepesertaan_nilai_20_persen
+            if(total == null){
+                total = 0 ;
+            }
+
+        }
         let result = formatToRupiah(total)
 
         if(detail){
             $('#detail_20persen').html(result)
         } else{
-            $('#auto_20persen').val(total)
-            $('#kepesertaan_nilai_20_persen').val(total)
+            $('#auto_20persen').val(formatRupiah(total.toString()))
+            $('#kepesertaan_nilai_20_persen').val(formatRupiah(total.toString()))
         }
         onPerhitunganPajak(total,data,detail)
     }
 
     onPerhitunganPajak = (persentase,data,detail) =>{
-        let total = 0
-        if(persentase > 50000000){
-            total = 0.05 * (persentase-50000000)
-        }
+        let total = 0 ;
+        if(kepesertaan.toLowerCase() == 'peserta'){
+            
+            if(persentase > 50000000){
+                total = 0.05 * (persentase-50000000)
+            }
 
-        // total     = data.kepesertaan_nilai_pajak
-        // if(total == null){
-        //     total = 0 ;
-        // }
+        }else{
+            total  = data.kepesertaan_nilai_pajak
+            if(total == null){
+                total = 0 ;
+            }
+        }
+        
         let result = formatToRupiah(total)
         
         if(detail){
             $('#detail_pajak').html(result)
         } else{
-            $('#auto_pajak').val(total)
-            $('#kepesertaan_nilai_pajak').val(total)
+            $('#auto_pajak').val(formatRupiah(total.toString()))
+            $('#kepesertaan_nilai_pajak').val(formatRupiah(total.toString()))
         }
     }
 
     onPerhitunganBulanan = (masa_kerja_pensiun,phdp,data,detail) =>{
-        let total = (masa_kerja_pensiun * phdp * 0.025) * 0.8
-        // total     = data.kepesertaan_nilai_bulanan
-        // if(total == null){
-        //     total = 0 ;
-        // }
+        kepesertaan = data.kepesertaan_status_kepesertaan ;
+        let total = 0 ;
+        if(kepesertaan.toLowerCase() == 'peserta'){
+            total = (masa_kerja_pensiun * phdp * 0.025) * 0.8
+        }else{
+            total  = data.kepesertaan_nilai_bulanan
+            if(total == null){
+                total = 0 ;
+            }
+
+        }
         let result = formatToRupiah(total)
         
         if(detail){
             $('#detail_bulanan').html(result)
         } else{
-            $('#auto_bulanan').val(total)
-            $('#kepesertaan_nilai_bulanan').val(total)
+            $('#auto_bulanan').val(formatRupiah(total.toString()))
+            $('#kepesertaan_nilai_bulanan').val(formatRupiah(total.toString()))
         }
     }
 
@@ -1123,5 +1144,58 @@
             $("#kepesertaan_terhitung_mulai_tanggal_pensiun").val('')
        }
        
+    }
+
+    function formatRupiah(angka, prefix) {
+        // var angka = angka.split(".");
+        if(angka){
+            var seeminus = angka.substr(0,1);
+            if(seeminus == '-'){
+                var minus = '-';
+                var angka = angka.substr(1).replace(/[^,\d]/g, '.');
+            }else{
+                var minus = '';
+                
+                var angka = angka.replace(/[^,\d]/g, '.');
+            }
+            var number_string = angka.toString(),
+                split = number_string.split("."),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            
+            if (ribuan) {
+                separator = sisa ? "." : "";
+                rupiah += separator + ribuan.join(".");
+            }
+        
+            rupiah = split[1] != undefined ? minus+rupiah + "." + split[1] : rupiah;
+            return prefix == undefined ? rupiah : rupiah ? "Rp " + rupiah : "";
+        }else{
+            return '';
+        }
+        
+    }
+
+    function convertrp(id) {
+    value = $("#"+id).val();
+    $("#"+id).val(keyuprp(value));
+}
+    function keyuprp(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split    = number_string.split(','),
+            sisa     = split[0].length % 3,
+            rupiah     = split[0].substr(0, sisa),
+            ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>
