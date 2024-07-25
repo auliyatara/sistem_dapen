@@ -190,8 +190,10 @@
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">NIP</th>
-                                            <th class="text-center" style="width:250px">TTL</th>
+                                            <th class="text-center" style="width:150px">TTL</th>
                                             <th class="text-center">TMT Peserta</th>
+                                            <th class="text-center">Estimasi MP Peserta</th>
+                                            <th class="text-center">Estimasi MP Pensiunan</th>
                                             <th class="text-center">Status Peserta</th>
                                             <th class="text-center" style="width:250px">Action</th>
                                         </tr>
