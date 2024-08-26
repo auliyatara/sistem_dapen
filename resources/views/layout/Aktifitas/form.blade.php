@@ -15,6 +15,10 @@
                     placeholder="" value="" required />
                 <label for="floatingInput"><span class="required">Nama Aktifitas</span></label>
             </div>
+            <div class="form-floating mb-7">
+                <input type="month" class="form-control form-control-solid" name="aktifitas_bulan" required />
+                <label for="floatingInput"><span class="required">Bulan Aktifitas</span></label>
+            </div>
 
             <div class="row">
                 <div class="col-12">
