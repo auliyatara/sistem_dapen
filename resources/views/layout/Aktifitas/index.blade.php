@@ -38,6 +38,7 @@
                                             <tr>
                                                 <th class="text-center">No</th>
                                                 <th class="text-center">Nama Aktifitas</th>
+                                                <th class="text-center">Bulan Aktifitas</th>
                                                 <th class="text-center">Status</th>
                                                 @if($edit)
                                                     <th class="text-center" style="width:200px">Action</th>

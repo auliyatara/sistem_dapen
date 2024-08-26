@@ -53,9 +53,9 @@
                         }
 
                         if(authEdit){
-                            var push_array = [k+1,v.aktifitas_nama,status,html_action]
+                            var push_array = [k+1,v.aktifitas_nama,v.aktifitas_bulan,status,html_action]
                         } else{
-                            var push_array = [k+1,v.aktifitas_nama,status]
+                            var push_array = [k+1,v.aktifitas_nama,v.aktifitas_bulan,status]
                         }
                         array.push(push_array);
                     });
