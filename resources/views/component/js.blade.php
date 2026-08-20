@@ -1,5 +1,5 @@
 <!--begin::Javascript-->
-<script>var hostUrl = "assets/";</script>
+<script>var hostUrl = "public/assets/";</script>
 <!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script src="{{ asset('public/assets/plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{ asset('public/assets/js/scripts.bundle.js')}}"></script>
@@ -85,15 +85,15 @@
                     $.each(data, function( key, value ){
                         if(key == "user_foto"){
                             if(value != null){
-                                onCheckUrl(`{{ asset('public/storage/user_foto/${value}') }}`, function(exist) {
+                                onCheckUrl(`{{ asset('storage/app/public/user_foto/${value}') }}`, function(exist) {
                                     if(exist){
-                                        $("#profile_image").attr("src", `{{ asset('public/storage/user_foto/${value}') }}`);
+                                        $("#profile_image").attr("src", `{{ asset('storage/app/public/user_foto/${value}') }}`);
                                     }
                                 });
 
-                                onCheckUrl(`{{ asset('public/storage/user_foto/${data.user_foto}') }}`, function(exist) {
+                                onCheckUrl(`{{ asset('storage/app/public/user_foto/${data.user_foto}') }}`, function(exist) {
                                     if(exist){
-                                        $("#header_image").attr("src", `{{ asset('public/storage/user_foto/${data.user_foto}') }}`);
+                                        $("#header_image").attr("src", `{{ asset('storage/app/public/user_foto/${data.user_foto}') }}`);
                                     }
                                 });   
                             }
@@ -165,6 +165,7 @@
                             if(check){
                                 const menuList = localStorage.getItem("menuList")
                                 const data = JSON.parse(atob(menuList))
+                                console.log(data, "menu_storage")
                                 generateMenuSideBar(data)
                             } else{
                                 localStorage.setItem("menuStorage", response.data.menu_storage_value);
@@ -205,6 +206,8 @@
         }
 
         function generateMenuSideBar(data){
+            console.log("ini data")
+            console.log(data)
             $.each( data, function(key, value){
                 let menu = value;
                 let route = window.location.origin+getRoute()+menu['menu_route'];

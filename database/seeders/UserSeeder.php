@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'user_id' => Str::substr((Uuid::uuid4())->getHex(), 0, 16),
             'user_username' => 'user',
             'user_nama' => 'John Doe',
-            'password' => Hash::make('@user12345'),
+            'password' => Hash::make('user123'),
             'user_email' => 'mail@mail.com',
             'user_role_id' => '753847cfb629c0f9',
             'user_status' => 1,

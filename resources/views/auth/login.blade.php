@@ -29,7 +29,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{asset('public/assets/media/logos/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -70,7 +70,7 @@ License: For each use you must have a valid license purchased only from above li
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Body-->
-            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1 position-relative" style="background-image:url({{asset('public/images/utama.png')}});background-repeat:no-repeat;background-size: cover; ">
+            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1 position-relative" style="background-image:url({{asset('public/images/utama.jpg')}});background-repeat:no-repeat;background-size: cover; ">
                 <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255, 255, 255, 0.5);z-index:0"></div>
                 <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid" style="z-index: 10">
@@ -125,7 +125,7 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                     {{-- <label style="color:red;display:none" id="alert_password"><span>Kolom Ini Perlu Diisi</span></label> --}}
                                     {{-- <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                        class="form-control bg-transparent" value="@user12345"/> --}}
+                                        class="form-control bg-transparent" value="user123"/> --}}
                                     <!--end::Password-->
                                 </div>
                                 <!--end::Input group=-->

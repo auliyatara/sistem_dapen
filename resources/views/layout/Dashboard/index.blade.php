@@ -6,8 +6,8 @@
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-fluid">
-                <div class="row">
-                    <div class="col-8">
+                <div class="row d-none">
+                    <div class="col-8 d-none">
                         <div class="card mb-5 mb-xxl-8">
                             <div class="card-body pt-9 pb-9">
                                 <!--begin::Details-->
@@ -93,7 +93,7 @@
                                                 <div class="col-3">
                                                     <div class="me-7 mb-4">
                                                         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                                            <img src="{{asset('public/profile_default.png')}}" alt="image" id="profile_image">
+                                                            <img src="{{asset('public/assets/images/profile_default.png')}}" alt="image" id="profile_image">
                                                             <div
                                                                 class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                                             </div>
@@ -165,7 +165,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12">
                         <div class="card mb-5 mb-xxl-8 bg-light">
                             <div class="card-body pt-9 pb-9">
                                 <h3>Informasi Umum</h3>
@@ -174,6 +174,53 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-xxl-8 h-100">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold">Statistik Peserta Aktif</h3>
+                            </div>
+                            <div class="card-body pt-2 pb-6">
+                                <div id="chart_peserta_dashboard" style="height: 300px;"></div>
+                                <div id="legend_peserta_dashboard" class="d-flex flex-wrap justify-content-center gap-3 mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-xxl-8 h-100">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold">Statistik Pensiunan</h3>
+                            </div>
+                            <div class="card-body pt-2 pb-6">
+                                <div id="chart_pensiunan_dashboard" style="height: 300px;"></div>
+                                <div id="legend_pensiunan_dashboard" class="d-flex flex-wrap justify-content-center gap-3 mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-xxl-8 h-100 bg-light-primary">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold">Informasi Umum</h3>
+                            </div>
+                            <div class="card-body pt-2 pb-6">
+                                <div id="dashboard_informasi_list">
+                                    <div class="text-muted">Memuat informasi...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-8 mb-5 mb-xxl-8">
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title fw-bold">Statistik Pensiun Lainnya</h3>
+                    </div>
+                    <div class="card-body pt-2 pb-6">
+                        <div id="chart_pensiun_lain_dashboard" style="height: 340px;"></div>
+                        <div id="legend_pensiun_lain_dashboard" class="d-flex flex-wrap justify-content-center gap-3 mt-3"></div>
                     </div>
                 </div>
 

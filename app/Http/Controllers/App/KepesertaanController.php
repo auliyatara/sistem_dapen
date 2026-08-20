@@ -14,6 +14,7 @@ class KepesertaanController extends Controller
 {    
     public function index(Base $Base){
         $operation = $Base->UserAccess('kepesertaan');
+        // dd($operation);
         if($operation['view']){
             return view('layout.Kepesertaan.index',$operation);
         }

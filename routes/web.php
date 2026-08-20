@@ -16,6 +16,11 @@ use App\Http\Controllers\App\KepesertaanController;
 use App\Http\Controllers\App\KepesertaanLinkController;
 use App\Http\Controllers\App\InvestasiController;
 use App\Http\Controllers\App\KeuanganController;
+use App\Http\Controllers\App\IuranController;
+use App\Http\Controllers\App\KepegawaianController;
+use App\Http\Controllers\App\TotalController;
+
+// use App\Http\Controllers\App\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +55,9 @@ Route::middleware(['check-auth'])->group(function () {
     Route::resource('roleaccess', RoleAccessController::class)->only(['index']);
     Route::resource('investasi', InvestasiController::class)->only(['index']);
     Route::resource('keuangan', KeuanganController::class)->only(['index']);
+    Route::resource('iuran', IuranController::class)->only(['index']);
+    Route::resource('total', TotalController::class)->only(['index']);
+    Route::resource('kepegawaian', KepegawaianController::class)->only(['index']);
 });
 
 

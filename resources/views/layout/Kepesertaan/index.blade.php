@@ -192,9 +192,8 @@
                                             <th class="text-center">NIP</th>
                                             <th class="text-center" style="width:150px">TTL</th>
                                             <th class="text-center">TMT Peserta</th>
-                                            <th class="text-center">Estimasi MP Peserta</th>
-                                            <th class="text-center">Estimasi MP Pensiunan</th>
                                             <th class="text-center">Status Peserta</th>
+                                            <th class="text-center">Status Pekerjaan</th>
                                             <th class="text-center" style="width:250px">Action</th>
                                         </tr>
                                     </thead>
@@ -244,7 +243,7 @@
                             <div class="col-4 detail_kepesertaan_foto_show">
                                 <div class="me-7 mb-4">
                                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                        <img src="{{asset('public/profile_default.png')}}" alt="image"
+                                        <img src="{{asset('public/assets/images/profile_default.png')}}" alt="image"
                                             id="detail_kepesertaan_foto">
                                         <div
                                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">

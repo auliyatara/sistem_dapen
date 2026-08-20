@@ -114,7 +114,7 @@
                     </td>
                 `
                 let ttl = v.kepesertaan_tempat_lahir+", "+ v.kepesertaan_tanggal_lahir
-                let push_array = [parseInt(k)+1,v.kepesertaan_nama,v.kepesertaan_nip,ttl,v.kepesertaan_terhitung_mulai_tanggal,v.kepesertaan_terhitung_mulai_tanggal_pensiun,v.kepesertaan_tanggal_pensiun,v.kepesertaan_status_jabatan,html_action]
+                let push_array = [parseInt(k)+1,v.kepesertaan_nama,v.kepesertaan_nip,ttl,v.kepesertaan_terhitung_mulai_tanggal,v.kepesertaan_status_kepesertaan,v.kepesertaan_status_jabatan,html_action]
                 array.push(push_array);
             }
             
@@ -265,7 +265,7 @@
                                         if(exist){
                                             $("#kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
+                                            $("#kepesertaan_foto").attr("src", `{{asset('public/assets/images/profile_default.png')}}`);
                                         }
                                     });
                                     
@@ -393,7 +393,7 @@
                                         if(exist){
                                             $("#detail_kepesertaan_foto").attr("src", `{{ asset('public/storage/kepesertaan_foto/${value}') }}`);
                                         } else{
-                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('public/profile_default.png')}}`);
+                                            $("#detail_kepesertaan_foto").attr("src", `{{asset('public/assets/images/profile_default.png')}}`);
                                         }
                                     });
                                     

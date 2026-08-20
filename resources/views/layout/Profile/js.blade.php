@@ -21,7 +21,7 @@
                             $('[name='+key+']').val(value)
                         } else if(key == "user_foto"){
                             if(value != null){
-                            $("#profile_image").attr("src", `{{ asset('public/storage/user_foto/${value}') }}`);
+                            $("#profile_image").attr("src", `{{ asset('storage/app/public/user_foto/${value}') }}`);
                             }
                         }
                     })

@@ -14,6 +14,12 @@ class BaseController
         INNER JOIN role_accesses ON menu_id = role_access_menu_id
         WHERE role_access_role_id = '".$user['user_role_id']."'
         AND menu_parent = (SELECT menu_id FROM menus WHERE menu_kode ='".$menu_kode."')");
+
+        // print_r("SELECT menu_nama
+        // FROM menus
+        // INNER JOIN role_accesses ON menu_id = role_access_menu_id
+        // WHERE role_access_role_id = '".$user['user_role_id']."'
+        // AND menu_parent = (SELECT menu_id FROM menus WHERE menu_kode ='".$menu_kode."')");die;
         
         $view=false;
         $edit=false;
