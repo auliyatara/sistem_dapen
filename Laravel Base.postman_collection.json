@@ -159,7 +159,7 @@
 						},
 						{
 							"key": "password",
-							"value": "@user12345",
+							"value": "user123",
 							"type": "text"
 						}
 					]

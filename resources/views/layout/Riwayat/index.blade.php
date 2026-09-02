@@ -9,7 +9,7 @@
             <div class="card shadow-sm table_data" style="display:block">
                 <div class="card-header">
                     <h3 class="card-title">Riwayat System Log</h3>
-                    @if($edit)
+                    @if($canResetHistory)
                         <div class="card-toolbar">
                             <a href="javascript:onDelete()" class="btn btn-sm btn-danger">
                                 Reset Riwayat</a>
