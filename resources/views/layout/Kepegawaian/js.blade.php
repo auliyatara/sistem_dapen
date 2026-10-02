@@ -13,7 +13,36 @@
         onRole();
         $(document).on('change', '[name=tanggal_lahir]', updateUsia);
         $(document).on('change', '[name=perkiraan_pensiun]', updateSisaMasaKerja);
+        $('#add-pegawai-link').on('click', function () {
+            addPegawaiLink().find('input').trigger('focus');
+        });
+        $('#pegawai-links').on('click', '.remove-pegawai-link', function () {
+            $(this).closest('.pegawai-link-row').remove();
+        });
     })
+
+    const parsePegawaiLinks = (value) => {
+        try {
+            const links = typeof value === 'string' ? JSON.parse(value) : value;
+            return Array.isArray(links) ? links.filter(link => typeof link === 'string') : [];
+        } catch (error) {
+            return [];
+        }
+    };
+
+    const addPegawaiLink = (value = '') => {
+        const row = $('<div class="d-flex gap-2 pegawai-link-row">');
+        $('<input type="url" name="links[]" class="form-control form-control-solid" placeholder="https://..." maxlength="2048" aria-label="Link tambahan">').val(value).appendTo(row);
+        $('<button type="button" class="btn btn-light-danger btn-icon remove-pegawai-link" aria-label="Hapus link" title="Hapus link">').text('−').appendTo(row);
+        return row.appendTo('#pegawai-links');
+    };
+
+    const fillPegawaiLinks = (value) => {
+        const links = parsePegawaiLinks(value);
+        $('#pegawai-links .pegawai-link-row').slice(1).remove();
+        $('#pegawai-link-first').val(links[0] || '');
+        links.slice(1).forEach(link => addPegawaiLink(link));
+    };
 
     onInitTable = () =>{
         table.clear();
@@ -36,6 +65,7 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
+                                @if($edit)
                                 <a href="javascript:onEdit('${v.id}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                     <span class="svg-icon svg-icon-3">
@@ -57,6 +87,7 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
+                                @endif
                             </td>
                         `
                         let push_array = [v.nama,v.email_1,v.nomor_hp_1,v.jabatan,html_action]
@@ -71,6 +102,7 @@
     }
 
     onAdd = () => {
+        fillPegawaiLinks([]);
         $('.table_data').hide()
         $('.form_data').show()
         $("#menu-title").html("Tambah Pegawai");
@@ -109,6 +141,7 @@
 
                 if(response.status == true){
                     renderLampiran(response.data[0].lampiran)
+                    fillPegawaiLinks(response.data[0].links);
                     $.each(response.data[0], function( key, value ){
 
                             $('[name='+key+']').val(value)
@@ -232,6 +265,15 @@
 
         $('#pegawai_detail_title').text(`Detail Pegawai: ${pegawai.nama}`);
         $('#pegawai_detail_content').html(detail);
+        const linkSection = $('<div class="col-12 mb-4">');
+        $('<div class="text-muted fs-7 mb-2">').text('Link').appendTo(linkSection);
+        const links = parsePegawaiLinks(pegawai.links).filter(link => /^https?:\/\//i.test(link));
+        if (!links.length) $('<div>').text('-').appendTo(linkSection);
+        links.forEach(link => {
+            $('<a class="d-block mb-2" target="_blank" rel="noopener noreferrer">')
+                .attr('href', link).text(link).css('overflow-wrap', 'anywhere').appendTo(linkSection);
+        });
+        $('#pegawai_detail_content').append(linkSection);
         renderLampiran(pegawai.lampiran, '#pegawai_detail_lampiran');
     }
 

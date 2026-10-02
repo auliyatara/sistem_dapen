@@ -43,7 +43,7 @@ class MenuController extends Controller
                         $column = array_column($vunset, 'id');              
                         $foundKey = array_search($vchecked->parent_id, $column);
 
-                        if($foundKey != ''){
+                        if($foundKey !== false){
                             $push = $vchecked;
 
                             $index = isset($loop[$kunset][$foundKey]->children)?count($loop[$kunset][$foundKey]->children):0;

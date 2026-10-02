@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 
 use App\Models\User;
 use App\Models\Pegawai;
@@ -18,6 +19,17 @@ use Symfony\Component\Process\Process;
 class KepegawaianController extends Controller
 {    
     private const MAX_LAMPIRAN_SIZE = 2097152;
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $access = app(BaseController::class)->UserAccess('kepegawaian');
+            abort_unless($access['view'], 403);
+            if (in_array($request->route()->getActionMethod(), ['store', 'update', 'destroy', 'updatealternate'], true)) {
+                abort_unless($access['edit'], 403);
+            }
+            return $next($request);
+        });
+    }
     // protected $UserService;
 
     // public function __construct(UserService $UserService){
@@ -68,6 +80,8 @@ class KepegawaianController extends Controller
                 'perkiraan_pensiun' => 'required|date|after:tanggal_pengangkatan',
                 'jabatan' => 'required|in:Pengurus,Pegawai',
                 'lampiran' => 'required|array|min:1',
+                'links' => 'nullable|array',
+                'links.*' => ['nullable', 'string', 'max:2048', 'url', 'regex:/^https?:\/\//i'],
                 'lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:40960',
             ]);
 
@@ -75,6 +89,7 @@ class KepegawaianController extends Controller
             $validated['sisa_masa_kerja'] = $this->calculateSisaMasaKerja($validated['perkiraan_pensiun']);
 
             $validated['lampiran'] = $this->storeLampiran($request->file('lampiran'));
+            $validated['links'] = json_encode(array_values(array_filter($validated['links'] ?? [])));
             
             $operation = Pegawai::create($validated);
             return $this->responseCreate($operation);
@@ -106,6 +121,8 @@ class KepegawaianController extends Controller
                 'perkiraan_pensiun' => 'required|date|after:tanggal_pengangkatan',
                 'jabatan' => 'required|in:Pengurus,Pegawai',
                 'lampiran' => 'nullable|array|min:1',
+                'links' => 'nullable|array',
+                'links.*' => ['nullable', 'string', 'max:2048', 'url', 'regex:/^https?:\/\//i'],
                 'lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:40960',
             ]);
 
@@ -114,6 +131,9 @@ class KepegawaianController extends Controller
 
             if ($request->hasFile('lampiran')) {
                 $validated['lampiran'] = $this->storeLampiran($request->file('lampiran'));
+            }
+            if ($request->has('links')) {
+                $validated['links'] = json_encode(array_values(array_filter($validated['links'] ?? [])));
             }
             $operation = Pegawai::where('id',$id)->update($validated);
 

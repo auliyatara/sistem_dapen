@@ -33,5 +33,6 @@ class Pegawai extends Model
         'perkiraan_pensiun',
         'jabatan',
         'lampiran',
+        'links',
     ];
 }

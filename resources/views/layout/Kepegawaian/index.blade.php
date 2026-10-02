@@ -13,6 +13,7 @@
                             <span class="card-label fw-bold fs-3 mb-1">Kepegawaian</span>
                         </h3>
                         <div class="card-toolbar">
+                            @if($edit)
                             <a href="javascript:onAdd()" class="btn btn-sm btn-light-primary">
                                 <span class="svg-icon svg-icon-2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -23,6 +24,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->Tambah Data</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body pt-3 py-3">

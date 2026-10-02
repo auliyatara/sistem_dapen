@@ -150,32 +150,7 @@
             }
         })
 
-        checkStorage()
-        function checkStorage(){
-            $.ajax({
-                url: "{{ route('menu_storage_api.index') }}",
-                type: 'GET',
-                success: function(response){
-                    if(response.status){
-                        if(localStorage.getItem("menuStorage") === null){
-                            localStorage.setItem("menuStorage", response.data.menu_storage_value);
-                            menuAccess()
-                        } else{
-                            let check = (localStorage.getItem("menuStorage") === response.data.menu_storage_value)
-                            if(check){
-                                const menuList = localStorage.getItem("menuList")
-                                const data = JSON.parse(atob(menuList))
-                                console.log(data, "menu_storage")
-                                generateMenuSideBar(data)
-                            } else{
-                                localStorage.setItem("menuStorage", response.data.menu_storage_value);
-                                menuAccess()
-                            }
-                        }
-                    }
-                }
-            })
-        }
+        menuAccess()
 
         function menuAccess(){
             $.ajax({
@@ -184,9 +159,6 @@
                 success: function(response){
                     if(response.status){
                         generateMenuSideBar(response.data)
-                        const arrayString = JSON.stringify(response.data);
-                        const encodedString = btoa(arrayString);
-                        localStorage.setItem("menuList", encodedString);
                     }
                 }
             }) 
@@ -210,7 +182,9 @@
             console.log(data)
             $.each( data, function(key, value){
                 let menu = value;
-                let route = window.location.origin+getRoute()+menu['menu_route'];
+                let route = String(menu.menu_nama || '').trim().toUpperCase() === 'KPI'
+                    ? "{{ route('kpi.index') }}"
+                    : window.location.origin+getRoute()+menu['menu_route'];
 
                 if(menu['menu_has_child']){
                                 $('.sidebar_list').append(`
@@ -243,7 +217,9 @@
                                 `);
 
                                 $.each(menu.children, function(keyChild, valueChild){
-                                    let route = window.location.origin+getRoute()+valueChild['menu_route'];
+                                    let route = String(valueChild.menu_nama || '').trim().toUpperCase() === 'KPI'
+                                        ? "{{ route('kpi.index') }}"
+                                        : window.location.origin+getRoute()+valueChild['menu_route'];
 
                                     $('#parent_sidebar_'+valueChild.menu_parent).append(`<div class="menu-item">
                                         <a class="menu-link" href="${route}">
@@ -282,6 +258,21 @@
                 }
 
             })
+
+            const sidebarLinks = $('.sidebar_list a.menu-link');
+            const pesertaMenu = sidebarLinks.filter(function () {
+                return new URL(this.href).pathname.replace(/\/+$/, '').endsWith('/kepesertaan');
+            }).first().closest('.menu-item');
+            const linkMenu = sidebarLinks.filter(function () {
+                return new URL(this.href).pathname.replace(/\/+$/, '').endsWith('/kepesertaan_link');
+            }).first().closest('.menu-item');
+
+            if (pesertaMenu.length && linkMenu.length) {
+                linkMenu.insertAfter(pesertaMenu);
+                linkMenu.find('.menu-icon').replaceWith(
+                    '<span class="menu-bullet"><span class="bullet bullet-dot"></span></span>'
+                );
+            }
         }
 
         function onNotification(data){

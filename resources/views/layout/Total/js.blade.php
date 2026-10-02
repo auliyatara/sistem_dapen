@@ -42,8 +42,8 @@
 
                 table.rows.add(rows);
                 table.order([]).draw();
-                $('#total_iuran_peserta').val(formatToRupiah(response.data.total_iuran_peserta));
-                $('#total_iuran_pemberi_kerja').val(formatToRupiah(0));
+                $('#total_iuran_peserta').text(formatToRupiah(response.data.total_iuran_peserta));
+                $('#total_iuran_pemberi_kerja').text(formatToRupiah(0));
             },
         });
     };
@@ -60,7 +60,7 @@
             total += nominal;
         });
 
-        $('#total_iuran_pemberi_kerja').val(formatToRupiah(total));
+        $('#total_iuran_pemberi_kerja').text(formatToRupiah(total));
     };
 
     formatToRupiah = (value) => new Intl.NumberFormat('id-ID', {

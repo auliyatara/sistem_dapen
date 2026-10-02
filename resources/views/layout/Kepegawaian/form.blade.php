@@ -1,3 +1,4 @@
+@if($edit)
 <div class="form_data" style="display:none">
     <div class="card-header border-0 pt-5">
         <h2 class="card-title align-items-start flex-column">
@@ -166,6 +167,17 @@
                         <input type="file" class="form-control form-control-solid" id="lampiran" name="lampiran[]" multiple accept=".pdf,.jpg,.jpeg,.png" required/>
                         <small class="text-muted">PDF/JPG/JPEG/PNG hingga 40 MB dapat diunggah. File di atas 2 MB akan dikompres otomatis.</small>
                         <div id="lampiran_view" class="mt-2" style="display: none;"></div>
+                    </div>
+
+                    <div class="fv-row mb-5">
+                        <label for="pegawai-link-first" class="fs-5 fw-semibold mb-2">Link (opsional)</label>
+                        <div id="pegawai-links" class="d-flex flex-column gap-2">
+                            <div class="d-flex gap-2 pegawai-link-row">
+                                <input type="url" id="pegawai-link-first" name="links[]" class="form-control form-control-solid" placeholder="https://..." maxlength="2048" aria-label="Link 1">
+                                <button type="button" class="btn btn-light-primary btn-icon" id="add-pegawai-link" aria-label="Tambah link" title="Tambah link">+</button>
+                            </div>
+                        </div>
+                        <small class="text-muted">Klik + untuk menambahkan link lain.</small>
                     </div>
 
                     <div class="fv-row mb-5 row">
@@ -373,6 +385,7 @@
     </div>
 </div>
 
+@endif
 <div class="modal fade bd-example-modal-lg" id="lampiran_preview_modal" tabindex="-1" role="dialog"
     aria-labelledby="lampiran_preview_title" aria-hidden="true" style="z-index:9999999">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

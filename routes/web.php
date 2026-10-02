@@ -19,6 +19,7 @@ use App\Http\Controllers\App\KeuanganController;
 use App\Http\Controllers\App\IuranController;
 use App\Http\Controllers\App\KepegawaianController;
 use App\Http\Controllers\App\TotalController;
+use App\Http\Controllers\App\KPIController;
 
 // use App\Http\Controllers\App\UserController;
 
@@ -43,6 +44,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware(['check-auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class)->only(['index']);
+    Route::resource('kpi', KPIController::class)->only(['index']);
+    Route::post('kpi/{role}/periods', [KPIController::class, 'storePeriod'])->name('kpi.periods.store');
+    Route::post('kpi/periods/{period}/tasks', [\App\Http\Controllers\App\KpiTaskController::class, 'store'])->name('kpi.tasks.store');
+    Route::put('kpi/tasks/{task}', [\App\Http\Controllers\App\KpiTaskController::class, 'update'])->name('kpi.tasks.update');
+    Route::delete('kpi/tasks/{task}', [\App\Http\Controllers\App\KpiTaskController::class, 'destroy'])->name('kpi.tasks.destroy');
+    Route::get('kpi/tasks/{task}/evidence', [\App\Http\Controllers\App\KpiTaskController::class, 'evidence'])->name('kpi.tasks.evidence');
     Route::resource('users', UserController::class)->only(['index']);
     Route::resource('program', ProgramController::class)->only(['index']);
     Route::resource('profile', ProfileController::class)->only(['index']);
@@ -59,8 +66,5 @@ Route::middleware(['check-auth'])->group(function () {
     Route::resource('total', TotalController::class)->only(['index']);
     Route::resource('kepegawaian', KepegawaianController::class)->only(['index']);
 });
-
-
-
 
 

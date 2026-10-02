@@ -11,8 +11,13 @@ use App\Models\InformasiTambahan;
 
 class InformasiTambahanController extends Controller
 {
-    public function index(){
-        $operation = InformasiTambahan::all();
+    public function index(Request $request){
+        $query = InformasiTambahan::query();
+        if ($request->boolean('active_only')) {
+            $query->whereDate('informasi_tanggal', '>=', now('Asia/Jakarta')->toDateString())
+                ->orderBy('informasi_tanggal');
+        }
+        $operation = $query->get();
         return $this->response($operation);
     }
 

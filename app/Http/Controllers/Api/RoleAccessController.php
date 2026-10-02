@@ -20,9 +20,26 @@ class RoleAccessController extends Controller
         $user = User::find(Auth::id());
 
         $distinct = DB::select("SELECT DISTINCT menu_level from menus where menu_level<=2 order by menu_level desc");
+        $loop = [];
 
         foreach($distinct as $value){
-            $loop[$value->menu_level] = DB::select("SELECT * FROM menus INNER JOIN role_accesses ON menu_id = role_access_menu_id AND role_access_role_id = '".$user['user_role_id']."' where menu_level = ".$value->menu_level." ORDER BY menu_order,menus.created_at");
+            $loop[$value->menu_level] = DB::table('menus')
+                ->where('menu_level', $value->menu_level)
+                ->where(function ($query) use ($user) {
+                    $query->whereIn('menu_id', function ($access) use ($user) {
+                        $access->select('role_access_menu_id')->from('role_accesses')
+                            ->where('role_access_role_id', $user->user_role_id);
+                    })->orWhere(function ($parents) use ($user) {
+                        $parents->where('menu_level', 1)->where('menu_has_child', 1)
+                            ->whereIn('menu_id', function ($children) use ($user) {
+                                $children->select('child.menu_parent')->from('menus as child')
+                                    ->join('role_accesses as access', 'child.menu_id', '=', 'access.role_access_menu_id')
+                                    ->where('child.menu_level', 2)
+                                    ->where('access.role_access_role_id', $user->user_role_id);
+                            });
+                    });
+                })
+                ->orderBy('menu_order')->orderBy('menus.created_at')->get()->all();
         }
 
         foreach($loop as $kloop => $vloop){
@@ -34,7 +51,7 @@ class RoleAccessController extends Controller
                         $column = array_column($vunset, 'menu_id');              
                         $foundKey = array_search($vchecked->menu_parent, $column);
 
-                        if($foundKey != ''){
+                        if($foundKey !== false){
                             $push = $vchecked;
                             $index = isset($loop[$kunset][$foundKey]->children)?count($loop[$kunset][$foundKey]->children):0;
                             $loop[$kunset][$foundKey]->children[$index] = $push; 
@@ -44,7 +61,7 @@ class RoleAccessController extends Controller
             } 
         }
 
-        $operation = $loop[1];
+        $operation = $loop[1] ?? [];
         return $this->response($operation);
     }
 
