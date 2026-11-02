@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-sm btn-light-primary text-break" data-bs-toggle="modal" data-bs-target="#kpi-evidence-modal" data-evidence-url="{{ route('kpi.tasks.evidence', ['task' => $evidenceTask->id, 'attachment' => $key, 'preview' => 1]) }}" data-evidence-name="{{ $attachment['name'] }}">{{ $attachment['name'] }}</button>

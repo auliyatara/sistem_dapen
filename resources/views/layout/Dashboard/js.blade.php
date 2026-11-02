@@ -90,8 +90,8 @@
                     $.each(data, function( key, value ){
                         if(key == "user_foto"){
                             if(value != null){
-                                $("#profile_image").attr("src", `{{ asset('storage/app/public/user_foto/${value}') }}`);
-                                $("#header_image").attr("src", `{{ asset('storage/app/public/user_foto/${data.user_foto}') }}`);
+                                $("#profile_image").attr("src", "{{ route('dashboard_api.profile_photo') }}");
+                                
                             }
                         } else{
                             $('[name='+key+']').val(value)
@@ -145,7 +145,7 @@
 
                 const statistik = response.data;
                 $('#dashboard-active').text(Number(statistik.peserta.total).toLocaleString('id-ID'));
-                $('#dashboard-retired').text(Number(statistik.pensiunan.total).toLocaleString('id-ID'));
+                $('#dashboard-retired').text(Number(statistik.pensiunan.total_semua).toLocaleString('id-ID'));
                 const urutan = ['Guru Besar', 'Dosen', 'Karyawan'];
                 const jabatan = [...statistik.jabatan].sort((a, b) => urutan.indexOf(a.jabatan) - urutan.indexOf(b.jabatan));
                 renderChartPeserta(jabatan);

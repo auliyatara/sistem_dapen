@@ -24,9 +24,9 @@
 
                     <div class="fv-row mb-5">
                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                            <span class="required">NIP</span>
+                            <span>NIP (opsional)</span>
                         </label>
-                        <input type="text" class="form-control form-control-solid" name="nip" required/>
+                        <input type="text" class="form-control form-control-solid" name="nip"/>
                     </div>
 
                     <div class="fv-row mb-5">
@@ -86,7 +86,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="fv-row mb-5">
                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
@@ -100,6 +99,7 @@
                             <span class="required">Alamat Saat Ini</span>
                         </label>
                         <input type="text" class="form-control form-control-solid" name="alamat_saat_ini" required/>
+                        <label class="d-flex align-items-center gap-2 mt-2"><input type="checkbox" id="pegawai-alamat-sama" class="form-check-input"> Sama dengan alamat KTP</label>
                     </div>
 
                     <div class="fv-row mb-5">
@@ -111,7 +111,7 @@
 
                     <div class="fv-row mb-5">
                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                            <span class="required">Nomor HP 2</span>
+                            <span>Nomor HP 2 (opsional)</span>
                         </label>
                         <input type="text" class="form-control form-control-solid" name="nomor_hp_2"/>
                     </div>
@@ -147,6 +147,21 @@
 
                 <div class="col-md-4">
                     <div class="fv-row mb-5">
+                        <div class="col-12">
+                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                <span class="required">Jabatan</span>
+                            </label>
+                            <select class="form-control" name="jabatan" required>
+                                <option value="">Pilih Jabatan</option>
+                                @foreach(config('kepegawaian.jabatan') as $jabatan)
+                                <option value="{{ $jabatan }}">{{ $jabatan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="fv-row mb-5">
                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                             <span class="required">Masa Kerja</span>
                         </label>
@@ -165,6 +180,7 @@
                             <span class="required">Lampiran</span>
                         </label>
                         <input type="file" class="form-control form-control-solid" id="lampiran" name="lampiran[]" multiple accept=".pdf,.jpg,.jpeg,.png" required/>
+                        <div class="form-text">Saat edit, lampiran baru ditambahkan ke lampiran yang sudah tersimpan.</div>
                         <small class="text-muted">PDF/JPG/JPEG/PNG hingga 40 MB dapat diunggah. File di atas 2 MB akan dikompres otomatis.</small>
                         <div id="lampiran_view" class="mt-2" style="display: none;"></div>
                     </div>
@@ -178,19 +194,6 @@
                             </div>
                         </div>
                         <small class="text-muted">Klik + untuk menambahkan link lain.</small>
-                    </div>
-
-                    <div class="fv-row mb-5 row">
-                        <div class="col-12">
-                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                <span class="required">Jabatan</span>
-                            </label>
-                            <select class="form-control" name="jabatan" required>
-                                <option value="">Pilih Jabatan</option>
-                                <option value="Pengurus">Pengurus</option>
-                                <option value="Pegawai">Pegawai</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
             </div>

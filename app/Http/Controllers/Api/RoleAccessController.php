@@ -37,7 +37,11 @@ class RoleAccessController extends Controller
                                     ->where('child.menu_level', 2)
                                     ->where('access.role_access_role_id', $user->user_role_id);
                             });
-                    });
+                    })->orWhereIn('menu_kode', ['kepesertaan', 'kepesertaan_link', 'iuran', 'total'])
+                        ->orWhereIn('menu_id', function ($parents) {
+                            $parents->select('visible.menu_parent')->from('menus as visible')
+                                ->whereIn('visible.menu_kode', ['kepesertaan', 'kepesertaan_link', 'iuran', 'total']);
+                        });
                 })
                 ->orderBy('menu_order')->orderBy('menus.created_at')->get()->all();
         }

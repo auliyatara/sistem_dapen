@@ -2,6 +2,11 @@
 
 @section('content')
 <style>
+    #iuran-page #table_primary thead th,
+    #iuran-detail-modal table thead th {
+        font-size: calc(1rem + 2px);
+    }
+
     #iuran-page #table_primary {
         table-layout: fixed;
         min-width: 860px;
@@ -102,20 +107,26 @@
                                 <!--end::Svg Icon-->
                             <div class="fv-row mb-3">
                                 <label for="year" class="form-label fw-semibold">Tahun</label>
-                                <input type="number" class="form-control form-control-solid" id="year" name="year" min="1900" max="2099" step="1" value="{{ $iuranYear ?? now()->year }}">
+                                <input type="number" class="form-control form-control-solid" id="year" name="year" min="1900" max="2099" step="1" value="{{ $iuranYear ?? now('Asia/Jakarta')->year }}">
                             </div>
                         </div>
                     </div>
                     <div class="card-body pt-3 pb-5">
+                        <div class="alert alert-info mb-4">
+                            <div>PHDP pada rekap adalah rata-rata PHDP dari bulan yang memiliki data pada tahun terpilih. Iuran peserta adalah jumlah PHDP bulanan × 7,5%.</div>
+                            <div class="mt-1">Iuran + pengembangan dihitung dari dasar pengembangan × 7,5% × (1 + 4,5% ÷ 12). Jika seluruh data pengembangan tahun tersebut belum tersedia, sistem memakai estimasi iuran peserta × (1 + 4,5% ÷ 12).</div>
+                            <div class="mt-1">Data kosong ditampilkan sebagai “Belum ada data”; nilai nol tetap Rp0. Klik nama peserta untuk melihat rincian bulanan.</div>
+                        </div>
+                        <p id="iuran-load-status" class="text-muted" role="status"></p>
                         <div class="table-responsive">
                             <table id="table_primary" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-left">No.</th>
-                                        <th class="text-center">Nama Peserta</th>
-                                        <th class="text-center">PHDP</th>
-                                        <th class="text-center">Iuran Peserta</th>
-                                        <th class="text-center">Iuran Peserta + Pengembangan</th>
+                                        <th class="text-left"><strong>No.</strong></th>
+                                        <th class="text-center"><strong>Nama Peserta</strong></th>
+                                        <th class="text-center"><strong>Rata-rata PHDP</strong></th>
+                                        <th class="text-center"><strong>Iuran Peserta</strong></th>
+                                        <th class="text-center"><strong>Iuran Peserta + Pengembangan</strong></th>
                                         <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
@@ -132,6 +143,10 @@
     </div>
     <!--end::Content-->
 </div>
+<div class="modal fade" id="iuran-detail-modal" tabindex="-1" aria-labelledby="iuran-detail-title" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">
+<div class="modal-header"><h3 id="iuran-detail-title" class="modal-title">Rincian iuran peserta</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+<div class="modal-body"><p id="iuran-detail-status" role="status">Memuat rincian...</p><div id="iuran-detail-content" class="table-responsive" hidden><table class="table table-striped"><thead><tr><th>Bulan</th><th class="text-end">PHDP</th><th class="text-end">Iuran peserta (7,5%)</th><th class="text-end">Iuran + pengembangan</th></tr></thead><tbody id="iuran-detail-rows"></tbody></table></div></div>
+<div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button></div></div></div></div>
 @endsection
 
 @push('javascript')

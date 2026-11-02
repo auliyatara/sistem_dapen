@@ -53,6 +53,7 @@ use App\Http\Controllers\Api\TotalController;
 Route::post('/login', [LoginController::class, 'loginapi']);
 
 Route::middleware(['check-auth'])->group(function () {
+    Route::get('/dashboard_api/profile-photo', [DashboardController::class, 'profilePhoto'])->name('dashboard_api.profile_photo');
     Route::controller(AktifitasController::class)->name('aktifitas_api.')->prefix('aktifitas_api')->group(function () {
         Route::any('/updatealternate', 'updatealternate')->name('updatealternate');
     });

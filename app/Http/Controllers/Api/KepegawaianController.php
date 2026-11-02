@@ -58,11 +58,12 @@ class KepegawaianController extends Controller
     }
 
     public function store(Request $request){
+        $this->validateIdentity($request);
         try {            
            
             $validated = $request->validate([
                 'nama' => 'required|string|max:255',
-                'nip' => 'required|string|max:50',
+                'nip' => 'nullable|string|max:50',
                 'nik' => 'required|string|max:50',
                 'tempat_lahir' => 'required|string|max:100',
                 'tanggal_lahir' => 'required|date',
@@ -78,13 +79,15 @@ class KepegawaianController extends Controller
                 'sisa_masa_kerja' => 'nullable|string|max:100',
                 'tanggal_pengangkatan' => 'required|date',
                 'perkiraan_pensiun' => 'required|date|after:tanggal_pengangkatan',
-                'jabatan' => 'required|in:Pengurus,Pegawai',
+                'jabatan' => ['required', Rule::in(config('kepegawaian.jabatan'))],
                 'lampiran' => 'required|array|min:1',
                 'links' => 'nullable|array',
                 'links.*' => ['nullable', 'string', 'max:2048', 'url', 'regex:/^https?:\/\//i'],
                 'lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:40960',
             ]);
 
+            $validated['nip'] = $validated['nip'] ?? '';
+            $validated['nomor_hp_2'] = $validated['nomor_hp_2'] ?? '';
             $validated['usia'] = Carbon::parse($validated['tanggal_lahir'])->age;
             $validated['sisa_masa_kerja'] = $this->calculateSisaMasaKerja($validated['perkiraan_pensiun']);
 
@@ -99,11 +102,13 @@ class KepegawaianController extends Controller
     }
 
     public function update(Request $request, $id){
+        Pegawai::findOrFail($id);
+        $this->validateIdentity($request, $id);
         try {            
            
             $validated = $request->validate([
                 'nama' => 'required|string|max:255',
-                'nip' => 'required|string|max:50',
+                'nip' => 'nullable|string|max:50',
                 'nik' => 'required|string|max:50',
                 'tempat_lahir' => 'required|string|max:100',
                 'tanggal_lahir' => 'required|date',
@@ -119,18 +124,24 @@ class KepegawaianController extends Controller
                 'sisa_masa_kerja' => 'nullable|string|max:100',
                 'tanggal_pengangkatan' => 'required|date',
                 'perkiraan_pensiun' => 'required|date|after:tanggal_pengangkatan',
-                'jabatan' => 'required|in:Pengurus,Pegawai',
+                'jabatan' => ['required', Rule::in(config('kepegawaian.jabatan'))],
                 'lampiran' => 'nullable|array|min:1',
                 'links' => 'nullable|array',
                 'links.*' => ['nullable', 'string', 'max:2048', 'url', 'regex:/^https?:\/\//i'],
                 'lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:40960',
             ]);
 
+            $validated['nip'] = $validated['nip'] ?? '';
+            $validated['nomor_hp_2'] = $validated['nomor_hp_2'] ?? '';
             $validated['usia'] = Carbon::parse($validated['tanggal_lahir'])->age;
             $validated['sisa_masa_kerja'] = $this->calculateSisaMasaKerja($validated['perkiraan_pensiun']);
 
             if ($request->hasFile('lampiran')) {
-                $validated['lampiran'] = $this->storeLampiran($request->file('lampiran'));
+                $pegawai = Pegawai::findOrFail($id);
+                $existing = json_decode($pegawai->lampiran ?? '[]', true);
+                if (!is_array($existing)) $existing = $pegawai->lampiran ? [$pegawai->lampiran] : [];
+                $added = json_decode($this->storeLampiran($request->file('lampiran')), true);
+                $validated['lampiran'] = json_encode(array_merge($existing, $added));
             }
             if ($request->has('links')) {
                 $validated['links'] = json_encode(array_values(array_filter($validated['links'] ?? [])));
@@ -301,10 +312,24 @@ class KepegawaianController extends Controller
         imagedestroy($image);
     }
 
+    private function validateIdentity(Request $request, $id = null): void
+    {
+        foreach (['nik', 'nip'] as $field) {
+            if (is_string($request->input($field))) $request->merge([$field => trim($request->input($field))]);
+        }
+        if ($request->input('nip') === '' || preg_match('/^0+$/', (string)$request->input('nip'))) $request->merge(['nip' => null]);
+        $nik = Rule::unique('pegawai', 'nik');
+        $nip = Rule::unique('pegawai', 'nip');
+        if ($id !== null) { $nik->ignore($id, 'id'); $nip->ignore($id, 'id'); }
+        $request->validate(['nik' => ['required', 'string', 'max:50', $nik], 'nip' => ['nullable', 'string', 'max:50', $nip]], [
+            'nik.unique' => 'NIK sudah digunakan pegawai lain.', 'nip.unique' => 'NIP sudah digunakan pegawai lain.',
+        ]);
+    }
+
     private function calculateSisaMasaKerja(string $tanggalPensiun): string
     {
-        $today = Carbon::today();
-        $pensionDate = Carbon::parse($tanggalPensiun)->startOfDay();
+        $today = Carbon::today('Asia/Jakarta');
+        $pensionDate = Carbon::parse($tanggalPensiun, 'Asia/Jakarta')->startOfDay();
 
         if ($pensionDate->lessThanOrEqualTo($today)) {
             return '0 Tahun 0 Bulan 0 Hari';

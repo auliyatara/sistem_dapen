@@ -89,12 +89,31 @@
                                 <!--end::Svg Icon-->
                             <div class="fv-row mb-3">
                                 <label for="year" class="form-label fw-semibold">Tahun</label>
-                                <input type="number" class="form-control form-control-solid" id="year" name="year" min="1900" max="2099" step="1" value="{{ $iuranYear ?? now()->year }}">
+                                <input type="number" class="form-control form-control-solid" id="year" name="year" min="1900" max="2099" step="1" value="{{ $iuranYear ?? now('Asia/Jakarta')->year }}">
                             </div>
                         </div>
                     </div>
                     <div class="card-body pt-3 py-3">
+                        <form id="total-export-form" method="GET" action="{{ route('total.export') }}" class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                            <input type="hidden" name="preview" value="1">
+                            <label class="fw-semibold mb-0">Ekspor tahun yang dipilih</label>
+                            <button class="btn btn-sm btn-light-primary" type="submit" name="format" value="xlsx">Preview Excel</button>
+                            <button class="btn btn-sm btn-light-primary" type="submit" name="format" value="pdf">Preview PDF</button>
+                        </form>
+                        <div id="total-reconciliation" class="alert alert-secondary mb-4" role="status">Memuat pencocokan dengan menu Iuran...</div>
+                        <form id="total-export-form" method="GET" action="{{ route('total.export') }}" class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                            <input type="hidden" name="preview" value="1">
+                            <label class="fw-semibold mb-0">Ekspor tahun yang dipilih</label>
+                            <button class="btn btn-sm btn-light-primary" type="submit" name="format" value="xlsx">Preview Excel</button>
+                            <button class="btn btn-sm btn-light-primary" type="submit" name="format" value="pdf">Preview PDF</button>
+                        </form>
+                        <div id="total-reconciliation" class="alert alert-secondary mb-4" role="status">Memuat pencocokan dengan menu Iuran...</div>
+                        <div class="alert alert-info mb-4">
+                            <div class="fw-semibold mb-1">Dasar perhitungan iuran pemberi kerja</div>
+                            <div>Iuran pemberi kerja dihitung otomatis sebesar 5,7% dari PHDP, sedangkan iuran peserta sebesar 7,5% dari PHDP.</div>
+                        </div>
                         <div class="table-responsive">
+                            <p id="total-data-status" class="text-muted" role="status"></p>
                             <table id="table_primary" class="table table-striped total-table" style="width:100%">
                                 <thead>
                                     <tr>
@@ -128,6 +147,24 @@
     </div>
     <!--end::Content-->
 </div>
+<div class="modal fade" id="total-detail-modal" tabindex="-1" aria-labelledby="total-detail-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">
+        <div class="modal-header"><h3 id="total-detail-title" class="modal-title">Rincian iuran bulanan</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+        <div class="modal-body"><p id="total-detail-status" role="status">Memuat rincian...</p><div id="total-detail-content" class="table-responsive" hidden>
+            <table class="table table-striped"><thead><tr><th>Nama peserta</th><th>NIP</th><th class="text-end">PHDP</th><th class="text-end">Iuran peserta (7,5%)</th><th class="text-end">Iuran pemberi kerja (5,7%)</th></tr></thead><tbody id="total-detail-rows"></tbody><tfoot><tr><th colspan="3">Total bulan ini</th><th id="total-detail-peserta" class="text-end"></th><th id="total-detail-pemberi" class="text-end"></th></tr></tfoot></table>
+        </div></div><div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Tutup</button></div>
+    </div></div>
+</div>
+<div class="modal fade" id="total-export-modal" tabindex="-1" aria-labelledby="total-export-title" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content">
+<div class="modal-header"><h3 id="total-export-title" class="modal-title">Preview laporan Total</h3><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+<div class="modal-body"><p id="total-export-status" role="status">Memuat preview...</p><iframe id="total-export-frame" title="Preview laporan Total" class="w-100 border rounded" style="height:65vh" hidden></iframe></div>
+<div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button><a id="total-export-download" class="btn btn-primary" hidden>Download</a></div>
+</div></div></div>
+<div class="modal fade" id="total-export-modal" tabindex="-1" aria-labelledby="total-export-title" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content">
+<div class="modal-header"><h3 id="total-export-title" class="modal-title">Preview laporan Total</h3><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+<div class="modal-body"><p id="total-export-status" role="status">Memuat preview...</p><iframe id="total-export-frame" title="Preview laporan Total" class="w-100 border rounded" style="height:65vh" hidden></iframe></div>
+<div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button><a id="total-export-download" class="btn btn-primary" hidden>Download</a></div>
+</div></div></div>
 @endsection
 
 @push('javascript')

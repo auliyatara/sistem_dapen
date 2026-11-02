@@ -15,7 +15,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Kepesertaan</h3>
                             @if($edit)
-                            <div class="card-toolbar">
+                            <div class="card-toolbar gap-3">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kepesertaan-import-modal">Import Data</button>
                                 <a href="javascript:onAdd()" class="btn btn-sm btn-primary">
                                     <span class="svg-icon svg-icon-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -74,7 +75,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="card shadow-sm mt-1" style="background-color:#45b2d6;">
                                             <div class="card-body pt-2 p-1">
                                                 <h3 style="color:white;text-align:center">Pensiun</h3>
@@ -163,11 +164,9 @@
                                     </div>
 
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-12">
-                                        <label style="font-weight: bold">Filter Tampilan:</label>
-                                    </div>
-                                    <div class="col-9">
+                                <div class="row g-4 mt-3 mb-4">
+                                    <div class="col-12 col-md-6">
+                                        <label for="tipe_filter" class="form-label fw-bold">Filter Tampilan:</label>
                                         <select class="form-control" id="tipe_filter" onchange="onInitFilter()"
                                             style="width:100%">
                                             <option value="">Pilih Salah Satu</option>
@@ -179,11 +178,17 @@
                                             <option value="5">Pensiunan Yang Sudah Tidak Berhak Menerima MP</option>
                                         </select>
                                     </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="kepesertaan-search" class="form-label fw-bold">Cari Peserta / Pensiunan</label>
+                                        <input id="kepesertaan-search" type="search" class="form-control" placeholder="Ketik nama atau NIP, contoh: Abdul Haris" autocomplete="off">
+                                    </div>
+                                    <div class="col-12 mt-2"><small class="text-muted">Pencarian mengikuti Filter Tampilan yang dipilih. Pilih Semua untuk mencari seluruh peserta dan pensiunan.</small></div>
                                 </div>
                             </div>
 
 
                             <div class="table-responsive">
+                                <div class="d-flex align-items-center gap-3 mb-3"><span id="kepesertaan-load-status" role="status" class="text-muted">Memuat data kepesertaan...</span><button type="button" id="kepesertaan-retry" class="btn btn-sm btn-light-primary" hidden onclick="onInitTable()">Coba lagi</button></div>
                                 <table id="table_primary" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
@@ -194,6 +199,7 @@
                                             <th class="text-center">TMT Peserta</th>
                                             <th class="text-center">Status Peserta</th>
                                             <th class="text-center">Status Pekerjaan</th>
+                                            <th class="text-center">Kelengkapan</th>
                                             <th class="text-center" style="width:250px">Action</th>
                                         </tr>
                                     </thead>
@@ -618,5 +624,6 @@
 @endsection
 
 @push('javascript')
+@if($edit) @include('layout.Kepesertaan.import') @endif
 @include('layout.Kepesertaan.js')
 @endpush

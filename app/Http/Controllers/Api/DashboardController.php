@@ -12,6 +12,18 @@ use App\Models\Kepesertaan;
 
 class DashboardController extends Controller
 {
+    public function profilePhoto(Request $request)
+    {
+        $user = $request->user();
+        abort_unless($user, 403);
+        $filename = basename((string) $user->user_foto);
+        $paths = $filename !== '' ? [storage_path('app/public/user_foto/'.$filename), public_path('storage/app/public/user_foto/'.$filename), public_path('storage/user_foto/'.$filename)] : [];
+        $paths[] = public_path('profile_default.png');
+        foreach ($paths as $path) {
+            if (is_file($path)) return response()->file($path, ['Cache-Control' => 'private, no-cache', 'X-Content-Type-Options' => 'nosniff']);
+        }
+        abort(404);
+    }
     public function index(){
         $auth = Auth::id();
         $operation = User::with('role')->where('user_id',$auth)->get();
@@ -97,6 +109,7 @@ class DashboardController extends Controller
             'jabatan' => $statistikJabatan,
             'pensiunan' => [
                 'total' => $totalPensiunan,
+                'total_semua' => Kepesertaan::whereIn('kepesertaan_status_kepesertaan', array_merge(['Pensiunan'], $kategoriLain))->count(),
                 'kategori' => $statistikPensiunan,
             ],
             'pensiun_lain' => [

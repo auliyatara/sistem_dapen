@@ -1,4 +1,4 @@
-﻿@extends('master.app')
+@extends('master.app')
 @section('content')
 <style>
 #dapen-dashboard .welcome {background:linear-gradient(115deg,#203e59,#326f92);color:white;border-radius:16px}
@@ -29,11 +29,11 @@
     <div class="welcome p-6 p-lg-8 mb-6 d-flex flex-wrap justify-content-between align-items-center gap-4">
         <div><div class="d-flex align-items-center gap-3 mb-4">
             <img src="{{ asset('public/images/dapen.png') }}" alt="Logo Dana Pensiun UMM" width="56" height="56" class="flex-shrink-0 rounded-circle" style="object-fit:contain;">
-            <span class="fw-semibold">SIDIG UMM · Sistem Informasi Dana Pensiun Terintegrasi Dana Pensiun Pegawai Universitas Muhammadiyah Malang</span>
+            <span class="fw-semibold">SIDIG UMM · Sistem Informasi Terintegrasi Dana Pensiun Pegawai Universitas Muhammadiyah Malang</span>
         </div>
         <div><h1 class="text-white mb-3">Selamat datang, <strong>{{ auth()->user()->user_nama ?? 'User' }}</strong>.</h1></div></div>
         <div class="rounded-3 p-4" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18)">
-            <div id="dashboard-live-date" class="opacity-75 mb-2">{{ now('Asia/Jakarta')->translatedFormat('d F Y') }}</div>
+            <div id="dashboard-live-date" class="opacity-75 mb-2">{{ now('Asia/Jakarta')->locale('id')->translatedFormat('j F Y') }}</div>
             <div class="d-flex align-items-baseline gap-2">
                 <time id="dashboard-live-clock" class="fw-bold" style="font-size:2rem;letter-spacing:.05em;font-variant-numeric:tabular-nums">{{ now('Asia/Jakarta')->format('H:i:s') }}</time>
                 <span class="fs-7 opacity-75">WIB</span>
@@ -60,7 +60,7 @@
     </section>
     <div class="row g-5 mb-6" aria-live="polite">
         <div class="col-sm-6 col-xl-3"><div class="card stat"><div class="card-body p-5"><div class="text-muted mb-3">Peserta aktif</div><div class="stat-value" id="dashboard-active">—</div><div class="text-muted fs-7 mt-2">Guru besar, dosen, dan karyawan</div></div></div></div>
-        <div class="col-sm-6 col-xl-3"><div class="card stat" style="--accent:#8b71c4"><div class="card-body p-5"><div class="text-muted mb-3">Pensiunan</div><div class="stat-value" id="dashboard-retired">—</div><div class="text-muted fs-7 mt-2">Normal, janda/duda, anak, dan dipercepat</div></div></div></div>
+        <div class="col-sm-6 col-xl-3"><div class="card stat" style="--accent:#8b71c4"><div class="card-body p-5"><div class="text-muted mb-3">Pensiunan</div><div class="stat-value" id="dashboard-retired">—</div><div class="text-muted fs-7 mt-2">Semua kategori pensiun, termasuk ditunda, sekaligus, dan tidak berhak MP</div></div></div></div>
         <div class="col-sm-6 col-xl-3"><div class="card stat" style="--accent:#39a58c"><div class="card-body p-5"><div class="text-muted mb-3">Iuran peserta · <span class="dashboard-year-label">{{ $iuranYear }}</span></div><div class="stat-value" id="dashboard-total">—</div><div class="text-muted fs-7 mt-2">Akumulasi pada tahun pilihan</div></div></div></div>
         <div class="col-sm-6 col-xl-3"><div class="card stat" style="--accent:#dda34d"><div class="card-body p-5"><div class="text-muted mb-3">Mendekati pensiun</div><div class="stat-value">{{ number_format($upcomingCount,0,',','.') }}</div><div class="text-muted fs-7 mt-2">Dalam 12 bulan dari hari ini</div></div></div></div>
     </div>
@@ -70,7 +70,7 @@
         <details class="mt-3"><summary class="text-primary cursor-pointer">Lihat rincian bulanan</summary><table class="table table-row-dashed mt-3"><thead><tr><th>Bulan</th><th class="text-end">Iuran peserta</th></tr></thead><tbody id="dashboard-monthly-table"></tbody></table></details></div></div></div>
         <div class="col-xl-4"><div class="card"><div class="card-header border-0 pt-5"><div><h3 class="mb-2">Mendekati masa pensiun</h3><div class="text-muted fs-7">Lima jadwal terdekat dalam 12 bulan</div></div></div><div class="card-body pt-3">
         @forelse($upcoming as $peserta)
-            <div class="retirement-row py-4"><div class="fw-semibold mb-1">{{ $peserta->kepesertaan_nama }}</div><div class="d-flex flex-wrap justify-content-between gap-2 fs-7"><span class="text-muted">{{ $peserta->kepesertaan_status_jabatan }}</span><span class="badge badge-light-warning">{{ \Carbon\Carbon::parse($peserta->kepesertaan_terhitung_mulai_tanggal_pensiun)->translatedFormat('d M Y') }}</span></div></div>
+            <div class="retirement-row py-4"><div class="fw-semibold mb-1">{{ $peserta->kepesertaan_nama }}</div><div class="d-flex flex-wrap justify-content-between gap-2 fs-7"><span class="text-muted">{{ $peserta->kepesertaan_status_jabatan }}</span><span class="badge badge-light-warning">{{ \Carbon\Carbon::parse($peserta->kepesertaan_terhitung_mulai_tanggal_pensiun)->locale('id')->translatedFormat('j F Y') }}</span></div></div>
         @empty
             <div class="rounded bg-light p-5 text-muted">Belum ada peserta dengan jadwal pensiun tercatat dalam 12 bulan ke depan.</div>
         @endforelse

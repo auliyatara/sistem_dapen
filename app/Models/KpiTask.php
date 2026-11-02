@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class KpiTask extends Model
 {
-    protected $fillable = ['title', 'description', 'progress', 'evidence_path', 'evidence_name', 'evaluation', 'attachments', 'links'];
-    protected $casts = ['progress' => 'integer', 'attachments' => 'array', 'links' => 'array'];
+    protected $fillable = ['title', 'description', 'progress', 'evidence_path', 'evidence_name', 'evaluation', 'attachments', 'links', 'program_id', 'program_name'];
+    protected $casts = ['attachments' => 'array', 'links' => 'array'];
+
+    public function getProgressAttribute($value)
+    {
+        $number = (float) $value;
+        return floor($number) === $number ? (int) $number : $number;
+    }
 
     public function getAllAttachmentsAttribute(): array
     {

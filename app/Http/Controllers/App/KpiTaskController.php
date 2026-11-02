@@ -13,6 +13,37 @@ use Illuminate\Support\Facades\Storage;
 
 class KpiTaskController extends Controller
 {
+    public function storeForRole(Request $request, \App\Models\Role $role)
+    {
+        Gate::authorize('manage-kpi', $role);
+        return $this->saveForPeriod($request, $role, new KpiTask());
+    }
+
+    private function saveForPeriod(Request $request, \App\Models\Role $role, KpiTask $task)
+    {
+        $data = $request->validate([
+            'type' => ['required', \Illuminate\Validation\Rule::in(array_keys(KpiPeriod::DURATIONS))],
+            'year' => 'required|integer|between:1900,2099',
+            'number' => 'required_unless:type,harian|nullable|integer|between:1,366',
+            'date' => 'required_if:type,harian|nullable|date_format:Y-m-d',
+        ]);
+        if ($data['type'] === 'harian') {
+            $date = \Carbon\CarbonImmutable::parse($data['date']);
+            if ($date->year !== (int) $data['year']) throw ValidationException::withMessages(['date' => 'Tanggal harus sesuai tahun yang dipilih.']);
+            $data['number'] = $date->dayOfYear;
+        }
+        if ($data['number'] > KpiPeriod::countFor($data['type'], (int) $data['year'])) {
+            throw ValidationException::withMessages(['number' => 'Pilihan periode tidak valid.']);
+        }
+        [$start, $end] = KpiPeriod::dateRange($data['type'], (int) $data['year'], (int) $data['number']);
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($request, $role, $data, $start, $end, $task) {
+            $period = KpiPeriod::firstOrCreate([
+                'role_id' => $role->role_id, 'type' => $data['type'], 'year' => $data['year'], 'number' => $data['number'],
+            ], ['starts_at' => $start, 'ends_at' => $end]);
+            return $this->saveTask($request, $period, $task);
+        });
+    }
+
     public function store(Request $request, KpiPeriod $period)
     {
         Gate::authorize('manage-kpi', $period->role);
@@ -22,14 +53,28 @@ class KpiTaskController extends Controller
     public function update(Request $request, KpiTask $task)
     {
         Gate::authorize('manage-kpi', $task->period->role);
+        if ($request->has('type')) return $this->saveForPeriod($request, $task->period->role, $task);
         return $this->saveTask($request, $task->period, $task);
     }
 
     private function saveTask(Request $request, KpiPeriod $period, KpiTask $task)
     {
+        $request->validate(['program_id' => 'nullable|string|max:16']);
+        $programId = $request->input('program_id', $task->program_id);
+        $program = null;
+        if ($programId) {
+            if ($period->type !== 'tahunan' && !($task->exists && $task->program_id && $period->type === $task->period->type)) throw ValidationException::withMessages(['program_id' => 'Pelaksanaan program kerja harus memakai periode tahunan.']);
+            $program = \Illuminate\Support\Facades\DB::table('programs')->where('program_id', $programId)
+                ->where('program_type', \App\Services\KpiPrograms::typeFor($period->role) ?? '__unmapped__')->first();
+            // Retain historical records if their source program has since been removed.
+            if (!$program && (!$task->exists || (string) $task->program_id !== (string) $programId)) {
+                throw ValidationException::withMessages(['program_id' => 'Program kerja tidak tersedia untuk bidang ini.']);
+            }
+        }
+        $before = $task->exists ? \App\Services\KpiHistory::snapshot($task) : null;
         $data = $request->validate([
             'title' => 'required|string|max:255', 'description' => 'nullable|string|max:5000',
-            'progress' => 'required|integer|between:0,100',
+            'progress' => ['required', 'numeric', 'between:0,100', 'regex:/^\d+(\.\d)?$/'],
             'evaluation' => 'nullable|string|max:5000',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:40960',
             'evidences' => 'nullable|array|max:10',
@@ -40,6 +85,9 @@ class KpiTaskController extends Controller
             'remove_attachments.*' => ['string', \Illuminate\Validation\Rule::in(array_map('strval', array_keys($task->all_attachments)))],
         ]);
         unset($data['evidence'], $data['evidences'], $data['remove_attachments']);
+        if ($task->program_id && (string) $programId !== (string) $task->program_id) throw ValidationException::withMessages(['program_id' => 'Program asal catatan pelaksanaan tidak dapat diganti.']);
+        $data['program_id'] = $programId ?: null;
+        $data['program_name'] = $program ? $program->program_nama : ($programId ? $task->program_name : null);
         if ($request->has('links')) $data['links'] = array_values(array_filter($data['links'] ?? []));
         $attachments = $task->attachments ?? [];
         $removedPaths = [];
@@ -84,14 +132,20 @@ class KpiTaskController extends Controller
             }
         }
             $data['attachments'] = $attachments;
-            $task->fill($data);
-            $period->tasks()->save($task);
+            \Illuminate\Support\Facades\DB::transaction(function () use ($task, $data, $period, $before) {
+                $task->fill($data);
+                $period->tasks()->save($task);
+                $task->setRelation('period', $period);
+                \App\Services\KpiHistory::record($task, $before ? 'Diubah' : 'Ditambahkan', $before, \App\Services\KpiHistory::snapshot($task));
+            });
         } catch (\Throwable $exception) {
             foreach ($newPaths as $path) Storage::disk('local')->delete($path);
             throw $exception;
         }
-        foreach ($removedPaths as $path) Storage::disk('local')->delete($path);
-        return $this->backToPeriod($period)->with('success', 'Tugas KPI berhasil disimpan.');
+        \Illuminate\Support\Facades\DB::afterCommit(function () use ($removedPaths) {
+            foreach (array_unique($removedPaths) as $path) Storage::disk('local')->delete($path);
+        });
+        return $this->backToPeriod($period, (bool) $task->program_id)->with('success', 'Tugas KPI berhasil disimpan.');
     }
 
     public function destroy(KpiTask $task)
@@ -99,9 +153,14 @@ class KpiTaskController extends Controller
         Gate::authorize('manage-kpi', $task->period->role);
         $period = $task->period;
         $paths = array_column($task->all_attachments, 'path');
-        $task->delete();
-        foreach ($paths as $path) Storage::disk('local')->delete($path);
-        return $this->backToPeriod($period)->with('success', 'Tugas KPI berhasil dihapus.');
+        \Illuminate\Support\Facades\DB::transaction(function () use ($task) {
+            \App\Services\KpiHistory::record($task, 'Dihapus', \App\Services\KpiHistory::snapshot($task), null);
+            $task->delete();
+        });
+        \Illuminate\Support\Facades\DB::afterCommit(function () use ($paths) {
+            foreach ($paths as $path) Storage::disk('local')->delete($path);
+        });
+        return $this->backToPeriod($period, (bool) $task->program_id)->with('success', 'Tugas KPI berhasil dihapus.');
     }
 
     public function evidence(Request $request, KpiTask $task)
@@ -117,7 +176,7 @@ class KpiTaskController extends Controller
         abort_unless($task->evidence_path && Storage::disk('local')->exists($task->evidence_path), 404);
         if ($request->boolean('preview')) {
             $mime = Storage::disk('local')->mimeType($task->evidence_path);
-            abort_unless(in_array($mime, ['image/jpeg', 'image/png'], true), 415);
+            abort_unless(in_array($mime, ['image/jpeg', 'image/png', 'application/pdf'], true), 415);
             return response()->file(Storage::disk('local')->path($task->evidence_path), [
                 'Content-Type' => $mime, 'X-Content-Type-Options' => 'nosniff', 'Cache-Control' => 'private, no-store',
             ]);
@@ -125,8 +184,8 @@ class KpiTaskController extends Controller
         return Storage::disk('local')->download($task->evidence_path, $task->evidence_name);
     }
 
-    private function backToPeriod(KpiPeriod $period)
+    private function backToPeriod(KpiPeriod $period, bool $linkedProgram = false)
     {
-        return redirect()->route('kpi.index', ['role_id' => $period->role_id, 'period_id' => $period->id]);
+        return redirect()->route('kpi.index', ['role_id' => $period->role_id, 'period_id' => $period->id, 'tab' => $linkedProgram ? 'programs' : 'tasks']);
     }
 }

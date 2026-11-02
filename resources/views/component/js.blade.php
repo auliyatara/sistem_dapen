@@ -6,6 +6,7 @@
 <!--end::Global Javascript Bundle-->
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="{{ asset('public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+@unless(request()->routeIs('kepesertaan.index'))
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -17,6 +18,7 @@
 <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+@endunless
 <script src="{{ asset('public/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
@@ -30,13 +32,15 @@
 
 <!--end::Javascript-->
 <!-- include jQuery and select2 JavaScript -->
+@unless(request()->routeIs('kepesertaan.index'))
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 		
 <!-- include the Moment.js library from the jsDelivr CDN -->
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@endunless
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" @if(request()->routeIs('kepesertaan.index')) async @endif></script>
 
 <script src="{{ asset('public/assets/plugins/custom/jstree/jstree.bundle.js')}}"></script>
 
@@ -82,27 +86,10 @@
                     $('#header_email').html(data.user_email)
                     $('[name=role_name]').val(data.role.role_name)
 
-                    $.each(data, function( key, value ){
-                        if(key == "user_foto"){
-                            if(value != null){
-                                onCheckUrl(`{{ asset('storage/app/public/user_foto/${value}') }}`, function(exist) {
-                                    if(exist){
-                                        $("#profile_image").attr("src", `{{ asset('storage/app/public/user_foto/${value}') }}`);
-                                    }
-                                });
-
-                                onCheckUrl(`{{ asset('storage/app/public/user_foto/${data.user_foto}') }}`, function(exist) {
-                                    if(exist){
-                                        $("#header_image").attr("src", `{{ asset('storage/app/public/user_foto/${data.user_foto}') }}`);
-                                    }
-                                });   
-                            }
-                        }
-                    })
-                } 
+                    $('#profile_image').attr('src', "{{ route('dashboard_api.profile_photo') }}");
+                }
             }
-        })
-
+        });
         onCheckUrl = (parse_url, callback) =>{
             let exist = true
             $.ajax({
@@ -301,6 +288,7 @@
         }
 
         var table = $('#table_primary').DataTable({
+            ...(document.getElementById('kepesertaan-search') ? { searching: true, dom: 'rtip' } : {}),
             createdRow: function(row, data, dataIndex) {
                 $(row).css('text-align', 'center');
                 $(row).attr('id', 'row_' + data[0]);

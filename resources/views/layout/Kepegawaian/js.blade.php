@@ -1,4 +1,11 @@
 <script>
+    const formatTanggalIndonesia = value => {
+        const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (!match) return '-';
+        const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+        if (date.getUTCFullYear() !== Number(match[1]) || date.getUTCMonth() !== Number(match[2]) - 1 || date.getUTCDate() !== Number(match[3])) return '-';
+        return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(date);
+    };
     var urlpath ={
         insert: "{{ route('kepegawaian_api.store') }}",
         update: "{{ route('kepegawaian_api.update', ['kepegawaian_api' => ':id']) }}",
@@ -9,6 +16,15 @@
     }
 
     $(function(){
+        const address = $('#formData [name=alamat_saat_ini]');
+        $('#pegawai-alamat-sama').on('change', function () {
+            if (this.checked) address.val($('#formData [name=alamat_ktp]').val());
+            address.prop('readonly', this.checked);
+        });
+        $('#formData [name=alamat_ktp]').on('input', function () {
+            if ($('#pegawai-alamat-sama').prop('checked')) address.val(this.value);
+        });
+        $('#formData').on('reset', function () { address.prop('readonly', false); });
         onInitTable();
         onRole();
         $(document).on('change', '[name=tanggal_lahir]', updateUsia);
@@ -90,7 +106,7 @@
                                 @endif
                             </td>
                         `
-                        let push_array = [v.nama,v.email_1,v.nomor_hp_1,v.jabatan,html_action]
+                        let push_array = [v.nama,v.email_1,v.nomor_hp_1,formatTanggalIndonesia(v.tanggal_pengangkatan),v.jabatan,html_action]
                         array.push(push_array);
                     });
 
@@ -209,6 +225,10 @@
                         } else{
                             swal("Warning", response.message, "warning");
                         }
+                    },
+                    error: function(xhr) {
+                        const errors = xhr.responseJSON?.errors;
+                        swal('Periksa data', errors ? Object.values(errors).flat().join('\n') : 'Data gagal disimpan. Silakan coba kembali.', 'warning');
                     }
                 })
             }
@@ -246,14 +266,14 @@
             agama: 'Agama', alamat_ktp: 'Alamat (KTP)', alamat_saat_ini: 'Alamat Saat Ini',
             nomor_hp_1: 'Nomor HP 1', nomor_hp_2: 'Nomor HP 2', email_1: 'Email 1',
             email_2: 'Email 2', tanggal_pengangkatan: 'Tanggal Pengangkatan',
-            perkiraan_pensiun: 'Perkiraan Pensiun', masa_kerja: 'Masa Kerja',
+            perkiraan_pensiun: 'Perkiraan Pensiun', masa_kerja_durasi: 'Masa Kerja',
             sisa_masa_kerja: 'Sisa Masa Kerja', jabatan: 'Jabatan'
         };
 
         const detail = Object.entries(fields).map(([key, label]) => {
             const value = key === 'sisa_masa_kerja'
                 ? formatSisaMasaKerja(pegawai.perkiraan_pensiun)
-                : (pegawai[key] || '-');
+                : (['tanggal_lahir', 'tanggal_pengangkatan', 'perkiraan_pensiun'].includes(key) ? formatTanggalIndonesia(pegawai[key]) : (pegawai[key] || '-'));
 
             return `
             <div class="col-md-6 mb-4">

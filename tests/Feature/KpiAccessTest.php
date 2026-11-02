@@ -9,6 +9,16 @@ use Tests\TestCase;
 
 class KpiAccessTest extends TestCase
 {
+    public function test_admin_and_super_admin_cannot_manage_kpi_of_any_field()
+    {
+        $target = new Role(['role_id' => 'investasi', 'role_name' => 'Investasi', 'role_status' => 1]);
+        foreach (['Admin', 'Super Admin'] as $name) {
+            $admin = (new User(['user_role_id' => 'admin']))->setRelation('role', new Role(['role_id' => 'admin', 'role_name' => $name, 'role_status' => 1]));
+            $this->assertFalse(Gate::forUser($admin)->allows('manage-kpi', $target));
+            $admin->role->role_status = 0;
+            $this->assertFalse(Gate::forUser($admin)->allows('manage-kpi', $target));
+        }
+    }
     public function test_management_is_limited_to_the_users_active_non_admin_role()
     {
         $investasi = new Role(['role_id' => 'investasi', 'role_name' => 'Investasi', 'role_status' => 1]);

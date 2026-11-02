@@ -167,7 +167,7 @@
                 <div class="app-navbar-item ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ asset('public/profile_default.png') }}" alt="Foto profil" id="header_image"
+                        <img src="{{ route('dashboard_api.profile_photo') }}" alt="Foto profil" id="header_image"
                             width="40" height="40" class="rounded-circle" style="object-fit: cover;"
                             onerror="this.onerror=null; this.src='{{ asset('public/profile_default.png') }}';"/>
                     </div>

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class BaseController
 {
     public function UserAccess($menu_kode){
+        if (in_array($menu_kode, ['kepesertaan', 'kepesertaan_link', 'iuran', 'total'], true)) {
+            return ['view' => Auth::check(), 'edit' => \Illuminate\Support\Facades\Gate::allows('manage-kepesertaan')];
+        }
         $user = User::find(Auth::id());
         $menu = DB::select("SELECT menu_nama
         FROM menus

@@ -85,9 +85,9 @@
                             </div>
                             <div class="col-6 mb-4">
                                 <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nik"
-                                        placeholder="NIK" value="" required />
-                                    <label for="floatingInput"><span class="required">NIK</span></label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]{16}" maxlength="16" title="NIK harus terdiri dari 16 digit angka" class="form-control form-control-solid" name="kepesertaan_nik"
+                                        placeholder="NIK (boleh dilengkapi nanti)" value="" />
+                                    <label for="floatingInput">NIK (opsional)</label>
                                 </div>
                             </div>
                             <div class="col-6 mb-4">
@@ -99,9 +99,9 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-7">
-                                    <input type="number" class="form-control form-control-solid" name="kepesertaan_nip"
-                                        placeholder="" value="" required />
-                                    <label for="floatingInput"><span class="required">NIP UMM</span></label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]+" maxlength="50" class="form-control form-control-solid" name="kepesertaan_nip"
+                                        placeholder="NIP UMM (opsional)" value="" />
+                                    <label for="floatingInput">NIP UMM (opsional)</label>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -705,6 +705,7 @@
                                     <span>Dokumen Kepesertaan</span>
                                 </label>
                                 <div id="list_kepesertaan_dokumen"></div>
+                                <div class="form-text">Unggahan baru ditambahkan sebagai dokumen tambahan. Dokumen lama tetap tersimpan; hapus baris dokumen hanya jika memang ingin menghapusnya.</div>
                                 <button type="button" class="btn btn-sm btn-success" style="width: 100%"
                                     onclick="onAddList()">
                                     <span class="svg-icon svg-icon-2">

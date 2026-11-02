@@ -20,25 +20,28 @@ class KepesertaanDokumenController extends Controller
     }
 
     public function store(Request $request){
+        \Illuminate\Support\Facades\Gate::authorize('manage-kepesertaan');
+        $request->validate([
+            'kepesertaan_dokumen_judul' => 'required|string|max:100',
+            'kepesertaan_dokumen_kepesertaan_id' => 'required|exists:kepesertaans,kepesertaan_id',
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png,gif,webp,doc,docx,xls,xlsx|max:20480',
+        ]);
+        $created = [];
         try {
-            $request->validate([
-                'kepesertaan_dokumen_judul' => 'required',
-                'file' => ['sometimes','mimes:jpeg,png,jpg,gif,svg,pdf'],
-            ]);
-
-            $data = $request->all();
-            $data['kepesertaan_dokumen_file']= 'Kepesertaan Dokumen'.time().'.'.request()->file->getClientOriginalExtension();
-            Storage::disk('public')->putFileAs('kepesertaan_dokumen/', $request->file('file'), $data['kepesertaan_dokumen_file']);
-            $request->file('file')->move(public_path('storage/kepesertaan_dokumen'), $data['kepesertaan_dokumen_file']);
-
-            $operation = KepesertaanDokumen::create($data);
+            $operation = DB::transaction(function () use ($request, &$created) {
+                $data = $request->only(['kepesertaan_dokumen_judul', 'kepesertaan_dokumen_kepesertaan_id']);
+                $data['kepesertaan_dokumen_file'] = \App\Services\ParticipantUpload::store($request->file('file'), 'kepesertaan_dokumen', $created);
+                return KepesertaanDokumen::create($data);
+            });
             return $this->responseCreate($operation);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            \App\Services\ParticipantUpload::remove($created);
             return $this->responseCreate($e->getMessage(),true);
         }
     }
 
     public function destroy($id){
+        \Illuminate\Support\Facades\Gate::authorize('manage-kepesertaan');
         try {  
             $find = KepesertaanDokumen::find($id);
             $path = 'kepesertaan_dokumen/';

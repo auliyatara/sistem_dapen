@@ -58,6 +58,7 @@ License: For each use you must have a valid license purchased only from above li
 		
 		@include('component.js')
 		@stack('javascript')
+		@include('component.working-hours')
 	</body>
 	<!--end::Body-->
 </html>
