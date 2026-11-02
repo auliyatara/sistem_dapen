@@ -17,13 +17,56 @@ use Ramsey\Uuid\Uuid;
 
 class KepesertaanController extends Controller
 {
+    private function authorizeEdit(): void
+    {
+        abort_unless(auth()->check(), 403);
+        \Illuminate\Support\Facades\Gate::authorize('manage-kepesertaan');
+    }
+
+    private function deleteStoredFiles(array $paths): void
+    {
+        foreach (array_unique($paths) as $path) {
+            try {
+                Storage::disk('public')->delete($path);
+                Storage::disk('local')->delete($path);
+                $mirror = public_path('storage/'.$path);
+                $root = realpath(public_path('storage'));
+                $resolved = realpath($mirror);
+                if ($root && $resolved && str_starts_with($resolved, $root.DIRECTORY_SEPARATOR) && is_file($resolved)) unlink($resolved);
+            } catch (\Throwable $exception) { report($exception); }
+        }
+    }
+
+    private function validateIdentity(Request $request, ?string $id = null): void
+    {
+        foreach (['kepesertaan_nik', 'kepesertaan_nip'] as $field) {
+            if (is_string($request->input($field))) $request->merge([$field => trim($request->input($field))]);
+        }
+        $nikValue = $request->input('kepesertaan_nik');
+        if ($request->input('kepesertaan_nip') === '') $request->merge(['kepesertaan_nip' => null]);
+        if ($nikValue === '' || (is_string($nikValue) && preg_match('/^0+$/', $nikValue))) $request->merge(['kepesertaan_nik' => null]);
+        $nik = \Illuminate\Validation\Rule::unique('kepesertaans', 'kepesertaan_nik');
+        $nip = \Illuminate\Validation\Rule::unique('kepesertaans', 'kepesertaan_nip');
+        if ($id !== null) { $nik->ignore($id, 'kepesertaan_id'); $nip->ignore($id, 'kepesertaan_id'); }
+        $request->validate([
+            'kepesertaan_nik' => ['nullable', 'string', 'regex:/^[0-9]{16}$/', $nik],
+            'kepesertaan_nip' => ['nullable', 'string', 'max:50', 'regex:/^[0-9]+$/', $nip],
+        ], [
+            'kepesertaan_nik.regex' => 'NIK harus terdiri dari 16 digit angka.',
+            'kepesertaan_nik.unique' => 'NIK sudah digunakan peserta lain.',
+            'kepesertaan_nip.unique' => 'NIP sudah digunakan peserta lain.',
+            'kepesertaan_nip.regex' => 'NIP hanya boleh berisi angka.',
+        ]);
+        if ($request->input('kepesertaan_nip') === null) $request->merge(['kepesertaan_nip' => '']);
+    }
+
     public function index(){
-        $operation = Kepesertaan::all();
+        $operation = Kepesertaan::withCompleteness()->get();
         return $this->response($operation);
     }
 
     public function count(){
-        $operation = DB::select( DB::raw("SELECT
+        $operation = DB::select("SELECT
             count(*) AS total,
             kepesertaan_status_kepesertaan,
             CASE 
@@ -36,9 +79,9 @@ class KepesertaanController extends Controller
         FROM
             kepesertaans k
         GROUP BY
-            kepesertaan_status_kepesertaan") );
+            kepesertaan_status_kepesertaan");
 
-        $peserta = DB::select( DB::raw("SELECT
+        $peserta = DB::select("SELECT
         count(*) AS total,
             kepesertaan_status_jabatan,
             CASE 
@@ -51,9 +94,9 @@ class KepesertaanController extends Controller
         WHERE 
         kepesertaan_status_kepesertaan = 'peserta'
         GROUP BY
-            kepesertaan_status_jabatan") );
+            kepesertaan_status_jabatan");
 
-        $pensiunan = DB::select( DB::raw("SELECT
+        $pensiunan = DB::select("SELECT
         count(*) AS total,
             kepesertaan_jenis_pensiun,
              CASE 
@@ -67,7 +110,7 @@ class KepesertaanController extends Controller
         WHERE 
         kepesertaan_status_kepesertaan = 'pensiunan'
         GROUP BY
-            kepesertaan_jenis_pensiun") );
+            kepesertaan_jenis_pensiun");
 
         $operation = array_merge($operation, $peserta, $pensiunan);
 
@@ -76,7 +119,7 @@ class KepesertaanController extends Controller
 
     public function show($id){
         $year = isset($_GET['year'])? $_GET['year']:date("Y");
-        $operation = Kepesertaan::where('kepesertaan_id',$id)->with('kepesertaan_dokumen')->with(['kepesertaan_iuran' => function ($query) use ($year) {
+        $operation = Kepesertaan::withCompleteness()->where('kepesertaan_id',$id)->with('kepesertaan_dokumen')->with(['kepesertaan_iuran' => function ($query) use ($year) {
             $query->where('kepesertaan_iuran_tahun', $year)->orderBy('kepesertaan_iuran_type', 'desc')->orderBy('kepesertaan_iuran_bulan', 'asc');
         }])->first();
         if($operation){
@@ -102,24 +145,26 @@ class KepesertaanController extends Controller
             } 
 
             if($data[2] == ""){      
-                $operation = Kepesertaan::where('kepesertaan_status_kepesertaan',$status)->where($filter,$data[1])->get();
+                $operation = Kepesertaan::withCompleteness()->where('kepesertaan_status_kepesertaan',$status)->where($filter,$data[1])->get();
             } else{
                 if(isset($status)){
-                    $operation = Kepesertaan::where('kepesertaan_status_kepesertaan',$status)->get();
+                    $operation = Kepesertaan::withCompleteness()->where('kepesertaan_status_kepesertaan',$status)->get();
                 } else{
-                    $operation = Kepesertaan::all();
+                    $operation = Kepesertaan::withCompleteness()->get();
                 }
             }
         }
 
         $operation['iuran_tahun_distinct'] = DB::select(" SELECT distinct kepesertaan_iuran_tahun FROM kepesertaan_iurans where kepesertaan_iuran_kepesertaan_id = '".$id."' Order By kepesertaan_iuran_tahun desc");
 
-        $getIuran = DB::select("SELECT kepesertaan_iuran_type, SUM(kepesertaan_iuran_jumlah) as kepesertaan_iuran_jumlah FROM kepesertaan_iurans ki WHERE kepesertaan_iuran_kepesertaan_id = '".$id."' AND kepesertaan_iuran_tahun < '".$year."' GROUP BY kepesertaan_iuran_type");
+        $getIuran = DB::select('SELECT kepesertaan_iuran_type, SUM(kepesertaan_iuran_jumlah) as kepesertaan_iuran_jumlah, SUM(COALESCE(imported_iuran_peserta, kepesertaan_iuran_jumlah * 0.075)) as imported_total FROM kepesertaan_iurans WHERE kepesertaan_iuran_kepesertaan_id = ? AND kepesertaan_iuran_tahun < ? GROUP BY kepesertaan_iuran_type', [$id, $year]);
+        $operation['year_before_iuran_total'] = 0;
+        $operation['year_before_iuran_pengembangan'] = 0;
         
         if(count($getIuran)){
             foreach($getIuran as $k=>$v){
                 if($v->kepesertaan_iuran_type == 'iuran_total'){
-                    $counter = $v->kepesertaan_iuran_jumlah * 0.075;
+                    $counter = $v->imported_total;
                 }else{
                     $temp = $v->kepesertaan_iuran_jumlah * 0.075;
                     $counter = ((0.045/12)*$temp) + $temp;
@@ -145,6 +190,10 @@ class KepesertaanController extends Controller
     }
 
     public function store(Request $request){
+        $this->authorizeEdit();
+        $this->validateIdentity($request);
+        \App\Services\ParticipantUpload::validate($request);
+        $newFiles = [];
         try {
             $data = $request->all();
 
@@ -153,11 +202,9 @@ class KepesertaanController extends Controller
             $dokumen_nama = isset($data['list_dokumen_nama'])?$data['list_dokumen_nama']:array();
             unset($data['list_file_dokumen']);unset($data['list_dokumen_nama']);unset($data['list_dokumen_id']);
 
-            $operation = DB::transaction(function () use($data,$dokumen_file,$dokumen_nama,$request) {
-                if($_FILES['file']['error'] != 4){
-                    $data['kepesertaan_foto']= 'kepesertaan_foto'.time().'.'.request()->file->getClientOriginalExtension();
-                    Storage::disk('public')->putFileAs('kepesertaan_foto/', $request->file('file'), $data['kepesertaan_foto']);
-                    $request->file('file')->move(public_path('storage/kepesertaan_foto'), $data['kepesertaan_foto']);
+            $operation = DB::transaction(function () use($data,$dokumen_file,$dokumen_nama,$request, &$newFiles) {
+                if($request->hasFile('file')){
+                    $data['kepesertaan_foto'] = \App\Services\ParticipantUpload::store($request->file('file'), 'kepesertaan_foto', $newFiles);
                 }
 
                 unset($data['file']);
@@ -200,9 +247,7 @@ class KepesertaanController extends Controller
                     ];
 
                     if(isset($dokumen_file[$key])){
-                        $insert_dokumen['kepesertaan_dokumen_file']= $value.time().'.'.$dokumen_file[$key]->getClientOriginalExtension();
-                        Storage::disk('public')->putFileAs('kepesertaan_dokumen/', $dokumen_file[$key], $insert_dokumen['kepesertaan_dokumen_file']);
-                        $dokumen_file[$key]->move(public_path('storage/kepesertaan_dokumen'), $insert_dokumen['kepesertaan_dokumen_file']);
+                        $insert_dokumen['kepesertaan_dokumen_file'] = \App\Services\ParticipantUpload::store($dokumen_file[$key], 'kepesertaan_dokumen', $newFiles);
                     } else{
                         $insert_dokumen['kepesertaan_dokumen_file'] = '';
                     }
@@ -259,15 +304,25 @@ class KepesertaanController extends Controller
             });      
 
             return $this->responseCreate($operation);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            $this->deleteStoredFiles($newFiles);
             return $this->responseCreate($e->getMessage(),true);
         }
     }
 
     public function update(Request $request, $id){
+        $this->authorizeEdit();
+        Kepesertaan::findOrFail($id);
+        $this->validateIdentity($request, $id);
+        \App\Services\ParticipantUpload::validate($request);
+        $request->merge(['kepesertaan_id' => $id]);
+        $request->validate(['list_dokumen_id' => 'nullable|array', 'list_dokumen_id.*' => ['nullable', 'string',
+            \Illuminate\Validation\Rule::exists('kepesertaan_dokumens', 'kepesertaan_dokumen_id')->where('kepesertaan_dokumen_kepesertaan_id', $id)]]);
+        $oldFiles = [];
+        $newFiles = [];
         try {
             $data = $request->all();
-            $operation = DB::transaction(function () use($data, $id,$request) {
+            $operation = DB::transaction(function () use($data, $id,$request, &$oldFiles, &$newFiles) {
                 $dokumen_id = isset($data['list_dokumen_id'])?$data['list_dokumen_id']:array();
                 $dokumen_file = isset($data['list_file_dokumen'])?$data['list_file_dokumen']:array();
                 $dokumen_nama = isset($data['list_dokumen_nama'])?$data['list_dokumen_nama']:array();
@@ -280,14 +335,13 @@ class KepesertaanController extends Controller
                     if($deleteDoc){
                         foreach($deleteDoc as $loop){
                             $path = 'kepesertaan_dokumen/';
-                            Storage::disk('public')->delete($path.$loop['kepesertaan_dokumen_file']);
-                            Storage::delete($path.$loop['kepesertaan_dokumen_file']);
+                            if ($loop['kepesertaan_dokumen_file']) $oldFiles[] = $path.$loop['kepesertaan_dokumen_file'];
                             kepesertaanDokumen::find($loop['kepesertaan_dokumen_id'])->delete();
                         }   
                     } 
     
                     foreach($dokumen_nama as $key=>$value){
-                        $check = kepesertaanDokumen::where('kepesertaan_dokumen_id', $dokumen_id[$key])->first();
+                        $check = kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id', $id)->where('kepesertaan_dokumen_id', $dokumen_id[$key] ?? null)->first();
 
                         if($check){
                             $check = $check->toArray();
@@ -295,12 +349,17 @@ class KepesertaanController extends Controller
                             if($dokumen_file){
                                 if(array_key_exists($key, $dokumen_file)){
                                     $path = 'kepesertaan_dokumen/';
-                                    Storage::disk('public')->delete($path.$check['kepesertaan_dokumen_file']);
-                                    Storage::delete($path.$check['kepesertaan_dokumen_file']);
+                                    $keepOld = $check['kepesertaan_dokumen_file'];
                                     
-                                    $check['kepesertaan_dokumen_file']= $value.time().'.'.$dokumen_file[$key]->getClientOriginalExtension();
-                                    Storage::disk('public')->putFileAs('kepesertaan_dokumen/', $dokumen_file[$key], $check['kepesertaan_dokumen_file']);
-                                    $dokumen_file[$key]->move(public_path('storage/kepesertaan_dokumen'), $check['kepesertaan_dokumen_file']);
+                                    $check['kepesertaan_dokumen_file'] = \App\Services\ParticipantUpload::store($dokumen_file[$key], 'kepesertaan_dokumen', $newFiles);
+                                    if ($keepOld) {
+                                        KepesertaanDokumen::create([
+                                            'kepesertaan_dokumen_kepesertaan_id' => $id,
+                                            'kepesertaan_dokumen_judul' => $value,
+                                            'kepesertaan_dokumen_file' => $check['kepesertaan_dokumen_file'],
+                                        ]);
+                                        $check['kepesertaan_dokumen_file'] = $keepOld;
+                                    }
                                 }
                             }
                             kepesertaanDokumen::find($dokumen_id[$key])->update($check);
@@ -311,9 +370,7 @@ class KepesertaanController extends Controller
                             ];
         
                             if(isset($dokumen_file[$key])){
-                                $insert_dokumen['kepesertaan_dokumen_file']= $value.time().'.'.$dokumen_file[$key]->getClientOriginalExtension();
-                                Storage::disk('public')->putFileAs('kepesertaan_dokumen/', $dokumen_file[$key], $insert_dokumen['kepesertaan_dokumen_file']);
-                                $dokumen_file[$key]->move(public_path('storage/kepesertaan_dokumen'), $insert_dokumen['kepesertaan_dokumen_file']);
+                                $insert_dokumen['kepesertaan_dokumen_file'] = \App\Services\ParticipantUpload::store($dokumen_file[$key], 'kepesertaan_dokumen', $newFiles);
                             } else{
                                 $insert_dokumen['kepesertaan_dokumen_file'] = '';
                             }
@@ -321,13 +378,16 @@ class KepesertaanController extends Controller
                         }
                     }
                 } else{
+                    foreach (kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id', $id)->get() as $document) {
+                        if ($document->kepesertaan_dokumen_file) $oldFiles[] = 'kepesertaan_dokumen/'.$document->kepesertaan_dokumen_file;
+                    }
                     kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id', $data['kepesertaan_id'])->delete();
                 }
 
-                if($_FILES['file']['error'] != 4){
-                    $data['kepesertaan_foto']= 'kepesertaan_foto'.time().'.'.request()->file->getClientOriginalExtension();
-                    Storage::disk('public')->putFileAs('kepesertaan_foto/', $request->file('file'), $data['kepesertaan_foto']);
-                    $request->file('file')->move(public_path('storage/kepesertaan_foto'), $data['kepesertaan_foto']);
+                if($request->hasFile('file')){
+                    $previousPhoto = Kepesertaan::findOrFail($id)->kepesertaan_foto;
+                    if ($previousPhoto) $oldFiles[] = 'kepesertaan_foto/'.$previousPhoto;
+                    $data['kepesertaan_foto'] = \App\Services\ParticipantUpload::store($request->file('file'), 'kepesertaan_foto', $newFiles);
                 }
 
                 $kepesertaan_iuran_tahun = $data['kepesertaan_iuran_tahun'];
@@ -344,6 +404,7 @@ class KepesertaanController extends Controller
                 unset($data['kepesertaan_total_manual']);
                 unset($data['kepesertaan_pengembangan_manual']);
 
+                $previousIuran = KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->where('kepesertaan_iuran_tahun',$kepesertaan_iuran_tahun)->where('kepesertaan_iuran_type','iuran_total')->get()->keyBy('kepesertaan_iuran_bulan');
                 KepesertaanIuran::where('kepesertaan_iuran_kepesertaan_id',$id)->where('kepesertaan_iuran_tahun',$kepesertaan_iuran_tahun)->delete();
                 if($kepesertaan_iuran_tahun != ''){
                     foreach($iuran_total as $key=>$value){
@@ -360,6 +421,11 @@ class KepesertaanController extends Controller
                             "kepesertaan_iuran_jumlah" => $value,
                             "kepesertaan_iuran_lock" => $lock,
                         ];
+                        $previous = $previousIuran->get($key + 1);
+                        if ($previous && $value !== null && $value !== '' && (float)$previous->kepesertaan_iuran_jumlah === (float)$value) {
+                            $insert_data['imported_iuran_peserta'] = $previous->imported_iuran_peserta;
+                            $insert_data['imported_iuran_pk'] = $previous->imported_iuran_pk;
+                        }
                         KepesertaanIuran::create($insert_data);
                     }
     
@@ -424,13 +490,16 @@ class KepesertaanController extends Controller
                 return kepesertaan::find($id)->update($data);
             });
 
+            DB::afterCommit(function () use ($oldFiles) { $this->deleteStoredFiles($oldFiles); });
             return $this->responseUpdate($operation);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            $this->deleteStoredFiles($newFiles);
             return $this->responseUpdate($e->getMessage(),true);
         }
     }
 
     public function destroy($id){
+        $this->authorizeEdit();
         try {  
             $operation = DB::transaction(function () use($id) {
                 kepesertaanDokumen::where('kepesertaan_dokumen_kepesertaan_id',$id)->delete();

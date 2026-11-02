@@ -16,6 +16,7 @@ class KepesertaanLinkController extends Controller
     }
 
     public function update(Request $request, $id){
+        \Illuminate\Support\Facades\Gate::authorize('manage-kepesertaan');
         try {
             $data = $request->all();
             foreach($data['kepesertaan_link_id'] as $k=>$v){

@@ -29,7 +29,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{asset('public/assets/media/logos/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -125,7 +125,7 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                     {{-- <label style="color:red;display:none" id="alert_password"><span>Kolom Ini Perlu Diisi</span></label> --}}
                                     {{-- <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                        class="form-control bg-transparent" value="@user12345"/> --}}
+                                        class="form-control bg-transparent" value="user123"/> --}}
                                     <!--end::Password-->
                                 </div>
                                 <!--end::Input group=-->

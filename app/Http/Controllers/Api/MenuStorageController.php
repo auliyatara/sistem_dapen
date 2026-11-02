@@ -10,6 +10,7 @@ class MenuStorageController extends Controller
 {
     public function index(){
         $operation = MenuStorage::first();
+        // print_r($operation);die;
         return $this->responseFirst($operation);
     }
 }

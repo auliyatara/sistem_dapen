@@ -6,7 +6,7 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                <!--begin::Logo image-->
             <div class="d-flex align-items-center">
-                <img alt="Logo" src="{{asset('public/images/logo_dapen.png')}}" width=50px/>
+                <img alt="Logo Dana Pensiun UMM" src="{{ request()->getBaseUrl() }}/public/images/logo_dapen.png" width="50" height="50" class="rounded-circle"/>
                 <div>
                     <h3 style="color:white; margin:0 5px">SIDIG UMM</h3>
                     <p style="color:white;font-size:9.5px; margin:0 5px">Sistem Informasi DAPEN Terintegrasi</p>

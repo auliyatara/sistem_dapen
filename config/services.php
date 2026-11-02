@@ -2,6 +2,10 @@
 
 return [
 
+    'ghostscript' => [
+        'binary' => env('GHOSTSCRIPT_BINARY', 'C:\\Program Files\\gs\\gs10.07.1\\bin\\gswin64c.exe'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

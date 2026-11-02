@@ -95,7 +95,7 @@ class UserController extends Controller
 
             $data['user_foto']= 'foto_user'.time().'.'.request()->file->getClientOriginalExtension();
             Storage::disk('public')->putFileAs('user_foto/', $request->file('file'), $data['user_foto']);
-            $request->file('file')->move(public_path('storage/user_foto'), $data['user_foto']);
+            $request->file('file')->move(public_path('storage/app/public/user_foto'), $data['user_foto']);
             if(!isset($data['password']))unset($data['password']);
             else $data['password'] = Hash::make($data['password']);
             unset($data['file']);

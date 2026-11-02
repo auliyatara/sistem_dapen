@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Auth;
 class BaseController
 {
     public function UserAccess($menu_kode){
+        if (in_array($menu_kode, ['kepesertaan', 'kepesertaan_link', 'iuran', 'total'], true)) {
+            return ['view' => Auth::check(), 'edit' => \Illuminate\Support\Facades\Gate::allows('manage-kepesertaan')];
+        }
         $user = User::find(Auth::id());
         $menu = DB::select("SELECT menu_nama
         FROM menus
         INNER JOIN role_accesses ON menu_id = role_access_menu_id
         WHERE role_access_role_id = '".$user['user_role_id']."'
         AND menu_parent = (SELECT menu_id FROM menus WHERE menu_kode ='".$menu_kode."')");
+
+        // print_r("SELECT menu_nama
+        // FROM menus
+        // INNER JOIN role_accesses ON menu_id = role_access_menu_id
+        // WHERE role_access_role_id = '".$user['user_role_id']."'
+        // AND menu_parent = (SELECT menu_id FROM menus WHERE menu_kode ='".$menu_kode."')");die;
         
         $view=false;
         $edit=false;

@@ -49,7 +49,7 @@
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px" data-kt-menu="true">
                         <!--begin::Heading-->
-                        <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('assets/media/misc/menu-header-bg.jpg')">
+                        <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('public/assets/media/misc/menu-header-bg.jpg')">
                             <!--begin::Title-->
                             <h3 class="text-dark fw-semibold px-9 mt-10 mb-6">Notifications 
                                 {{-- <span class="fs-8 opacity-75 ps-3">24 reports</span> --}}
@@ -167,7 +167,9 @@
                 <div class="app-navbar-item ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{asset('public/profile_default.png')}}" alt="user" id="header_image"/>
+                        <img src="{{ route('dashboard_api.profile_photo') }}" alt="Foto profil" id="header_image"
+                            width="40" height="40" class="rounded-circle" style="object-fit: cover;"
+                            onerror="this.onerror=null; this.src='{{ asset('public/profile_default.png') }}';"/>
                     </div>
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -176,7 +178,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{asset('public/profile_default.png')}}" />
+                                    <img alt="Foto profil" src="{{ asset('public/profile_default.png') }}" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->

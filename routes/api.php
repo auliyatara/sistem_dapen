@@ -25,6 +25,9 @@ use App\Http\Controllers\Api\KeuanganBulanController;
 use App\Http\Controllers\Api\OneTimeRunController;
 use App\Http\Controllers\Api\MenuStorageController;
 use App\Http\Controllers\Api\InvestasiSubdataController;
+use App\Http\Controllers\Api\KepegawaianController;
+use App\Http\Controllers\Api\IuranController;
+use App\Http\Controllers\Api\TotalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +53,7 @@ use App\Http\Controllers\Api\InvestasiSubdataController;
 Route::post('/login', [LoginController::class, 'loginapi']);
 
 Route::middleware(['check-auth'])->group(function () {
+    Route::get('/dashboard_api/profile-photo', [DashboardController::class, 'profilePhoto'])->name('dashboard_api.profile_photo');
     Route::controller(AktifitasController::class)->name('aktifitas_api.')->prefix('aktifitas_api')->group(function () {
         Route::any('/updatealternate', 'updatealternate')->name('updatealternate');
     });
@@ -62,12 +66,15 @@ Route::middleware(['check-auth'])->group(function () {
         Route::any('/count', 'count')->name('count');
     });
 
+    Route::get('/dashboard_api/peserta-statistik', [DashboardController::class, 'pesertaStatistik'])->name('dashboard_api.peserta_statistik');
+
     Route::any('/printPdf', [ProgramController::class, 'generatepdf'])->name('program_api.pdf');
     Route::any('/printExcel', [ProgramController::class, 'generateexcel'])->name('program_api.excel');
     Route::get('/role_api/read/{role_api}', [RoleController::class, 'read'])->name('role_api.read');
     Route::get('/program_api/programList', [ProgramController::class, 'programList'])->name('program_api.programList');
 
     // Default Route Pattern
+    Route::get('/dashboard_api/peserta-statistik', [DashboardController::class, 'pesertaStatistik'])->name('dashboard_api.peserta_statistik');
     Route::resource('dashboard_api', DashboardController::class)->only(['index']);
     Route::resource('profile_api', ProfileController::class)->only(['index']);
     Route::resource('users_api', UserController::class)->except(['create','edit']);
@@ -88,6 +95,10 @@ Route::middleware(['check-auth'])->group(function () {
     Route::resource('keuangan_bulan_api', KeuanganBulanController::class)->only(['store','show']);
     Route::resource('menu_storage_api', MenuStorageController::class)->only(['index','update']);
     Route::resource('investasi_subdata_api', InvestasiSubdataController::class)->only(['show']);
+    Route::resource('iuran_api', IuranController::class)->only(['index']);
+    Route::resource('total_api', TotalController::class)->only(['index']);
+    Route::get('/kepegawaian_api/lampiran/{filename}', [KepegawaianController::class, 'lampiran'])->name('kepegawaian_api.lampiran');
+    Route::resource('kepegawaian_api', KepegawaianController::class)->except(['create','edit']);
 
     // Adjustment of update route
     Route::post('/investasi_api/{investasi_api}', [InvestasiController::class, 'update'])->name('investasi_api.update');
@@ -120,4 +131,3 @@ Route::middleware(['check-auth'])->group(function () {
 // Route::controller(KepesertaanController::class)->name('kepesertaan_api.')->prefix('kepesertaan_api')->group(function () {
 //     Route::any('/updatealternate', 'updatealternate')->name('updatealternate');
 // });
-
